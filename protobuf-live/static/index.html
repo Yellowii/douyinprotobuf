@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>WebCast · 协议工作台</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <aside>
+      <a class="brand" href="/">W<span>WebCast</span></a>
+      <p class="aside-label">直播协议实验室</p>
+      <nav>
+        <a href="#live" class="current">◉ 实时观察</a
+        ><a href="#schema">▤ 协议字典</a>
+      </nav>
+      <div class="aside-foot">
+        <span class="dot"></span>本地工作空间
+        <p>官方 Parser · Runtime</p>
+      </div>
+    </aside>
+    <main>
+      <header>
+        <div>
+          <p class="eyebrow">DOUYIN / LIVE PROTOCOL</p>
+          <h1>看见每一条直播消息</h1>
+          <p class="subtitle">将二进制数据转为可读的直播互动与协议结构。</p>
+        </div>
+        <span id="connection" class="status">未连接</span>
+      </header>
+      <section class="metrics">
+        <article>
+          <label>协议结构</label><strong id="protocol-count">—</strong
+          ><small>来自官方运行时</small>
+        </article>
+        <article>
+          <label>协议字段</label><strong id="field-count">—</strong
+          ><small>带中文结构说明</small>
+        </article>
+        <article>
+          <label>收到消息</label><strong id="message-count">0</strong
+          ><small id="rate">等待直播连接</small>
+        </article>
+        <article>
+          <label>解析异常</label><strong id="error-count">0</strong
+          ><small>失败记录单独保存</small>
+        </article>
+      </section>
+      <section class="panel" id="live">
+        <div class="panel-title">
+          <h2>连接直播间</h2>
+          <span class="muted">单房间 · 30 秒连接冷却</span>
+        </div>
+        <form id="connect-form">
+          <div class="connect-row">
+            <label
+              >连接方式<select id="mode">
+                <option value="browser">直播间 URL · 官方浏览器</option>
+                <option value="direct">WSS 地址 · Node 直连</option>
+              </select></label
+            ><label class="grow"
+              ><span id="url-label">直播间地址</span
+              ><input
+                id="target"
+                placeholder="https://live.douyin.com/房间号"
+                autocomplete="off"
+                required /></label
+            ><button type="submit" id="start">开始观察</button
+            ><button type="button" id="stop" class="secondary">停止</button>
+          </div>
+          <div class="form-bottom">
+            <label
+              ><input
+                id="visible"
+                type="checkbox"
+              />显示浏览器窗口，便于完成登录</label
+            ><label
+              ><input id="modern" type="checkbox" />新版 ByteLink 回执</label
+            ><span>Cookie 由本地 .env 读取</span>
+          </div>
+        </form>
+        <p id="notice" role="status" class="notice">
+          输入正在直播的房间地址，即可观察下行消息。
+        </p>
+      </section>
+      <section class="workspace">
+        <div class="panel feed">
+          <div class="panel-title">
+            <h2>消息流 <span id="shown-count" class="badge">0</span></h2>
+            <div class="feed-actions">
+              <input id="filter" placeholder="搜索消息类型或内容" /><button
+                id="pause"
+                class="secondary"
+              >
+                暂停展示</button
+              ><button id="clear" class="secondary">清空</button>
+            </div>
+          </div>
+          <div class="feed-head">
+            <span>接收时间</span><span>消息类型</span><span>内容摘要</span
+            ><span>状态</span>
+          </div>
+          <div id="feed" class="feed-body">
+            <div class="empty">
+              <span>◎</span>
+              <h3>消息将在这里出现</h3>
+              <p>支持弹幕、礼物、入场、点赞及完整业务消息。</p>
+            </div>
+          </div>
+          <p class="feed-foot">
+            页面保留最近 200 条 · 完整 JSON 记录保存到 output
+          </p>
+        </div>
+        <div class="panel detail">
+          <div class="panel-title">
+            <h2>消息详情</h2>
+            <button id="copy" class="secondary">复制 JSON</button>
+          </div>
+          <p id="detail-label" class="muted">选择一条消息查看完整结构</p>
+          <pre id="detail">{}</pre>
+        </div>
+      </section>
+      <section class="panel schema" id="schema">
+        <div class="panel-title">
+          <div>
+            <h2>中文协议字典</h2>
+            <p class="muted">字段编号、类型、重复结构与业务说明</p>
+          </div>
+          <input
+            id="schema-search"
+            list="type-list"
+            placeholder="输入消息名，例如 ChatMessage"
+          /><datalist id="type-list"></datalist>
+        </div>
+        <p id="schema-desc" class="notice">选择消息结构，查看官方字段定义。</p>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>编号</th>
+                <th>字段</th>
+                <th>协议类型</th>
+                <th>结构</th>
+                <th>中文说明</th>
+              </tr>
+            </thead>
+            <tbody id="schema-fields"></tbody>
+          </table>
+        </div>
+        <div id="schema-enums" class="muted"></div>
+      </section>
+      <footer>
+        WebCast Protocol Workbench
+        <span>.proto 人工查阅 / proto.dict 程序交付</span>
+      </footer>
+    </main>
+    <script src="/app.js"></script>
+  </body>
+</html>

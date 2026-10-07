@@ -1,0 +1,29 @@
+{
+  "name": "douyin-webcast-protobuf-live",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "start": "node --env-file-if-exists=.env src/cli.js serve",
+    "dict": "node --env-file-if-exists=.env src/cli.js dict",
+    "offline": "node --env-file-if-exists=.env src/cli.js offline",
+    "import": "node src/cli.js import",
+    "test": "node --test src/tests/*.test.js",
+    "verify": "node src/cli.js verify",
+    "format:check": "prettier --check src/*.js src/tests/*.js static/* package.json"
+  },
+  "dependencies": {
+    "acorn": "^8.15.0",
+    "acorn-walk": "^8.3.4",
+    "playwright-core": "^1.56.0",
+    "protobufjs": "^7.5.4",
+    "stream-json": "^3.7.0",
+    "ws": "^8.18.3"
+  },
+  "devDependencies": {
+    "prettier": "^3.9.9"
+  }
+}

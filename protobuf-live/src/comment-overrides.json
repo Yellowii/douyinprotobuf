@@ -1,0 +1,62 @@
+{
+  "webcast.im.PushFrame": {
+    "service": "传输服务标识；当前新版 SDK 发送心跳和 ACK 时使用 9999，接收帧可能使用其他数值",
+    "method": "外层传输方法数值；与内层 Message.method 字符串的业务路由用途不同"
+  },
+  "webcast.im.Response": {
+    "messages": "下行业务消息数组；一次服务端推送可包含多条不同类型的直播事件",
+    "fetch_interval": "服务端建议的后续拉取间隔；可作为拉取控流素材，单位需结合 SDK 确认",
+    "now": "服务端当前时间值；用于消息时序分析，单位需结合 SDK 确认",
+    "route_params": "传输路由参数映射；用于服务端消息分发与后续请求上下文",
+    "fetch_type": "服务端下发的拉取类型数值；具体实时、历史或增量类别不能由编号直接猜测",
+    "push_server": "服务端提供的推送节点地址提示；连接使用当前官方握手配置",
+    "live_cursor": "直播消息位置游标；与通用 cursor 一并作为恢复或分页上下文",
+    "history_no_more": "历史消息是否已无更多数据的标志；用于停止继续分页拉取"
+  },
+  "webcast.im.Message": {
+    "need_wrds_store": "是否需要保存 WRDS 增量状态的标志；用于直播消息状态同步",
+    "wrds_version": "WRDS 消息状态版本号；用于识别增量更新顺序",
+    "wrds_sub_key": "WRDS 状态分区或子键；用于区分同步对象"
+  },
+  "webcast.im.ChatMessage": {
+    "user": "发送弹幕的用户资料结构体",
+    "content": "公屏弹幕文本内容",
+    "visible_to_sender": "是否对发送者可见的标志；不能仅据字段名判定为只有发送者可见",
+    "background_image": "弹幕背景图片资源及展示配置",
+    "public_area_common": "弹幕公屏公共展示、排序和交互配置"
+  },
+  "webcast.im.GiftMessage": {
+    "user": "赠送礼物的用户资料",
+    "to_user": "接收礼物的用户资料；常见对象为主播或连麦嘉宾",
+    "gift_id": "本条送礼事件关联的礼物标识",
+    "gift": "礼物资料结构体，包含名称、图片及业务配置等实际提供的字段",
+    "repeat_count": "连击礼物相关计数；是否为累计次数及结算方式需结合 repeat_end 确认",
+    "repeat_end": "礼物连击阶段或结束标识；数值语义需结合官方逻辑验证"
+  },
+  "webcast.im.MemberMessage": {
+    "user": "进入直播间或触发成员变更事件的用户资料",
+    "member_count": "消息中提供的成员相关统计数量；具体在线或入场口径需结合样本确认"
+  },
+  "webcast.im.LikeMessage": {
+    "user": "触发本次点赞事件的用户资料",
+    "count": "本次点赞事件携带的数量",
+    "total": "服务端下发的累计点赞相关总量"
+  },
+  "webcast.im.SocialMessage": {
+    "user": "关注、分享等社交互动的触发用户",
+    "action": "社交动作类型数值；具体关注或分享类别以官方逻辑及样本为准"
+  },
+  "webcast.data.User": {
+    "id": "用户内部数字标识；不能直接等同于个人主页显示的抖音号",
+    "short_id": "用户短数字标识；与内部用户 ID 和显示抖音号需分别处理",
+    "nickname": "用户显示昵称",
+    "gender": "用户性别类别数值；具体枚举含义不由整数值猜测",
+    "city": "用户资料中的城市信息",
+    "signature": "用户资料中的个性签名",
+    "telephone": "用户资料中的电话号码类字段；不可假定服务端始终提供或始终脱敏",
+    "birthday": "用户生日相关值；格式和时间单位需结合样本确认",
+    "avatar_thumb": "用户小尺寸头像图片资源结构体",
+    "avatar_medium": "用户中尺寸头像图片资源结构体",
+    "avatar_large": "用户大尺寸头像图片资源结构体"
+  }
+}

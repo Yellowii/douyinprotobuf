@@ -1,0 +1,18 @@
+[
+  {
+    "file": "transport-schema-im.63ff9a29.js",
+    "url": "https://lf-webcast-platform.bytetos.com/obj/webcast-platform-cdn/webcast/douyin_live/chunks/transport-schema-im.63ff9a29.js",
+    "har": "20266281423.har",
+    "entry": 226,
+    "sha256": "11240991fcc7b733ca2349442c0e9523d4a40f978a8c432fa3993f9e2a51d750",
+    "captured_at": "2026-06-28T06:18:35.435Z"
+  },
+  {
+    "file": "live-schema-im.aa08852d.js",
+    "url": "https://lf-webcast-platform.bytetos.com/obj/webcast-platform-cdn/webcast/douyin_live/chunks/live-schema-im.aa08852d.js",
+    "har": "20266281423.har",
+    "entry": 383,
+    "sha256": "082a0b5238cfed829d0e38187d3ab0bb499be229b6f87bd95a29734e48a9ac19",
+    "captured_at": "2026-06-28T06:18:37.033Z"
+  }
+]
