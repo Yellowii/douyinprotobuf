@@ -28,6 +28,10 @@ npm start
 
 保存登录态的操作：选择直播间 URL 模式，勾选“显示浏览器窗口”，开始观察并在弹出的浏览器完成登录，然后回到工作台点击“保存登录态”。即使尚未建立 WebCast 连接，只要浏览器仍打开也可保存。保存完成后再停止连接。
 
+连接区域新增当前账号监测，显示已登录、访客、待确认、检测失败等状态；官方接口确认账号后显示头像、昵称、抖音号（若提供）和 UID。监测的是**工作台打开的采集浏览器**，与其他浏览器或工作台网页自身的登录状态分别管理。WSS 直连没有官方页面可核验时，不根据 Cookie 存在推断已经登录。
+
+监测优先复用页面自身的当前用户响应，额外查询每分钟至多一次；“检测登录态”额外查询至少间隔 15 秒。保存动作等待冷却后重新查询，只有确认已登录才写入配置，访客或检测失败会保留原配置。保存时可能等待约 15 秒。页面验证或接口响应异常会显示检测失败，不能将其视为已登录；需在可见采集浏览器完成登录或验证后再次检测。收包状态与账号状态分别显示，访客模式也可能收到直播消息。
+
 “保存登录态”将当前适用于直播站点的 Cookie 写入 `.env` 的 `DOUYIN_COOKIE`，保留其他配置；同时将抖音域 Cookie 的有效期、域、路径、HttpOnly 等属性与本地存储保存至 `.browser-profile/login-state.json`。浏览器模式恢复该状态，WSS 直连读取 Cookie。只保存抖音来源，页面和接口只显示配置状态和保存时间，不返回 Cookie 内容。手动修改或清空 `.env` 中的 `DOUYIN_COOKIE` 后，旧浏览器状态不会覆盖新配置；已有连接需停止再开始才能应用更改。会话过期或平台要求验证时，重新登录并保存。
 
 ## 基础插件与官方样式集成
@@ -240,7 +244,7 @@ git push origin main
 
 提交前确认没有 `.env`、HAR、raw bin、输出日志或 node_modules。仓库已保留空样本目录；重新克隆后无需私有 HAR 就能使用附带官方快照启动工作台和生成双产物。
 
-验收记录见 [src/VALIDATION.md](src/VALIDATION.md)，官方更新与 344,354 个外部包的只读核验见 [src/UPDATE_VALIDATION.md](src/UPDATE_VALIDATION.md)，前端批量模式见 [src/BATCH_VALIDATION.md](src/BATCH_VALIDATION.md)，展示插件见 [src/PLUGIN_VALIDATION.md](src/PLUGIN_VALIDATION.md)，登录保存与恢复见 [src/LOGIN_VALIDATION.md](src/LOGIN_VALIDATION.md)。当前 38 项测试、标准 proto3 验证和格式检查通过。前端及登录态浏览器测试需要本机 Chrome/Edge；未安装时明确跳过相关浏览器测试，后端测试仍运行。当前 Node 直连在本地 WebSocket 服务上验证了收包、ACK 与停止；真实抖音房间使用可见官方浏览器验证。真实服务器的所有直连握手组合尚未穷举。
+验收记录见 [src/VALIDATION.md](src/VALIDATION.md)，官方更新与 344,354 个外部包的只读核验见 [src/UPDATE_VALIDATION.md](src/UPDATE_VALIDATION.md)，前端批量模式见 [src/BATCH_VALIDATION.md](src/BATCH_VALIDATION.md)，展示插件见 [src/PLUGIN_VALIDATION.md](src/PLUGIN_VALIDATION.md)，登录保存与恢复见 [src/LOGIN_VALIDATION.md](src/LOGIN_VALIDATION.md)，账号监测见 [src/ACCOUNT_VALIDATION.md](src/ACCOUNT_VALIDATION.md)。当前 40 项测试、标准 proto3 验证和格式检查通过。前端及登录态浏览器测试需要本机 Chrome/Edge；未安装时明确跳过相关浏览器测试，后端测试仍运行。当前 Node 直连在本地 WebSocket 服务上验证了收包、ACK 与停止；真实抖音房间使用可见官方浏览器验证。真实服务器的所有直连握手组合尚未穷举。
 
 ## 参考与文档
 

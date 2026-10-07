@@ -59,6 +59,7 @@ export async function createWorkbench(
       } else c.write(data);
     }
   };
+  browser.account.on("status", (account) => broadcast("account", account));
   const recentSamples = [];
   let artifactQueue = Promise.resolve();
   const serializeArtifacts = (job) => {
@@ -202,7 +203,7 @@ export async function createWorkbench(
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader(
       "Content-Security-Policy",
-      "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'",
+      "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https://*.douyinpic.com https://*.byteimg.com https://*.ibyteimg.com; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'",
     );
     try {
       const u = new URL(req.url, "http://127.0.0.1");
@@ -214,6 +215,7 @@ export async function createWorkbench(
           parser_update: updater.status,
           batch: batch.status,
           login: await loginConfig.metadata(),
+          account: browser.account.status,
           raw_directory: process.env.RAW_PROTO_DIR
             ? path.normalize(process.env.RAW_PROTO_DIR)
             : "",
@@ -226,6 +228,10 @@ export async function createWorkbench(
       }
       if (req.method === "GET" && u.pathname === "/api/parser-update") {
         json(res, 200, updater.status);
+        return;
+      }
+      if (req.method === "GET" && u.pathname === "/api/account") {
+        json(res, 200, browser.account.status);
         return;
       }
       if (req.method === "GET" && u.pathname === "/api/batch-report") {
@@ -281,6 +287,7 @@ export async function createWorkbench(
           "/api/stop",
           "/api/parser-update",
           "/api/save-login",
+          "/api/check-login",
         ].includes(u.pathname)
       ) {
         if (req.headers["x-workbench-token"] !== token) {
@@ -293,11 +300,16 @@ export async function createWorkbench(
         }
         busy = true;
         try {
+          if (u.pathname === "/api/check-login") {
+            json(res, 200, await browser.account.check({ force: true }));
+            return;
+          }
           if (u.pathname === "/api/save-login") {
             if (!browser.context || !browser.browser?.isConnected())
               throw new Error(
                 "请先使用直播间 URL 模式打开浏览器，完成登录后保存",
               );
+            await browser.account.confirmForSave();
             const login = await loginConfig.save(browser.context);
             broadcast("login", login);
             json(res, 200, login);

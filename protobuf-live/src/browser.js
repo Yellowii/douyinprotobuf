@@ -3,6 +3,7 @@ import fs from "node:fs/promises";
 import { chromium } from "playwright-core";
 import { decodePacket, MAX_PACKET } from "./decode.js";
 import { createLoginContext } from "./login-config.js";
+import { AccountMonitor } from "./account.js";
 
 export function validateRoom(raw) {
   const u = new URL(raw);
@@ -26,6 +27,7 @@ export class BrowserLive extends EventEmitter {
     this.pending = 0;
     this.generation = 0;
     this.lastStart = 0;
+    this.account = new AccountMonitor();
   }
   update(state, extra = {}) {
     this.status = { ...this.status, state, ...extra };
@@ -39,7 +41,14 @@ export class BrowserLive extends EventEmitter {
       throw new Error("连接冷却中，请稍后重试");
     this.lastStart = Date.now();
     const g = ++this.generation;
-    this.status = { state: "stopped", received: 0, errors: 0 };
+    this.status = {
+      state: "stopped",
+      mode: "browser",
+      room_url: validateRoom(roomUrl).href,
+      received: 0,
+      business_messages: 0,
+      errors: 0,
+    };
     this.update("connecting");
     try {
       const candidates = [
@@ -68,6 +77,7 @@ export class BrowserLive extends EventEmitter {
         return;
       }
       const page = (this.page = await context.newPage());
+      this.account.attach(page);
       page.on("websocket", (ws) => {
         const url = new URL(ws.url());
         if (
@@ -99,7 +109,11 @@ export class BrowserLive extends EventEmitter {
               if (g !== this.generation) return;
               try {
                 const packet = decodePacket(this.p, event.payload);
+                packet.received_at = new Date().toISOString();
                 this.status.received++;
+                this.status.last_packet_at = packet.received_at;
+                this.status.business_messages =
+                  (this.status.business_messages || 0) + packet.messages.length;
                 this.emit("packet", packet);
               } catch (e) {
                 this.status.errors++;
@@ -131,11 +145,13 @@ export class BrowserLive extends EventEmitter {
         waitUntil: "domcontentloaded",
         timeout: 30000,
       });
+      void this.account.check();
       this.browser.on("disconnected", () => {
         if (g === this.generation)
           this.update("blocked", { reason: "浏览器已关闭；需手动重连" });
       });
     } catch (e) {
+      this.account.stop();
       clearTimeout(this.wait);
       this.update("blocked", {
         reason: /Chrome\/Edge/.test(e.message)
@@ -148,6 +164,7 @@ export class BrowserLive extends EventEmitter {
     }
   }
   async stop() {
+    this.account.stop();
     this.generation++;
     clearTimeout(this.wait);
     const browser = this.browser;

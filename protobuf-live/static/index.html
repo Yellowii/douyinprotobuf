@@ -87,6 +87,28 @@
             >
           </div>
         </form>
+        <div class="account-panel" aria-label="当前登录账号">
+          <img
+            id="account-avatar"
+            alt="当前账号头像"
+            referrerpolicy="no-referrer"
+            hidden
+          />
+          <div class="account-content">
+            <small class="muted">当前采集浏览器账号</small>
+            <strong id="account-state" role="status">等待检测当前账号</strong>
+            <p id="account-info" class="muted">
+              打开直播间浏览器后显示当前账号信息
+            </p>
+            <p id="account-detail" class="muted">
+              配置已保存不代表账号仍处于登录状态
+            </p>
+            <p id="account-flow" class="muted">直播连接和账号状态分别检测</p>
+          </div>
+          <button id="check-login" type="button" class="secondary">
+            检测登录态
+          </button>
+        </div>
         <p id="notice" role="status" class="notice">
           输入正在直播的房间地址，即可观察下行消息。
         </p>

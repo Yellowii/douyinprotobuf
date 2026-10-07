@@ -34,14 +34,59 @@ function notice(text, error = false) {
 }
 function loginStatus(login) {
   $("login-status").textContent = login.configured
-    ? (login.browser_state ? "已保存登录态" : "已配置 Cookie") +
+    ? (login.browser_state ? "会话配置已保存" : "已配置 Cookie") +
       (login.saved_at
         ? " · " + new Date(login.saved_at).toLocaleString("zh-CN")
         : "")
     : "尚未保存登录态 · Cookie 从本地 .env 读取";
 }
+function accountStatus(
+  account = {
+    state: "unknown",
+    user: null,
+    reason: "等待服务返回当前账号状态",
+  },
+) {
+  const states = {
+    inactive: "浏览器未打开",
+    checking: "正在检测账号",
+    unknown: "账号待确认",
+    authenticated: "已登录",
+    anonymous: "访客 · 未登录",
+    error: "登录态检测失败",
+  };
+  $("account-state").textContent = states[account.state] || "账号待确认";
+  const user = account.user;
+  $("account-info").textContent = user
+    ? `${user.nickname}${user.account ? " · 抖音号 " + user.account : ""} · UID ${user.id}`
+    : "未获取到当前登录账号";
+  const avatar = $("account-avatar");
+  avatar.hidden = !user?.avatar;
+  if (user?.avatar) avatar.src = user.avatar;
+  else avatar.removeAttribute("src");
+  $("account-detail").textContent =
+    (account.reason || "") +
+    (account.checked_at
+      ? " · " + new Date(account.checked_at).toLocaleTimeString("zh-CN")
+      : "");
+  $("check-login").disabled = account.state === "checking";
+}
+$("check-login").onclick = async () => {
+  $("check-login").disabled = true;
+  try {
+    accountStatus(await api("/api/check-login", {}));
+  } catch (e) {
+    notice(e.message, true);
+  } finally {
+    $("check-login").disabled = false;
+  }
+};
+$("account-avatar").onerror = () => {
+  $("account-avatar").hidden = true;
+};
 $("save-login").onclick = async () => {
   $("save-login").disabled = true;
+  notice("正在重新确认账号并保存；查询冷却期间可能需要等待约 15 秒。");
   try {
     loginStatus(await api("/api/save-login", {}));
     notice("登录态已保存到本地配置。后续连接自动读取；配置不会提交到 Git。");
@@ -61,6 +106,9 @@ function status(s) {
   $("connection").className = "status " + s.state;
   if (s.reason) notice(s.reason, s.state === "blocked");
   if (s.state === "connected") notice("已连接。接收消息并保存完整 JSON 日志。");
+  if (s.mode === "browser")
+    $("account-flow").textContent =
+      `WebCast 帧 ${s.received || 0} · 业务消息 ${s.business_messages || 0}${s.last_packet_at ? " · 最后收包 " + new Date(s.last_packet_at).toLocaleTimeString("zh-CN") : ""}`;
   if (s.mode === "raw-batch") batchProgress(s);
 }
 function batchProgress(s) {
@@ -367,11 +415,14 @@ async function init() {
   token = session.token;
   rawDirectory = session.raw_directory || "";
   loginStatus(session.login);
+  accountStatus(session.account);
   if (["raw", "raw-batch"].includes(session.status.mode)) {
     $("mode").value = session.status.mode;
     modeTargets[session.status.mode] = session.status.directory || rawDirectory;
     $("mode").onchange();
   }
+  if (session.status.mode === "browser" && session.status.room_url)
+    $("target").value = session.status.room_url;
   status(session.status);
   if (session.batch && session.batch.state !== "stopped")
     batchProgress(session.batch);
@@ -386,6 +437,7 @@ async function init() {
   }
   const events = new EventSource("/events");
   events.addEventListener("login", (e) => loginStatus(JSON.parse(e.data)));
+  events.addEventListener("account", (e) => accountStatus(JSON.parse(e.data)));
   events.addEventListener("status", (e) => status(JSON.parse(e.data)));
   events.addEventListener("batch-progress", (e) =>
     batchProgress(JSON.parse(e.data)),
@@ -441,6 +493,10 @@ async function init() {
   });
   events.addEventListener("packet", (e) => {
     const packet = JSON.parse(e.data);
+    if (activeMode === "browser")
+      $("account-flow").textContent =
+        "工作台正在收包 · 最新帧 " +
+        new Date(packet.received_at).toLocaleTimeString("zh-CN");
     preview.packet(packet);
     for (const m of packet.messages || []) {
       if (packet.kind !== "batch-preview") {

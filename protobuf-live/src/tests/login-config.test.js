@@ -226,6 +226,7 @@ test("工作台保存按钮将浏览器 Cookie 写入本地配置，服务重启
   const driver = await launch({ executablePath, headless: true });
   t.after(() => driver.close());
   let liveContext;
+  let authenticated = false;
   // 使用真实浏览器，仅替换直播页面的网络响应，避免请求公网或使用真实凭据。
   t.mock.method(chromium, "launch", async (options) => {
     const liveBrowser = await launch(options);
@@ -234,10 +235,41 @@ test("工作台保存按钮将浏览器 Cookie 写入本地配置，服务重启
       const context = await newContext(config);
       liveContext = context;
       await context.route("**/*", (route) =>
-        route.fulfill({
-          contentType: "text/html",
-          body: "<html><body>本地登录测试</body></html>",
-        }),
+        route.fulfill(
+          new URL(route.request().url()).pathname === "/webcast/user/me/"
+            ? {
+                contentType: "application/json",
+                body: JSON.stringify({
+                  status_code: 0,
+                  data: authenticated
+                    ? {
+                        id_str: "12345",
+                        nickname: "测试登录账号",
+                        display_id: "test-account",
+                        avatar_thumb: {
+                          url_list: [
+                            "https://p3.douyinpic.com/test-avatar.png",
+                          ],
+                        },
+                      }
+                    : {},
+                }),
+              }
+            : {
+                contentType: "text/html",
+                body: `<html><body>本地登录测试<script>
+          window.webpackChunkdouyin_live_v2 = [[[], { "sdk": function () { return "/webcast/user/me/"; } }]];
+          const append = window.webpackChunkdouyin_live_v2.push.bind(window.webpackChunkdouyin_live_v2);
+          window.webpackChunkdouyin_live_v2.push = function (entry) {
+            if (entry[2]) entry[2](() => ({ current: async function () {
+              const result = await fetch("/webcast/user/me/");
+              return { data: await result.json() };
+            } }));
+            return append(entry);
+          };
+          </script></body></html>`,
+              },
+        ),
       );
       if (!config.storageState)
         await context.addCookies([
@@ -265,6 +297,15 @@ test("工作台保存按钮将浏览器 Cookie 写入本地配置，服务重启
   let app = await createWorkbench(p, options);
   t.after(() => app.close());
   const page = await driver.newPage();
+  await page.route("https://p3.douyinpic.com/**", (route) =>
+    route.fulfill({
+      contentType: "image/png",
+      body: Buffer.from(
+        "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+a6e0AAAAASUVORK5CYII=",
+        "base64",
+      ),
+    }),
+  );
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
   async function start() {
@@ -280,11 +321,44 @@ test("工作台保存按钮将浏览器 Cookie 写入本地配置，服务重启
     assert.equal((await response).status(), 200);
   }
   await start();
+  await page.waitForFunction(() =>
+    document.querySelector("#account-state").textContent.startsWith("访客"),
+  );
+  const rejected = page.waitForResponse((r) =>
+    r.url().endsWith("/api/save-login"),
+  );
+  await page.click("#save-login");
+  assert.equal(
+    (await rejected).status(),
+    400,
+    "访客会话不能冒充账号登录态保存",
+  );
+  await assert.rejects(fs.access(path.join(dir, ".env")), { code: "ENOENT" });
+  authenticated = true;
+  await liveContext.pages()[0].evaluate(() => fetch("/webcast/user/me/"));
+  await page.waitForFunction(
+    () => document.querySelector("#account-state").textContent === "已登录",
+  );
+  assert.match(
+    await page.locator("#account-info").innerText(),
+    /测试登录账号.*test-account.*12345/,
+  );
+  await page.waitForFunction(
+    () => document.querySelector("#account-avatar").naturalWidth === 1,
+  );
+  assert.equal(await page.locator("#account-avatar").isVisible(), true);
+  await page.setViewportSize({ width: 390, height: 844 });
+  assert.equal(
+    await page.evaluate(
+      () => document.documentElement.scrollWidth > innerWidth,
+    ),
+    false,
+  );
   await page.click("#save-login");
   await page.waitForFunction(() =>
     document
       .querySelector("#login-status")
-      .textContent.startsWith("已保存登录态"),
+      .textContent.startsWith("会话配置已保存"),
   );
   assert.equal(
     (await new LoginConfig(options.loginOptions).load()).cookie,
@@ -304,6 +378,9 @@ test("工作台保存按钮将浏览器 Cookie 写入本地配置，服务重启
     (await liveContext.cookies("https://live.douyin.com"))[0].value,
     "fake-workbench-login",
   );
-  assert.match(await page.locator("#login-status").innerText(), /已保存登录态/);
+  assert.match(
+    await page.locator("#login-status").innerText(),
+    /会话配置已保存/,
+  );
   assert.deepEqual(errors, []);
 });

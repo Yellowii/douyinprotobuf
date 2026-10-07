@@ -227,11 +227,37 @@ button:disabled {
 }
 .form-bottom {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
   align-items: center;
   color: var(--muted);
   font-size: 11px;
   margin-top: 14px;
+}
+.account-panel {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px;
+  margin-top: 14px;
+  background: #f7f9fe;
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+.account-panel img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.account-content {
+  flex: 1;
+  min-width: 180px;
+  overflow-wrap: anywhere;
+}
+.account-content p {
+  margin: 5px 0 0;
+  font-size: 11px;
 }
 .form-bottom input {
   accent-color: var(--blue);
