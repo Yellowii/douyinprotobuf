@@ -133,7 +133,17 @@ function instrument(source) {
 }
 
 const cached = new Map();
-export function loadParser(directory = process.env.PARSER_DIR || paths.vendor) {
+export function forgetParser(
+  directory = process.env.PARSER_DIR || paths.vendor,
+) {
+  cached.delete(path.resolve(directory));
+}
+export function loadParser(
+  directory = process.env.PARSER_DIR || paths.vendor,
+  { fresh = false } = {},
+) {
+  directory = path.resolve(directory);
+  if (fresh) return loadParserUncached(directory);
   if (!cached.has(directory))
     cached.set(
       directory,
@@ -161,8 +171,12 @@ async function loadParserUncached(directory) {
   const modules = {},
     cache = {};
   const oneofGetters = new WeakMap();
-  const getOneof = protobuf.util.oneOfGetter;
-  protobuf.util.oneOfGetter = (names) => {
+  // 每个版本独立 roots/util，候选加载不得污染正在运行的旧版 Parser。
+  const runtime = Object.create(protobuf);
+  runtime.roots = {};
+  runtime.util = { ...protobuf.util };
+  const getOneof = runtime.util.oneOfGetter;
+  runtime.util.oneOfGetter = (names) => {
     const getter = getOneof(names);
     oneofGetters.set(getter, [...names]);
     return getter;
@@ -187,9 +201,12 @@ async function loadParserUncached(directory) {
   sandbox.window = sandbox.self;
   const context = vm.createContext(sandbox);
   function req(id) {
-    if (id === 110327) return protobuf;
-    if ([543963, 689925].includes(Number(id))) return {};
+    if (id === 110327) return runtime;
     if (cache[id]) return cache[id].exports;
+    // 仅豁免已核验的编译辅助模块；196405 为未使用的对象展开/异步辅助导出。
+    // 未知裸导入不代表可省略，必须拒绝候选以免静默缺少运行时行为。
+    if (!modules[id] && [543963, 689925, 196405].includes(Number(id)))
+      return {};
     if (!modules[id])
       throw new Error(
         `协议模块依赖 ${id} 未提供；请替换完整官方 Parser bundle`,
@@ -255,7 +272,7 @@ async function loadParserUncached(directory) {
       if (m.default) visit(m.default);
     }
   } finally {
-    protobuf.util.oneOfGetter = getOneof;
+    runtime.util.oneOfGetter = getOneof;
   }
   const decoders = new Map(
     [...types.values()].map((t) => [t.original.decode, t.fullName]),

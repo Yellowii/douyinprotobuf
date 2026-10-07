@@ -4920,6 +4920,14 @@
         "comment": "名称推断：「is」·「hidden」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 20。"
       },
       {
+        "field_name": "schema_url_lynx",
+        "field_number": 21,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：跳转地址·资源地址·「lynx」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 21。"
+      },
+      {
         "field_name": "open_id",
         "field_number": 5000,
         "proto_type": "string",
@@ -5068,6 +5076,14 @@
         "is_repeated": true,
         "is_nested": false,
         "comment": "名称推断：「token」·列表；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 9。"
+      },
+      {
+        "field_name": "lynx_container_url_v2",
+        "field_number": 10,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「lynx」·「container」·资源地址·第二版；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 10。"
       }
     ],
     "enums": {
@@ -5271,6 +5287,14 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：「basic」·「props」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 102。"
+      },
+      {
+        "field_name": "couple_seat_props",
+        "field_number": 103,
+        "proto_type": "webcast.data.CoupleSeatProps",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「couple」·「seat」·「props」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 103。"
       }
     ],
     "enums": {
@@ -5413,6 +5437,14 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：「custom」·「props」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 105。"
+      },
+      {
+        "field_name": "couple_seat_props",
+        "field_number": 106,
+        "proto_type": "webcast.data.CoupleSeatProps",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「couple」·「seat」·「props」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 106。"
       }
     ],
     "enums": {
@@ -6122,6 +6154,73 @@
     "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
     "observed_msg_type_ids": []
   },
+  "webcast.data.BattleChallenge": {
+    "msg_type_id": 0,
+    "desc": "名称推断：对战·「Challenge」；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "id",
+        "field_number": 1,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "channel_id",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：频道·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "battle_id",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "setting_id",
+        "field_number": 4,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：设置·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "title",
+        "field_number": 5,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：标题；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "effect_id",
+        "field_number": 6,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「effect」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。"
+      },
+      {
+        "field_name": "pc_helper_effect_id",
+        "field_number": 7,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「pc」·「helper」·「effect」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
   "webcast.data.BattleCloudCollaborateConfig": {
     "msg_type_id": 0,
     "desc": "名称推断：对战·「Cloud」·「Collaborate」·配置；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
@@ -6722,6 +6821,87 @@
     "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
     "observed_msg_type_ids": []
   },
+  "webcast.data.BattleEasterEggInfo": {
+    "msg_type_id": 0,
+    "desc": "名称推断：对战·「Easter」·「Egg」·信息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "easter_egg_info_map",
+        "field_number": 1,
+        "proto_type": "map<string, webcast.data.EasterEggInfo>",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「easter」·「egg」·信息·映射；用于主播连麦及对战，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 1。",
+        "is_map": true,
+        "map_key_type": "string"
+      },
+      {
+        "field_name": "is_revelry",
+        "field_number": 2,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「is」·「revelry」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "user_map",
+        "field_number": 3,
+        "proto_type": "map<string, webcast.data.User>",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：用户·映射；用于主播连麦及对战，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 3。",
+        "is_map": true,
+        "map_key_type": "string"
+      },
+      {
+        "field_name": "trigger_user_id",
+        "field_number": 4,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「trigger」·用户·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "first_advance_easter_egg_id",
+        "field_number": 5,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「first」·「advance」·「easter」·「egg」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "advance_easter_egg_id_list",
+        "field_number": 6,
+        "proto_type": "string",
+        "is_repeated": true,
+        "is_nested": false,
+        "comment": "名称推断：「advance」·「easter」·「egg」·标识·列表；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 6。"
+      },
+      {
+        "field_name": "trigger_user_open_id",
+        "field_number": 5000,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「trigger」·用户·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。"
+      },
+      {
+        "field_name": "open_easter_egg_info_map",
+        "field_number": 5001,
+        "proto_type": "map<string, webcast.data.EasterEggInfo>",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：开放·「easter」·「egg」·信息·映射；用于主播连麦及对战，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 5001。",
+        "is_map": true,
+        "map_key_type": "string"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
   "webcast.data.BattleLinkerInviteMessageExtra": {
     "msg_type_id": 0,
     "desc": "名称推断：对战·连麦·邀请·消息·附加；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
@@ -7156,6 +7336,57 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「sub」·「des」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.data.BattleRemoteUser": {
+    "msg_type_id": 0,
+    "desc": "名称推断：对战·「Remote」·用户；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "user_id",
+        "field_number": 1,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：用户·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "nickname",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：昵称；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "avatar_medium",
+        "field_number": 3,
+        "proto_type": "webcast.data.Image",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：头像·「medium」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "reply_status",
+        "field_number": 4,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：回复·状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "open_id",
+        "field_number": 5000,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。"
       }
     ],
     "enums": {
@@ -8120,6 +8351,30 @@
         "comment": "名称推断：对战·状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 40。"
       },
       {
+        "field_name": "battle_scene",
+        "field_number": 41,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·「scene」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 41。"
+      },
+      {
+        "field_name": "battle_id_str",
+        "field_number": 42,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 42。"
+      },
+      {
+        "field_name": "channel_id_str",
+        "field_number": 43,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：频道·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 43。"
+      },
+      {
         "field_name": "initiator_open_id",
         "field_number": 5000,
         "proto_type": "string",
@@ -8619,6 +8874,14 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：用户·「img」·「flip」·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 12。"
+      },
+      {
+        "field_name": "room_id",
+        "field_number": 13,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：直播间·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 13。"
       }
     ],
     "enums": {
@@ -8670,6 +8933,14 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：用户·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "sec_uid",
+        "field_number": 6,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「sec」·「uid」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。"
       },
       {
         "field_name": "open_id",
@@ -13652,6 +13923,16 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：连击·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 11。"
+      },
+      {
+        "field_name": "countdown_configs",
+        "field_number": 12,
+        "proto_type": "map<string, webcast.data.CountdownConfig>",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「countdown」·「configs」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 12。",
+        "is_map": true,
+        "map_key_type": "string"
       }
     ],
     "enums": {
@@ -15208,6 +15489,220 @@
     "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
     "observed_msg_type_ids": []
   },
+  "webcast.data.CountdownAction": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Countdown」·「Action」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "action_type",
+        "field_number": 1,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「action」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "delay_ms",
+        "field_number": 2,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「delay」·毫秒；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "toast",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：提示；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "request_params",
+        "field_number": 4,
+        "proto_type": "map<string, string>",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：请求·参数；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 4。",
+        "is_map": true,
+        "map_key_type": "string"
+      },
+      {
+        "field_name": "track_mob",
+        "field_number": 5,
+        "proto_type": "webcast.data.ClickMobData",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「track」·「mob」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "refresh_text",
+        "field_number": 6,
+        "proto_type": "webcast.data.CombinedText",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「refresh」·文本；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.data.CountdownConfig": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Countdown」·配置；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "end_actions",
+        "field_number": 1,
+        "proto_type": "webcast.data.CountdownAction",
+        "is_repeated": true,
+        "is_nested": true,
+        "comment": "名称推断：结束·「actions」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 1。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.data.CountdownItem": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Countdown」·「Item」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "duration_ms",
+        "field_number": 1,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：持续时间·毫秒；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "format_type",
+        "field_number": 2,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「format」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "update_interval",
+        "field_number": 3,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：更新·间隔；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "speed_ratio_x100",
+        "field_number": 4,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「speed」·「ratio」·「x100」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "countdown_config_key",
+        "field_number": 5,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「countdown」·配置·键；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "color",
+        "field_number": 6,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：颜色；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。"
+      },
+      {
+        "field_name": "weight",
+        "field_number": 7,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「weight」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.data.CoupleSeatProps": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Couple」·「Seat」·「Props」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "animation_type",
+        "field_number": 1,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「animation」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "title",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：标题；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "sub_title",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「sub」·标题；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "avatars",
+        "field_number": 4,
+        "proto_type": "webcast.data.AvatarProps",
+        "is_repeated": true,
+        "is_nested": true,
+        "comment": "名称推断：「avatars」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "bg_img",
+        "field_number": 5,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「bg」·「img」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "show_love_icon",
+        "field_number": 6,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「show」·「love」·「icon」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。"
+      },
+      {
+        "field_name": "show_petal_icon",
+        "field_number": 7,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「show」·「petal」·「icon」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
   "webcast.data.Coupon": {
     "msg_type_id": 0,
     "desc": "名称推断：「Coupon」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
@@ -16082,6 +16577,14 @@
         "comment": "名称推断：文本·「item」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 51。"
       },
       {
+        "field_name": "countdown_item",
+        "field_number": 52,
+        "proto_type": "webcast.data.CountdownItem",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「countdown」·「item」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 52。"
+      },
+      {
         "field_name": "format",
         "field_number": 100,
         "proto_type": "webcast.data.DisplayItemFormat",
@@ -16376,6 +16879,30 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：玩法·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。"
+      },
+      {
+        "field_name": "can_advance_reward",
+        "field_number": 9,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「can」·「advance」·奖励；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。"
+      },
+      {
+        "field_name": "advance_finish_task_sec",
+        "field_number": 10,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「advance」·「finish」·任务·「sec」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 10。"
+      },
+      {
+        "field_name": "easter_egg_id",
+        "field_number": 11,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「easter」·「egg」·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 11。"
       }
     ],
     "enums": {
@@ -16583,6 +17110,26 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「addition」·分数；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "addition_score_map",
+        "field_number": 2,
+        "proto_type": "map<string, string>",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「addition」·分数·映射；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 2。",
+        "is_map": true,
+        "map_key_type": "string"
+      },
+      {
+        "field_name": "open_addition_score_map",
+        "field_number": 5000,
+        "proto_type": "map<string, string>",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：开放·「addition」·分数·映射；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 5000。",
+        "is_map": true,
+        "map_key_type": "string"
       }
     ],
     "enums": {
@@ -22826,6 +23373,14 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「regular」·「tray」·「group」·「num」；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 23。"
+      },
+      {
+        "field_name": "tray_extra_text",
+        "field_number": 24,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「tray」·附加·文本；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 24。"
       }
     ],
     "enums": {
@@ -24887,6 +25442,119 @@
     "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
     "observed_msg_type_ids": []
   },
+  "webcast.data.GuestGradeInfo": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Guest」·「Grade」·信息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "level",
+        "field_number": 1,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：等级；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "node",
+        "field_number": 2,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「node」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "score",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：分数；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "name",
+        "field_number": 4,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：名称；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "icon",
+        "field_number": 5,
+        "proto_type": "webcast.data.Image",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「icon」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.data.GuestGradeSeasonInfo": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Guest」·「Grade」·「Season」·信息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "season_id",
+        "field_number": 1,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「season」·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "season_name",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「season」·名称；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.data.GuestGradeUpgradeInfo": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Guest」·「Grade」·「Upgrade」·信息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "progress_score",
+        "field_number": 1,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「progress」·分数；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "total_score",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：累计总量·分数；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "sub_diff_score",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「sub」·「diff」·分数；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
   "webcast.data.GuestLinkChannelInfo": {
     "msg_type_id": 0,
     "desc": "名称推断：「Guest」·连线·频道·信息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
@@ -26628,6 +27296,62 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「container」·二进制载荷；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "position",
+        "field_number": 4,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「position」；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "url",
+        "field_number": 5,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：资源地址；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "fold_url",
+        "field_number": 6,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「fold」·资源地址；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。"
+      },
+      {
+        "field_name": "horizontal_url",
+        "field_number": 7,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「horizontal」·资源地址；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。"
+      },
+      {
+        "field_name": "can_adjust_position",
+        "field_number": 8,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「can」·「adjust」·「position」；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。"
+      },
+      {
+        "field_name": "priority",
+        "field_number": 9,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：优先级；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。"
+      },
+      {
+        "field_name": "container_id",
+        "field_number": 10,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「container」·标识；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 10。"
       }
     ],
     "enums": {
@@ -29176,6 +29900,49 @@
     "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
     "observed_msg_type_ids": []
   },
+  "webcast.data.LikeIconConfigItem": {
+    "msg_type_id": 0,
+    "desc": "名称推断：点赞·「Icon」·配置·「Item」；用于点赞互动，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "icon_uris",
+        "field_number": 1,
+        "proto_type": "string",
+        "is_repeated": true,
+        "is_nested": false,
+        "comment": "名称推断：「icon」·「uris」；用于点赞互动，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "ticket_id",
+        "field_number": 2,
+        "proto_type": "int64",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：票据·标识；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "parent_ticket_id",
+        "field_number": 3,
+        "proto_type": "int64",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「parent」·票据·标识；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "camera_id",
+        "field_number": 4,
+        "proto_type": "int64",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「camera」·标识；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
   "webcast.data.LikeIconInfo": {
     "msg_type_id": 0,
     "desc": "名称推断：点赞·「Icon」·信息；用于点赞互动，业务细节待样本确认。来源：官方 Parser 运行时定义。",
@@ -29221,6 +29988,24 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：「pico」·「virtual」·直播·配置；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "camera_like_icon_items",
+        "field_number": 6,
+        "proto_type": "map<int64, webcast.data.LikeIconItem>",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「camera」·点赞·「icon」·「items」；用于点赞互动，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 6。",
+        "is_map": true,
+        "map_key_type": "int64"
+      },
+      {
+        "field_name": "room_like_icon_items",
+        "field_number": 7,
+        "proto_type": "webcast.data.LikeIconItem",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：直播间·点赞·「icon」·「items」；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。"
       }
     ],
     "enums": {
@@ -29240,6 +30025,65 @@
         "is_repeated": true,
         "is_nested": true,
         "comment": "名称推断：「icons」；用于点赞互动，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 1。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.data.LikeIconItem": {
+    "msg_type_id": 0,
+    "desc": "名称推断：点赞·「Icon」·「Item」；用于点赞互动，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "icons",
+        "field_number": 1,
+        "proto_type": "webcast.data.Image",
+        "is_repeated": true,
+        "is_nested": true,
+        "comment": "名称推断：「icons」；用于点赞互动，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "ticket_id",
+        "field_number": 2,
+        "proto_type": "int64",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：票据·标识；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "ticket_id_str",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：票据·标识·「str」；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "camera_id",
+        "field_number": 4,
+        "proto_type": "int64",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「camera」·标识；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "camera_id_str",
+        "field_number": 5,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「camera」·标识·「str」；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "right",
+        "field_number": 6,
+        "proto_type": "int64",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「right」；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。"
       }
     ],
     "enums": {
@@ -32679,6 +33523,14 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：昵称·名称·「under」·「masked」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 33。"
+      },
+      {
+        "field_name": "nick_name_under_masked_v2",
+        "field_number": 34,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：昵称·名称·「under」·「masked」·第二版；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 34。"
       },
       {
         "field_name": "rank_contributor_open_ids",
@@ -39732,6 +40584,30 @@
         "is_repeated": true,
         "is_nested": false,
         "comment": "名称推断：短标识·「desc」·列表；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 9。"
+      },
+      {
+        "field_name": "target_amounts",
+        "field_number": 10,
+        "proto_type": "int64",
+        "is_repeated": true,
+        "is_nested": false,
+        "comment": "名称推断：「target」·「amounts」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 10。"
+      },
+      {
+        "field_name": "completed_stage",
+        "field_number": 11,
+        "proto_type": "int64",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「completed」·「stage」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 11。"
+      },
+      {
+        "field_name": "withdraw_amount",
+        "field_number": 12,
+        "proto_type": "int64",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「withdraw」·「amount」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 12。"
       }
     ],
     "enums": {
@@ -40414,6 +41290,22 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「max」·用户·数量；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。"
+      },
+      {
+        "field_name": "max_interact_score",
+        "field_number": 9,
+        "proto_type": "int64",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「max」·「interact」·分数；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。"
+      },
+      {
+        "field_name": "interact_types",
+        "field_number": 10,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「interact」·「types」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 10。"
       }
     ],
     "enums": {
@@ -41632,6 +42524,22 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：「preview」·「advantage」·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 42。"
+      },
+      {
+        "field_name": "need_preload",
+        "field_number": 43,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：是否需要·「preload」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 43。"
+      },
+      {
+        "field_name": "relation_info",
+        "field_number": 44,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「relation」·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 44。"
       }
     ],
     "enums": {
@@ -45604,6 +46512,92 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「scroll」·「speed」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.data.PullStreamInfo": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Pull」·音视频流·信息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "items",
+        "field_number": 1,
+        "proto_type": "webcast.data.PullStreamItem",
+        "is_repeated": true,
+        "is_nested": true,
+        "comment": "名称推断：「items」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 1。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.data.PullStreamItem": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Pull」·音视频流·「Item」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "target_room_id",
+        "field_number": 1,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「target」·直播间·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "target_rtc_user_id",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「target」·「rtc」·用户·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "target_stream_index",
+        "field_number": 3,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「target」·音视频流·「index」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "local_rtc_user_id",
+        "field_number": 4,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「local」·「rtc」·用户·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "local_user_token",
+        "field_number": 5,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「local」·用户·「token」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "link_status",
+        "field_number": 6,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：连线·状态；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。"
+      },
+      {
+        "field_name": "support_pull_stream",
+        "field_number": 7,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「support」·「pull」·音视频流；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。"
       }
     ],
     "enums": {
@@ -52545,6 +53539,22 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「ecom」·直播·开始·「with」·「cart」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 27。"
+      },
+      {
+        "field_name": "vr_multi_member_only",
+        "field_number": 28,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「vr」·「multi」·入场成员·「only」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 28。"
+      },
+      {
+        "field_name": "like_icon_items",
+        "field_number": 29,
+        "proto_type": "webcast.data.LikeIconConfigItem",
+        "is_repeated": true,
+        "is_nested": true,
+        "comment": "名称推断：点赞·「icon」·「items」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 29。"
       }
     ],
     "enums": {
@@ -53506,6 +54516,14 @@
         "comment": "名称推断：直播·直播间·「mode」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。"
       },
       {
+        "field_name": "public_stream_id",
+        "field_number": 7,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：公屏·音视频流·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。"
+      },
+      {
         "field_name": "anchor_open_id",
         "field_number": 5000,
         "proto_type": "string",
@@ -53757,6 +54775,14 @@
         "comment": "名称推断：「labels」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 29。",
         "is_map": true,
         "map_key_type": "string"
+      },
+      {
+        "field_name": "anonymous_ratio_display_affected",
+        "field_number": 30,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：匿名·「ratio」·展示·「affected」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 30。"
       }
     ],
     "enums": {
@@ -59465,6 +60491,14 @@
         "comment": "名称推断：「resolution」·「select」·「panel」·「resident」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 28。"
       },
       {
+        "field_name": "rtmps_push_url",
+        "field_number": 29,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「rtmps」·推送·资源地址；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 29。"
+      },
+      {
         "field_name": "open_stream_url_encrypt",
         "field_number": 5000,
         "proto_type": "webcast.data.OpenStreamUrlEncrypt",
@@ -60097,6 +61131,14 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：音视频流·标识·「str」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。"
+      },
+      {
+        "field_name": "rtmps_push_url",
+        "field_number": 9,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「rtmps」·推送·资源地址；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。"
       }
     ],
     "enums": {
@@ -60880,6 +61922,14 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：事件·埋点·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 18。"
+      },
+      {
+        "field_name": "pull_stream_info",
+        "field_number": 19,
+        "proto_type": "webcast.data.PullStreamInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「pull」·音视频流·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 19。"
       }
     ],
     "enums": {
@@ -62366,6 +63416,14 @@
         "is_repeated": true,
         "is_nested": false,
         "comment": "名称推断：「gradient」·「colors」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 11。"
+      },
+      {
+        "field_name": "support_underline",
+        "field_number": 12,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「support」·「underline」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 12。"
       }
     ],
     "enums": {
@@ -72318,6 +73376,33 @@
     "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
     "observed_msg_type_ids": []
   },
+  "webcast.im.AnchorRankView": {
+    "msg_type_id": 0,
+    "desc": "名称推断：主播·榜单·「View」；用于直播榜单及统计，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "team_info",
+        "field_number": 1,
+        "proto_type": "webcast.im.TeamInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：队伍·信息；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "rank_list",
+        "field_number": 2,
+        "proto_type": "webcast.im.RankInfo",
+        "is_repeated": true,
+        "is_nested": true,
+        "comment": "名称推断：榜单·列表；用于直播榜单及统计，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 2。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
   "webcast.im.AnchorRoomDataChangeMessage": {
     "msg_type_id": 0,
     "desc": "名称推断：主播·直播间·数据·「Change」·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
@@ -76630,6 +77715,49 @@
     "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
     "observed_msg_type_ids": []
   },
+  "webcast.im.BattleChallengeMessage": {
+    "msg_type_id": 0,
+    "desc": "名称推断：对战·「Challenge」·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "common",
+        "field_number": 1,
+        "proto_type": "webcast.im.Common",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "challenge",
+        "field_number": 2,
+        "proto_type": "webcast.data.BattleChallenge",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「challenge」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "start_animation",
+        "field_number": 3,
+        "proto_type": "webcast.data.Image",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：开始·「animation」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "random_challenge_titles",
+        "field_number": 4,
+        "proto_type": "string",
+        "is_repeated": true,
+        "is_nested": false,
+        "comment": "名称推断：「random」·「challenge」·「titles」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 4。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
   "webcast.im.BattleDrawPropMessage": {
     "msg_type_id": 0,
     "desc": "名称推断：对战·「Draw」·「Prop」·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
@@ -76845,6 +77973,126 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.BattleGiftRecommendMessage": {
+    "msg_type_id": 0,
+    "desc": "名称推断：对战·礼物·「Recommend」·消息；用于礼物赠送、连击及收益，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "common",
+        "field_number": 1,
+        "proto_type": "webcast.im.Common",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：公共消息信息；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "user_id",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：用户·标识；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "user_identity",
+        "field_number": 3,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：用户·「identity」；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "candidate_gift_list",
+        "field_number": 4,
+        "proto_type": "webcast.im.BattleGiftRecommendMessage.Gift",
+        "is_repeated": true,
+        "is_nested": true,
+        "comment": "名称推断：「candidate」·礼物·列表；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "skip_gift_ack_toast",
+        "field_number": 5,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「skip」·礼物·确认回执·提示；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "track_data",
+        "field_number": 6,
+        "proto_type": "map<string, string>",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「track」·数据；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 6。",
+        "is_map": true,
+        "map_key_type": "string"
+      },
+      {
+        "field_name": "battle_id",
+        "field_number": 7,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·标识；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。"
+      },
+      {
+        "field_name": "user_open_id",
+        "field_number": 5000,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：用户·开放·标识；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.BattleGiftRecommendMessage.Gift": {
+    "msg_type_id": 0,
+    "desc": "名称推断：礼物；用于礼物赠送、连击及收益，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "gift_id",
+        "field_number": 1,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：礼物·标识；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "gift_name",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：礼物·名称；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "diamond_count",
+        "field_number": 3,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：钻石·数量；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "icon",
+        "field_number": 4,
+        "proto_type": "webcast.data.Image",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「icon」；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
       }
     ],
     "enums": {
@@ -78112,6 +79360,164 @@
     "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
     "observed_msg_type_ids": []
   },
+  "webcast.im.BattleRemoteInviteMessage": {
+    "msg_type_id": 0,
+    "desc": "名称推断：对战·「Remote」·邀请·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "common",
+        "field_number": 1,
+        "proto_type": "webcast.im.Common",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "round",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「round」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "pair_id",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「pair」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "from_user_id",
+        "field_number": 4,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：来源·用户·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "members",
+        "field_number": 5,
+        "proto_type": "webcast.data.BattleRemoteUser",
+        "is_repeated": true,
+        "is_nested": true,
+        "comment": "名称推断：「members」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "wait_seconds",
+        "field_number": 6,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「wait」·「seconds」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。"
+      },
+      {
+        "field_name": "tags",
+        "field_number": 7,
+        "proto_type": "webcast.data.BattleRivalTag",
+        "is_repeated": true,
+        "is_nested": true,
+        "comment": "名称推断：「tags」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 7。"
+      },
+      {
+        "field_name": "from_open_id",
+        "field_number": 5000,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：来源·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.BattleRemoteReplyMessage": {
+    "msg_type_id": 0,
+    "desc": "名称推断：对战·「Remote」·回复·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "common",
+        "field_number": 1,
+        "proto_type": "webcast.im.Common",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "round",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「round」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "pair_id",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「pair」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "from_user_id",
+        "field_number": 4,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：来源·用户·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "members",
+        "field_number": 5,
+        "proto_type": "webcast.data.BattleRemoteUser",
+        "is_repeated": true,
+        "is_nested": true,
+        "comment": "名称推断：「members」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "reply_status",
+        "field_number": 6,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：回复·状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。"
+      },
+      {
+        "field_name": "toast",
+        "field_number": 7,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：提示；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。"
+      },
+      {
+        "field_name": "match_wait_seconds",
+        "field_number": 8,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「match」·「wait」·「seconds」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。"
+      },
+      {
+        "field_name": "from_open_id",
+        "field_number": 5000,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：来源·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
   "webcast.im.BattleReserveInviteMessage": {
     "msg_type_id": 0,
     "desc": "名称推断：对战·「Reserve」·邀请·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
@@ -79210,6 +80616,30 @@
         "comment": "名称推断：对战·状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 40。"
       },
       {
+        "field_name": "battle_scene",
+        "field_number": 41,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·「scene」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 41。"
+      },
+      {
+        "field_name": "battle_id_str",
+        "field_number": 42,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 42。"
+      },
+      {
+        "field_name": "channel_id_str",
+        "field_number": 43,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：频道·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 43。"
+      },
+      {
         "field_name": "initiator_open_id",
         "field_number": 5000,
         "proto_type": "string",
@@ -79267,6 +80697,89 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：分数·版本；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.BattleStatusMessage": {
+    "msg_type_id": 0,
+    "desc": "名称推断：对战·状态·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "common",
+        "field_number": 1,
+        "proto_type": "webcast.im.Common",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "channel_id",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "对战消息关联的频道标识；由官方 BattleStatusMessage 定义提供。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "battle_id",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "当前直播对战的业务标识，以字符串保持完整精度。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "status",
+        "field_number": 4,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "直播对战阶段状态码；当前官方定义为 int32，具体取值含义需结合样本与前端逻辑确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "scene",
+        "field_number": 5,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "直播对战场景码；不可据数值杜撰场景枚举。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "duration",
+        "field_number": 6,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "对战阶段持续时长数值；时间单位需结合官方调用与样本确认。结构：单值；来源：官方解码字段 6。"
+      },
+      {
+        "field_name": "punish_duration",
+        "field_number": 7,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "对战惩罚阶段持续时长数值；时间单位需结合官方调用与样本确认。结构：单值；来源：官方解码字段 7。"
+      },
+      {
+        "field_name": "start_time_ms",
+        "field_number": 8,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "对战开始时间的毫秒值文本；用于对战时序展示与分析。结构：单值；来源：官方解码字段 8。"
+      },
+      {
+        "field_name": "end_time_ms",
+        "field_number": 9,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "对战结束时间的毫秒值文本；用于对战时序展示与分析。结构：单值；来源：官方解码字段 9。"
       }
     ],
     "enums": {
@@ -80296,6 +81809,60 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：「landing」·「icon」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.ByteLiveFrontier": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Byte」·直播·「Frontier」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "method",
+        "field_number": 1,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "传输或消息路由方法；业务信封中的字符串用于匹配官方消息类型。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "payLoad",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「pay」·「Load」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.ByteLiveMessage": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Byte」·直播·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "common",
+        "field_number": 1,
+        "proto_type": "webcast.im.Common",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "frontier_message",
+        "field_number": 2,
+        "proto_type": "webcast.im.ByteLiveFrontier",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「frontier」·消息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
       }
     ],
     "enums": {
@@ -86415,6 +87982,14 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：分数·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。"
+      },
+      {
+        "field_name": "channel_id",
+        "field_number": 9,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：频道·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。"
       }
     ],
     "enums": {
@@ -86624,6 +88199,14 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：「other」·「multi」·频道·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "pull_stream_info",
+        "field_number": 4,
+        "proto_type": "webcast.data.PullStreamInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「pull」·音视频流·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
       }
     ],
     "enums": {
@@ -87936,12 +89519,12 @@
         "comment": "名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
       },
       {
-        "field_name": "egg_info",
+        "field_name": "battle_easter_egg_info",
         "field_number": 2,
-        "proto_type": "webcast.data.EasterEggInfo",
+        "proto_type": "webcast.data.BattleEasterEggInfo",
         "is_repeated": false,
         "is_nested": true,
-        "comment": "名称推断：「egg」·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+        "comment": "名称推断：对战·「easter」·「egg」·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
       }
     ],
     "enums": {
@@ -88865,6 +90448,14 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「left」·钻石；用于关注、粉丝团及社交互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。"
+      },
+      {
+        "field_name": "left_deci_diamond",
+        "field_number": 8,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「left」·「deci」·钻石；用于关注、粉丝团及社交互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。"
       }
     ],
     "enums": {
@@ -89302,6 +90893,14 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：公屏·区域·公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "schema_url",
+        "field_number": 4,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：跳转地址·资源地址；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
       }
     ],
     "enums": {
@@ -95878,6 +97477,22 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：玩法·信息；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "is_chosen_gift_invalid_force_close",
+        "field_number": 3,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「is」·「chosen」·礼物·「invalid」·「force」·关闭；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "close_toast",
+        "field_number": 4,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：关闭·提示；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
       }
     ],
     "enums": {
@@ -97065,6 +98680,65 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：对战·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.GuestGradeMessage": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Guest」·「Grade」·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "msg_type",
+        "field_number": 1,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "信封携带的消息类别数值；并非全局唯一的消息类型 ID。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "cur_grade",
+        "field_number": 2,
+        "proto_type": "webcast.data.GuestGradeInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「cur」·「grade」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "next_grade",
+        "field_number": 3,
+        "proto_type": "webcast.data.GuestGradeInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「next」·「grade」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "upgrade_info",
+        "field_number": 4,
+        "proto_type": "webcast.data.GuestGradeUpgradeInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「upgrade」·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "season",
+        "field_number": 5,
+        "proto_type": "webcast.data.GuestGradeSeasonInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「season」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "guest_id",
+        "field_number": 6,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「guest」·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。"
       }
     ],
     "enums": {
@@ -99761,6 +101435,14 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「op」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。"
+      },
+      {
+        "field_name": "lynx_container_url_v2",
+        "field_number": 9,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「lynx」·「container」·资源地址·第二版；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。"
       }
     ],
     "enums": {
@@ -104235,6 +105917,65 @@
         "is_repeated": true,
         "is_nested": true,
         "comment": "名称推断：主播·用户·列表；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 6。"
+      },
+      {
+        "field_name": "pull_stream_info",
+        "field_number": 7,
+        "proto_type": "webcast.data.PullStreamInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「pull」·音视频流·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.LinkerBattleLinkedListChangeContent": {
+    "msg_type_id": 0,
+    "desc": "名称推断：连麦·对战·「Linked」·列表·「Change」·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "battle_room_id",
+        "field_number": 1,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·直播间·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "battle_anchor_id",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·主播·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "pull_stream_info",
+        "field_number": 3,
+        "proto_type": "webcast.data.PullStreamInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「pull」·音视频流·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "version",
+        "field_number": 4,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：版本；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "battle_anchor_open_id",
+        "field_number": 5000,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·主播·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。"
       }
     ],
     "enums": {
@@ -104554,6 +106295,14 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「reason」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "push_stream_url",
+        "field_number": 4,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：推送·音视频流·资源地址；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
       }
     ],
     "enums": {
@@ -105821,6 +107570,14 @@
         "comment": "名称推断：游戏·附加；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 46。"
       },
       {
+        "field_name": "pull_stream_info",
+        "field_number": 47,
+        "proto_type": "webcast.data.PullStreamInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「pull」·音视频流·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 47。"
+      },
+      {
         "field_name": "biz_extra",
         "field_number": 200,
         "proto_type": "string",
@@ -106196,6 +107953,14 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：「client」·「ui」·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 12。"
+      },
+      {
+        "field_name": "pull_stream_info",
+        "field_number": 13,
+        "proto_type": "webcast.data.PullStreamInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「pull」·音视频流·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 13。"
       },
       {
         "field_name": "open_id",
@@ -106768,6 +108533,14 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：事件·埋点·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 32。"
+      },
+      {
+        "field_name": "pull_stream_info",
+        "field_number": 33,
+        "proto_type": "webcast.data.PullStreamInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「pull」·音视频流·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 33。"
       },
       {
         "field_name": "from_open_id",
@@ -108406,6 +110179,15 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：「reserved」·直播间·对战·「ring」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 75。",
+        "oneof": "content"
+      },
+      {
+        "field_name": "battle_linked_list_change_content",
+        "field_number": 76,
+        "proto_type": "webcast.im.LinkerBattleLinkedListChangeContent",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：对战·「linked」·列表·「change」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 76。",
         "oneof": "content"
       },
       {
@@ -110163,6 +111945,14 @@
         "comment": "名称推断：对战·「attached」·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 15。"
       },
       {
+        "field_name": "battle_scene",
+        "field_number": 16,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·「scene」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 16。"
+      },
+      {
         "field_name": "open_user_infos",
         "field_number": 5000,
         "proto_type": "map<string, webcast.data.BattleUserInfo>",
@@ -110348,6 +112138,14 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：附加；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 20。"
+      },
+      {
+        "field_name": "battle_scene",
+        "field_number": 21,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·「scene」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 21。"
       },
       {
         "field_name": "open_user_infos",
@@ -112960,6 +114758,14 @@
         "comment": "名称推断：「layout」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。"
       },
       {
+        "field_name": "inno_container_type",
+        "field_number": 10,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「inno」·「container」·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 10。"
+      },
+      {
         "field_name": "owner_id",
         "field_number": 100,
         "proto_type": "string",
@@ -113396,6 +115202,14 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：分数·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。"
+      },
+      {
+        "field_name": "channel_id",
+        "field_number": 9,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：频道·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。"
       }
     ],
     "enums": {
@@ -113713,6 +115527,14 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「finish」·「reason」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "live_guest_stream_push_url",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：直播·「guest」·音视频流·推送·资源地址；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
       }
     ],
     "enums": {
@@ -113965,6 +115787,22 @@
         "is_repeated": true,
         "is_nested": true,
         "comment": "名称推断：「kick」·「out」·「users」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 6。"
+      },
+      {
+        "field_name": "paid_count",
+        "field_number": 7,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「paid」·数量；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。"
+      },
+      {
+        "field_name": "link_duration",
+        "field_number": 8,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：连线·持续时间；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。"
       }
     ],
     "enums": {
@@ -113992,6 +115830,14 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：目标·用户·连麦·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "live_guest_stream_push_url",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：直播·「guest」·音视频流·推送·资源地址；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
       }
     ],
     "enums": {
@@ -114043,6 +115889,25 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：提示；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.LinkmicInstructionLowBalanceForPaidLinkmicContent": {
+    "msg_type_id": 0,
+    "desc": "名称推断：连麦·「Instruction」·「Low」·「Balance」·「For」·「Paid」·连麦·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "toast",
+        "field_number": 1,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：提示；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
       }
     ],
     "enums": {
@@ -114322,6 +116187,15 @@
         "is_nested": true,
         "comment": "名称推断：「force」·开放·「camera」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 38。",
         "oneof": "content"
+      },
+      {
+        "field_name": "low_balance_for_paid_linkmic_content",
+        "field_number": 39,
+        "proto_type": "webcast.im.LinkmicInstructionLowBalanceForPaidLinkmicContent",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「low」·「balance」·「for」·「paid」·连麦·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 39。",
+        "oneof": "content"
       }
     ],
     "enums": {
@@ -114469,6 +116343,14 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：「mcu」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 17。"
+      },
+      {
+        "field_name": "pull_stream_info",
+        "field_number": 18,
+        "proto_type": "webcast.data.PullStreamInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「pull」·音视频流·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 18。"
       }
     ],
     "enums": {
@@ -114848,6 +116730,14 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：连线·游戏·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。"
+      },
+      {
+        "field_name": "is_paid_linkmic",
+        "field_number": 8,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「is」·「paid」·连麦；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。"
       }
     ],
     "enums": {
@@ -115900,6 +117790,30 @@
         "comment": "名称推断：业务·「tag」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 112。"
       },
       {
+        "field_name": "battle_scene",
+        "field_number": 113,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·「scene」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 113。"
+      },
+      {
+        "field_name": "battle_id_str",
+        "field_number": 114,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 114。"
+      },
+      {
+        "field_name": "pull_stream_info",
+        "field_number": 115,
+        "proto_type": "webcast.data.PullStreamInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「pull」·音视频流·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 115。"
+      },
+      {
         "field_name": "open_id",
         "field_number": 5000,
         "proto_type": "string",
@@ -116208,12 +118122,28 @@
         "comment": "名称推断：分数·「adjacent」·「gap」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 20。"
       },
       {
+        "field_name": "user_id_str",
+        "field_number": 21,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：用户·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 21。"
+      },
+      {
         "field_name": "open_id",
         "field_number": 5000,
         "proto_type": "string",
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。"
+      },
+      {
+        "field_name": "open_id_str",
+        "field_number": 5001,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：开放·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5001。"
       }
     ],
     "enums": {
@@ -116818,6 +118748,22 @@
         "is_repeated": false,
         "is_nested": true,
         "comment": "名称推断：「sprint」·「challenge」·消息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "paid_linkmic_message",
+        "field_number": 4,
+        "proto_type": "webcast.im.PaidLinkmicMessage",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「paid」·连麦·消息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "guest_grade_message",
+        "field_number": 5,
+        "proto_type": "webcast.im.GuestGradeMessage",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「guest」·「grade」·消息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
       }
     ],
     "enums": {
@@ -119927,6 +121873,14 @@
         "comment": "名称推断：「rival」·「rooms」；用于主播连麦及对战，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 10。",
         "is_map": true,
         "map_key_type": "string"
+      },
+      {
+        "field_name": "server_current_time",
+        "field_number": 11,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：服务端·「current」·时间；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 11。"
       }
     ],
     "enums": {
@@ -120334,6 +122288,46 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「origin」·连线·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 26。"
+      },
+      {
+        "field_name": "join_channel_time",
+        "field_number": 27,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：加入·频道·时间；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 27。"
+      },
+      {
+        "field_name": "expected_leave_time",
+        "field_number": 28,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「expected」·离开·时间；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 28。"
+      },
+      {
+        "field_name": "paid_count",
+        "field_number": 29,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「paid」·数量；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 29。"
+      },
+      {
+        "field_name": "ai_guest_type",
+        "field_number": 30,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「ai」·「guest」·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 30。"
+      },
+      {
+        "field_name": "signature",
+        "field_number": 31,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：签名；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 31。"
       }
     ],
     "enums": {
@@ -120478,6 +122472,15 @@
         "is_nested": true,
         "comment": "名称推断：「sprint」·「challenge」·「bar」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。",
         "oneof": "data"
+      },
+      {
+        "field_name": "inno_run_container",
+        "field_number": 8,
+        "proto_type": "webcast.im.LinkmicUIComponent.InnoContainer",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「inno」·「run」·「container」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。",
+        "oneof": "data"
       }
     ],
     "enums": {
@@ -120550,6 +122553,16 @@
         "comment": "名称推断：开始·时间；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
       }
     ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.LinkmicUIComponent.InnoContainer": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Inno」·「Container」；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [],
     "enums": {
       "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
     },
@@ -120832,6 +122845,22 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「win」·状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 12。"
+      },
+      {
+        "field_name": "increased_score",
+        "field_number": 13,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「increased」·分数；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 13。"
+      },
+      {
+        "field_name": "user",
+        "field_number": 14,
+        "proto_type": "webcast.data.User",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "与当前消息相关的用户资料；送礼、弹幕或入场场景由所属消息决定。结构：单值；来源：官方解码字段 14。"
       }
     ],
     "enums": {
@@ -129684,6 +131713,149 @@
     "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
     "observed_msg_type_ids": []
   },
+  "webcast.im.PaidLinkmicMessage": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Paid」·连麦·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "type",
+        "field_number": 1,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "open_content",
+        "field_number": 2,
+        "proto_type": "webcast.im.PaidLinkmicMessage.PaidLinkmicOpenContent",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：开放·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。",
+        "oneof": "content"
+      },
+      {
+        "field_name": "close_content",
+        "field_number": 3,
+        "proto_type": "webcast.im.PaidLinkmicMessage.PaidLinkmicCloseContent",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：关闭·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。",
+        "oneof": "content"
+      },
+      {
+        "field_name": "config_update_content",
+        "field_number": 4,
+        "proto_type": "webcast.im.PaidLinkmicMessage.PaidLinkmicConfigUpdateContent",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：配置·更新·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。",
+        "oneof": "content"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.PaidLinkmicMessage.PaidLinkmicCloseContent": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Paid」·连麦·关闭·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "waiting_user_need_leave",
+        "field_number": 2,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「waiting」·用户·是否需要·离开；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "waiting_user_toast",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「waiting」·用户·提示；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.PaidLinkmicMessage.PaidLinkmicConfigUpdateContent": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Paid」·连麦·配置·更新·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "waiting_user_need_leave",
+        "field_number": 1,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「waiting」·用户·是否需要·离开；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "waiting_user_toast",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「waiting」·用户·提示；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "normal_paid_linkmic_info",
+        "field_number": 3,
+        "proto_type": "webcast.data.NormalPaidLinkmicInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：正常·「paid」·连麦·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.PaidLinkmicMessage.PaidLinkmicOpenContent": {
+    "msg_type_id": 0,
+    "desc": "名称推断：「Paid」·连麦·开放·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "normal_paid_linkmic_info",
+        "field_number": 1,
+        "proto_type": "webcast.data.NormalPaidLinkmicInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：正常·「paid」·连麦·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "waiting_user_need_leave",
+        "field_number": 2,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「waiting」·用户·是否需要·离开；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "waiting_user_toast",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「waiting」·用户·提示；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
   "webcast.im.PaidLiveDataMessage": {
     "msg_type_id": 0,
     "desc": "名称推断：「Paid」·直播·数据·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
@@ -133897,6 +136069,41 @@
     "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
     "observed_msg_type_ids": []
   },
+  "webcast.im.PrivilegeLeagueMessage": {
+    "msg_type_id": 0,
+    "desc": "名称推断：权益·「League」·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "common",
+        "field_number": 1,
+        "proto_type": "webcast.im.Common",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "scene",
+        "field_number": 2,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「scene」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "payload",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "本层协议的二进制载荷；信封载荷根据 method 路由至业务解码器。结构：单值；来源：官方解码字段 3。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
   "webcast.im.PrivilegeScreenChatMessage": {
     "msg_type_id": 0,
     "desc": "名称推断：权益·屏幕·弹幕·消息；用于弹幕及表情互动，业务细节待样本确认。来源：官方 Parser 运行时定义。",
@@ -136483,6 +138690,33 @@
     "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
     "observed_msg_type_ids": []
   },
+  "webcast.im.RankInfo": {
+    "msg_type_id": 0,
+    "desc": "名称推断：榜单·信息；用于直播榜单及统计，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "user",
+        "field_number": 1,
+        "proto_type": "webcast.data.User",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "与当前消息相关的用户资料；送礼、弹幕或入场场景由所属消息决定。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "rank",
+        "field_number": 2,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：榜单；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
   "webcast.im.RankItem": {
     "msg_type_id": 0,
     "desc": "名称推断：榜单·「Item」；用于直播榜单及统计，业务细节待样本确认。来源：官方 Parser 运行时定义。",
@@ -136759,6 +138993,14 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「entrance」·附加；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "style",
+        "field_number": 4,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：样式；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
       }
     ],
     "enums": {
@@ -140353,6 +142595,33 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：「bg」·「img」·资源地址；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.RoomIMRBControlMessage": {
+    "msg_type_id": 0,
+    "desc": "名称推断：直播间·「IMRBControl」·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "common",
+        "field_number": 1,
+        "proto_type": "webcast.im.Common",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "control_info",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "直播间 IM 控制信息的原始字符串；内部格式、RB 缩写含义需结合官方业务调用确认，不作二次协议猜测。结构：单值；来源：官方解码字段 2。"
       }
     ],
     "enums": {
@@ -145901,6 +148170,41 @@
     "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
     "observed_msg_type_ids": []
   },
+  "webcast.im.TeamInfo": {
+    "msg_type_id": 0,
+    "desc": "名称推断：队伍·信息；用于直播游戏及组队玩法，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "team_key",
+        "field_number": 1,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：队伍·键；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "team_name",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：队伍·名称；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "team_icon",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：队伍·「icon」；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
   "webcast.im.TeamPlayApplyListChangeMessage": {
     "msg_type_id": 0,
     "desc": "名称推断：队伍·玩法·「Apply」·列表·「Change」·消息；用于直播游戏及组队玩法，业务细节待样本确认。来源：官方 Parser 运行时定义。",
@@ -146316,6 +148620,159 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：文本；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.TeamRankInfoMessage": {
+    "msg_type_id": 0,
+    "desc": "名称推断：队伍·榜单·信息·消息；用于直播榜单及统计，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "common",
+        "field_number": 1,
+        "proto_type": "webcast.im.Common",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：公共消息信息；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "anchor_rank_list",
+        "field_number": 2,
+        "proto_type": "webcast.im.AnchorRankView",
+        "is_repeated": true,
+        "is_nested": true,
+        "comment": "名称推断：主播·榜单·列表；用于直播榜单及统计，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 2。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.TeamSupportBattleView": {
+    "msg_type_id": 0,
+    "desc": "名称推断：队伍·「Support」·对战·「View」；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "match_key",
+        "field_number": 1,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「match」·键；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "schedule_id",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「schedule」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "vote_status",
+        "field_number": 3,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「vote」·状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "battle_id",
+        "field_number": 4,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "battle_name",
+        "field_number": 5,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：对战·名称；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "start_time",
+        "field_number": 6,
+        "proto_type": "int64",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：开始·时间；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。"
+      },
+      {
+        "field_name": "team_scores",
+        "field_number": 7,
+        "proto_type": "webcast.im.UserSupportTeamScoreView",
+        "is_repeated": true,
+        "is_nested": true,
+        "comment": "名称推断：队伍·「scores」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 7。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.TeamSupportMessage": {
+    "msg_type_id": 0,
+    "desc": "名称推断：队伍·「Support」·消息；用于直播游戏及组队玩法，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "common",
+        "field_number": 1,
+        "proto_type": "webcast.im.Common",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：公共消息信息；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "current_battle",
+        "field_number": 2,
+        "proto_type": "webcast.im.TeamSupportBattleView",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：「current」·对战；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "gift_info",
+        "field_number": 3,
+        "proto_type": "webcast.im.UserSupportGiftInfo",
+        "is_repeated": false,
+        "is_nested": true,
+        "comment": "名称推断：礼物·信息；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "play_status",
+        "field_number": 4,
+        "proto_type": "int32",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：玩法·状态；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "is_first_support",
+        "field_number": 5,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「is」·「first」·「support」；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
+      },
+      {
+        "field_name": "is_schedule_end",
+        "field_number": 6,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「is」·「schedule」·结束；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。"
       }
     ],
     "enums": {
@@ -148995,6 +151452,92 @@
         "is_repeated": false,
         "is_nested": false,
         "comment": "名称推断：用户·开放·标识；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.UserSupportGiftInfo": {
+    "msg_type_id": 0,
+    "desc": "名称推断：用户·「Support」·礼物·信息；用于礼物赠送、连击及收益，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "gift_id",
+        "field_number": 1,
+        "proto_type": "int64",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：礼物·标识；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "gift_name",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：礼物·名称；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "gift_icon",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：礼物·「icon」；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      }
+    ],
+    "enums": {
+      "comment": "本消息嵌套枚举及归档于本项的同命名空间枚举"
+    },
+    "msg_type_id_source": "未知：官方结构无唯一类型编号，0 为未知占位",
+    "observed_msg_type_ids": []
+  },
+  "webcast.im.UserSupportTeamScoreView": {
+    "msg_type_id": 0,
+    "desc": "名称推断：用户·「Support」·队伍·分数·「View」；用于直播游戏及组队玩法，业务细节待样本确认。来源：官方 Parser 运行时定义。",
+    "fields": [
+      {
+        "field_name": "team_key",
+        "field_number": 1,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：队伍·键；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。"
+      },
+      {
+        "field_name": "team_name",
+        "field_number": 2,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：队伍·名称；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。"
+      },
+      {
+        "field_name": "team_icon",
+        "field_number": 3,
+        "proto_type": "string",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：队伍·「icon」；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。"
+      },
+      {
+        "field_name": "anchor_selected_team",
+        "field_number": 4,
+        "proto_type": "bool",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：主播·「selected」·队伍；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。"
+      },
+      {
+        "field_name": "support_value",
+        "field_number": 5,
+        "proto_type": "int64",
+        "is_repeated": false,
+        "is_nested": false,
+        "comment": "名称推断：「support」·值；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。"
       }
     ],
     "enums": {

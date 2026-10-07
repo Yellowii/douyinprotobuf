@@ -7,6 +7,7 @@ let token = "",
   selected = null,
   types = [],
   schemaRequest = 0;
+let barrageCount = 0;
 const labels = {
   stopped: "未连接",
   connecting: "正在连接",
@@ -154,6 +155,7 @@ $("connect-form").onsubmit = async (e) => {
         mode,
         roomUrl: mode === "browser" ? target : undefined,
         wss: mode === "direct" ? target : undefined,
+        directory: mode === "raw" ? target : undefined,
         visible: $("visible").checked,
         modern: $("modern").checked,
       }),
@@ -174,12 +176,58 @@ $("stop").onclick = async () => {
 };
 $("mode").onchange = () => {
   const direct = $("mode").value === "direct";
-  $("url-label").textContent = direct ? "当前有效的 WSS 地址" : "直播间地址";
-  $("target").placeholder = direct
-    ? "wss://webcast…douyin.com/webcast/im/push/v2/?…"
-    : "https://live.douyin.com/房间号";
-  $("visible").disabled = direct;
+  const raw = $("mode").value === "raw";
+  $("url-label").textContent = raw
+    ? "原始包只读目录"
+    : direct
+      ? "当前有效的 WSS 地址"
+      : "直播间地址";
+  $("target").placeholder = raw
+    ? "D:\\Proj\\LiveDash\\WssBarrageServer\\raw_proto"
+    : direct
+      ? "wss://webcast…douyin.com/webcast/im/push/v2/?…"
+      : "https://live.douyin.com/房间号";
+  $("visible").disabled = direct || raw;
   $("modern").disabled = !direct;
+};
+function updateStatus(s) {
+  const names = {
+    idle: "等待检查",
+    checking: "正在检查",
+    updated: "已更新",
+    unchanged: "当前已是所发现的官方版本",
+    failed: "检查失败，保留旧版",
+    throttled: "检查冷却中",
+  };
+  $("update-status").textContent =
+    (names[s.status] || s.status) +
+    (s.checked_at
+      ? " · " + new Date(s.checked_at).toLocaleString("zh-CN")
+      : "");
+  $("update-detail").textContent =
+    (s.message || "") + (s.error ? "：" + s.error : "");
+  $("update-parser").disabled = s.status === "checking";
+}
+$("update-parser").onclick = async () => {
+  try {
+    updateStatus({
+      status: "checking",
+      message: "正在检查官方模块并校验协议…",
+    });
+    updateStatus(await api("/api/parser-update", {}));
+    const session = await api("/api/session");
+    $("protocol-count").textContent = session.protocols.toLocaleString();
+    $("field-count").textContent = session.fields.toLocaleString();
+    types = await api("/api/schema");
+    $("type-list").replaceChildren();
+    for (const name of types) {
+      const option = document.createElement("option");
+      option.value = name;
+      $("type-list").append(option);
+    }
+  } catch (e) {
+    updateStatus({ status: "failed", message: e.message });
+  }
 };
 $("mode").onchange();
 $("filter").oninput = render;
@@ -211,6 +259,7 @@ async function init() {
   const session = await api("/api/session");
   token = session.token;
   status(session.status);
+  updateStatus(session.parser_update);
   $("protocol-count").textContent = session.protocols.toLocaleString();
   $("field-count").textContent = session.fields.toLocaleString();
   types = await api("/api/schema");
@@ -221,6 +270,43 @@ async function init() {
   }
   const events = new EventSource("/events");
   events.addEventListener("status", (e) => status(JSON.parse(e.data)));
+  events.addEventListener("parser-update", (e) =>
+    updateStatus(JSON.parse(e.data)),
+  );
+  events.addEventListener("barrage", (e) => {
+    const b = JSON.parse(e.data);
+    barrageCount++;
+    $("barrage-count").textContent = barrageCount.toLocaleString();
+    const feed = $("barrage-feed");
+    if (barrageCount === 1) feed.replaceChildren();
+    const row = document.createElement("div");
+    row.className = "barrage-row";
+    const time = document.createElement("small");
+    time.textContent = new Date().toLocaleTimeString("zh-CN", {
+      hour12: false,
+    });
+    const user = document.createElement("strong");
+    user.textContent = b.user.nickname || "观众";
+    const text = document.createElement("span");
+    text.textContent =
+      b.text ||
+      (b.kind === "emoji"
+        ? "[表情弹幕]"
+        : b.kind === "audio"
+          ? "[语音弹幕]"
+          : "[屏幕弹幕]");
+    row.append(time, user, text);
+    row.onclick = () =>
+      show({
+        method: b.method,
+        type: b.type,
+        status: "decoded",
+        data: b.data,
+        time: time.textContent,
+      });
+    feed.prepend(row);
+    while (feed.children.length > 100) feed.lastElementChild.remove();
+  });
   events.addEventListener("failure", (e) => {
     errors++;
     $("error-count").textContent = errors;

@@ -57,6 +57,7 @@
               >连接方式<select id="mode">
                 <option value="browser">直播间 URL · 官方浏览器</option>
                 <option value="direct">WSS 地址 · Node 直连</option>
+                <option value="raw">raw_proto 目录 · 只读实时监听</option>
               </select></label
             ><label class="grow"
               ><span id="url-label">直播间地址</span
@@ -82,6 +83,29 @@
         <p id="notice" role="status" class="notice">
           输入正在直播的房间地址，即可观察下行消息。
         </p>
+      </section>
+      <section class="panel" id="updates">
+        <div class="panel-title">
+          <div>
+            <h2>官方 Parser 更新</h2>
+            <p class="muted" id="update-status">
+              默认每天检查，校验通过后生成双产物并记录差异。
+            </p>
+          </div>
+          <button id="update-parser" class="secondary">检查更新</button>
+        </div>
+        <p class="notice" id="update-detail">
+          旧版与新版差异保存在 output/parser-updates.jsonl。
+        </p>
+      </section>
+      <section class="panel" id="barrage">
+        <div class="panel-title">
+          <h2>实时弹幕 <span id="barrage-count" class="badge">0</span></h2>
+          <span class="muted">文字 · 表情 · 屏幕弹幕 · 语音</span>
+        </div>
+        <div id="barrage-feed" class="barrage-feed">
+          <p class="muted">连接直播间或监听样本目录后，弹幕会在这里出现。</p>
+        </div>
       </section>
       <section class="workspace">
         <div class="panel feed">

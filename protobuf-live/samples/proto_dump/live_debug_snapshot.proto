@@ -1,7 +1,7 @@
 syntax = "proto3"; // 标准第三版协议语法
 // 来源为官方运行时；命名空间以容器消息表示，保持所有类型全名。
 // 中文业务注释中的“名称推断”不代表已验证事实；枚举字段若被编译为整数则保留整数。
-// 官方来源：live-schema-im.aa08852d.js；摘要：082a0b5238cfed829d0e38187d3ab0bb499be229b6f87bd95a29734e48a9ac19
+// 官方来源：live-schema-im.e322bd8a.js；摘要：232a3d3890052ebe868b4b14aca38918730285adbc0f623c77dc8bdaafbc783b
 // 官方来源：transport-schema-im.63ff9a29.js；摘要：11240991fcc7b733ca2349442c0e9523d4a40f978a8c432fa3993f9e2a51d750
 
 message webcast { // 官方命名空间容器；用于保持完整类型路径，非线上业务消息
@@ -671,6 +671,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int64 appointment_id = 18; // 名称推断：「appointment」·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 18。
       repeated string tracking_type = 19; // 名称推断：埋点·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 19。
       bool is_hidden = 20; // 名称推断：「is」·「hidden」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 20。
+      string schema_url_lynx = 21; // 名称推断：跳转地址·资源地址·「lynx」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 21。
       string open_id = 5000; // 名称推断：开放·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
     } // 消息或命名空间结束
     message BannerCollapse { // 名称推断：横幅·「Collapse」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
@@ -691,6 +692,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string lynx_container_url = 7; // 名称推断：「lynx」·「container」·资源地址；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
       int64 container_type = 8; // 名称推断：「container」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
       repeated string token_list = 9; // 名称推断：「token」·列表；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 9。
+      string lynx_container_url_v2 = 10; // 名称推断：「lynx」·「container」·资源地址·第二版；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 10。
     } // 消息或命名空间结束
     message BannerData { // 名称推断：横幅·数据；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.data.BannerContainer top_right = 1; // 名称推断：「top」·「right」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -718,6 +720,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.data.FeedbackProps feedback_props = 100; // 名称推断：「feedback」·「props」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 100。
       .webcast.data.BannerFeedbackViewCustomProps custom_props = 101; // 名称推断：「custom」·「props」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 101。
       .webcast.data.BasicProps basic_props = 102; // 名称推断：「basic」·「props」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 102。
+      .webcast.data.CoupleSeatProps couple_seat_props = 103; // 名称推断：「couple」·「seat」·「props」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 103。
     } // 消息或命名空间结束
     message BannerFeedbackViewCustomProps { // 名称推断：横幅·「Feedback」·「View」·「Custom」·「Props」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       string biz_data = 1; // 名称推断：业务·数据；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -737,6 +740,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.data.CardProps card_props = 103; // 名称推断：「card」·「props」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 103。
       .webcast.data.PublicProps public_props = 104; // 名称推断：公屏·「props」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 104。
       .webcast.data.BannerViewCustomProps custom_props = 105; // 名称推断：「custom」·「props」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 105。
+      .webcast.data.CoupleSeatProps couple_seat_props = 106; // 名称推断：「couple」·「seat」·「props」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 106。
     } // 消息或命名空间结束
     message BannerViewCustomProps { // 名称推断：横幅·「View」·「Custom」·「Props」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       string biz_data = 1; // 名称推断：业务·数据；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -835,6 +839,15 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int64 create_time_ms = 5; // 名称推断：创建·时间·毫秒；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
       string card_extra_info = 6; // 名称推断：「card」·附加·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
     } // 消息或命名空间结束
+    message BattleChallenge { // 名称推断：对战·「Challenge」；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      string id = 1; // 名称推断：标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string channel_id = 2; // 名称推断：频道·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      string battle_id = 3; // 名称推断：对战·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      int32 setting_id = 4; // 名称推断：设置·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      string title = 5; // 名称推断：标题；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+      string effect_id = 6; // 名称推断：「effect」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
+      string pc_helper_effect_id = 7; // 名称推断：「pc」·「helper」·「effect」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
+    } // 消息或命名空间结束
     message BattleCloudCollaborateConfig { // 名称推断：对战·「Cloud」·「Collaborate」·配置；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int32 panel_type = 1; // 名称推断：「panel」·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       bool start_lightning_effect = 2; // 名称推断：开始·「lightning」·「effect」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -916,6 +929,16 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string loser_open_id = 5000; // 名称推断：「loser」·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
       string loser_open_id_str = 5001; // 名称推断：「loser」·开放·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5001。
     } // 消息或命名空间结束
+    message BattleEasterEggInfo { // 名称推断：对战·「Easter」·「Egg」·信息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      map<string, .webcast.data.EasterEggInfo> easter_egg_info_map = 1; // 名称推断：「easter」·「egg」·信息·映射；用于主播连麦及对战，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 1。
+      bool is_revelry = 2; // 名称推断：「is」·「revelry」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      map<string, .webcast.data.User> user_map = 3; // 名称推断：用户·映射；用于主播连麦及对战，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 3。
+      string trigger_user_id = 4; // 名称推断：「trigger」·用户·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      string first_advance_easter_egg_id = 5; // 名称推断：「first」·「advance」·「easter」·「egg」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+      repeated string advance_easter_egg_id_list = 6; // 名称推断：「advance」·「easter」·「egg」·标识·列表；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 6。
+      string trigger_user_open_id = 5000; // 名称推断：「trigger」·用户·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
+      map<string, .webcast.data.EasterEggInfo> open_easter_egg_info_map = 5001; // 名称推断：开放·「easter」·「egg」·信息·映射；用于主播连麦及对战，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 5001。
+    } // 消息或命名空间结束
     message BattleLinkerInviteMessageExtra { // 名称推断：对战·连麦·邀请·消息·附加；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int64 match_type = 1; // 名称推断：「match」·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       string tips = 2; // 名称推断：「tips」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -974,6 +997,13 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int64 rank = 3; // 名称推断：榜单；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
       int64 grade_buff_score = 4; // 名称推断：「grade」·「buff」·分数；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
       string sub_des = 5; // 名称推断：「sub」·「des」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+    } // 消息或命名空间结束
+    message BattleRemoteUser { // 名称推断：对战·「Remote」·用户；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      string user_id = 1; // 名称推断：用户·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string nickname = 2; // 名称推断：昵称；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      .webcast.data.Image avatar_medium = 3; // 名称推断：头像·「medium」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      int32 reply_status = 4; // 名称推断：回复·状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      string open_id = 5000; // 名称推断：开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
     } // 消息或命名空间结束
     message BattleReserveOption { // 名称推断：对战·「Reserve」·「Option」；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int64 reserve_option_id = 1; // 名称推断：「reserve」·「option」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -1099,6 +1129,9 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string lynx_data = 38; // 名称推断：「lynx」·数据；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 38。
       int64 sub_type = 39; // 名称推断：「sub」·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 39。
       int64 battle_status = 40; // 名称推断：对战·状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 40。
+      int32 battle_scene = 41; // 名称推断：对战·「scene」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 41。
+      string battle_id_str = 42; // 名称推断：对战·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 42。
+      string channel_id_str = 43; // 名称推断：频道·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 43。
       string initiator_open_id = 5000; // 名称推断：「initiator」·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
     } // 消息或命名空间结束
     message BattleShellConfig { // 名称推断：对战·「Shell」·配置；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
@@ -1166,12 +1199,14 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int64 multi_pk_team_id = 10; // 名称推断：「multi」·「pk」·队伍·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 10。
       string battle_start_desc_text = 11; // 名称推断：对战·开始·「desc」·文本；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 11。
       .webcast.data.BattleUserInfo.UserImgFlipInfo user_img_flip_info = 12; // 名称推断：用户·「img」·「flip」·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 12。
+      string room_id = 13; // 名称推断：直播间·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 13。
       message BaseUserInfo { // 名称推断：「Base」·用户·信息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
         int64 user_id = 1; // 名称推断：用户·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
         string nick_name = 2; // 名称推断：昵称·名称；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
         .webcast.data.Image avatar_thumb = 3; // 名称推断：头像·「thumb」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
         int32 gender = 4; // 名称推断：性别；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
         string user_id_str = 5; // 名称推断：用户·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+        string sec_uid = 6; // 名称推断：「sec」·「uid」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
         string open_id = 5000; // 名称推断：开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
         string user_open_id_str = 5001; // 名称推断：用户·开放·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5001。
       } // 消息或命名空间结束
@@ -1855,6 +1890,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       repeated .webcast.data.DisplayItem display_items = 1; // 名称推断：展示·「items」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 1。
       .webcast.data.SchemaInfo schema_info = 10; // 名称推断：跳转地址·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 10。
       .webcast.data.ComboInfo combo_info = 11; // 名称推断：连击·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 11。
+      map<string, .webcast.data.CountdownConfig> countdown_configs = 12; // 名称推断：「countdown」·「configs」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 12。
     } // 消息或命名空间结束
     message CombineType { // 名称推断：「Combine」·类型；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int32 area_type = 1; // 名称推断：区域·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -2064,6 +2100,35 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int64 duration = 2; // 名称推断：持续时间；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
       int64 elem_type = 3; // 名称推断：「elem」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
     } // 消息或命名空间结束
+    message CountdownAction { // 名称推断：「Countdown」·「Action」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      int32 action_type = 1; // 名称推断：「action」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      int32 delay_ms = 2; // 名称推断：「delay」·毫秒；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      string toast = 3; // 名称推断：提示；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      map<string, string> request_params = 4; // 名称推断：请求·参数；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 4。
+      .webcast.data.ClickMobData track_mob = 5; // 名称推断：「track」·「mob」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+      .webcast.data.CombinedText refresh_text = 6; // 名称推断：「refresh」·文本；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
+    } // 消息或命名空间结束
+    message CountdownConfig { // 名称推断：「Countdown」·配置；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      repeated .webcast.data.CountdownAction end_actions = 1; // 名称推断：结束·「actions」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 1。
+    } // 消息或命名空间结束
+    message CountdownItem { // 名称推断：「Countdown」·「Item」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      int32 duration_ms = 1; // 名称推断：持续时间·毫秒；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      int32 format_type = 2; // 名称推断：「format」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      int32 update_interval = 3; // 名称推断：更新·间隔；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      int32 speed_ratio_x100 = 4; // 名称推断：「speed」·「ratio」·「x100」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      string countdown_config_key = 5; // 名称推断：「countdown」·配置·键；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+      string color = 6; // 名称推断：颜色；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
+      int32 weight = 7; // 名称推断：「weight」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
+    } // 消息或命名空间结束
+    message CoupleSeatProps { // 名称推断：「Couple」·「Seat」·「Props」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      string animation_type = 1; // 名称推断：「animation」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string title = 2; // 名称推断：标题；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      string sub_title = 3; // 名称推断：「sub」·标题；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      repeated .webcast.data.AvatarProps avatars = 4; // 名称推断：「avatars」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 4。
+      string bg_img = 5; // 名称推断：「bg」·「img」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+      bool show_love_icon = 6; // 名称推断：「show」·「love」·「icon」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
+      bool show_petal_icon = 7; // 名称推断：「show」·「petal」·「icon」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
+    } // 消息或命名空间结束
     message Coupon { // 名称推断：「Coupon」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       string icon = 1; // 名称推断：「icon」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       string start_time = 2; // 名称推断：开始·时间；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -2182,6 +2247,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       bool number_roll = 23; // 名称推断：「number」·「roll」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 23。
       .webcast.data.ImagesItem images_item = 50; // 名称推断：「images」·「item」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 50。
       .webcast.data.TextItem text_item = 51; // 名称推断：文本·「item」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 51。
+      .webcast.data.CountdownItem countdown_item = 52; // 名称推断：「countdown」·「item」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 52。
       .webcast.data.DisplayItemFormat format = 100; // 名称推断：「format」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 100。
     } // 消息或命名空间结束
     message DisplayItemFormat { // 名称推断：展示·「Item」·「Format」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
@@ -2224,6 +2290,9 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string task_value = 6; // 名称推断：任务·值；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
       repeated string entity_id_list = 7; // 名称推断：「entity」·标识·列表；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 7。
       string play_id = 8; // 名称推断：玩法·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
+      bool can_advance_reward = 9; // 名称推断：「can」·「advance」·奖励；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。
+      string advance_finish_task_sec = 10; // 名称推断：「advance」·「finish」·任务·「sec」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 10。
+      string easter_egg_id = 11; // 名称推断：「easter」·「egg」·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 11。
       message PeriodConfig { // 名称推断：「Period」·配置；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
         int32 stage = 1; // 名称推断：「stage」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
         string start_time_sec = 2; // 名称推断：开始·时间·「sec」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -2252,6 +2321,8 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.data.EasterEggUpdateInfo.RewardInfo reward_info = 2; // 名称推断：奖励·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
       message RewardInfo { // 名称推断：奖励·信息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
         string addition_score = 1; // 名称推断：「addition」·分数；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+        map<string, string> addition_score_map = 2; // 名称推断：「addition」·分数·映射；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 2。
+        map<string, string> open_addition_score_map = 5000; // 名称推断：开放·「addition」·分数·映射；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 5000。
       } // 消息或命名空间结束
       message TaskInfo { // 名称推断：任务·信息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
         string cur_value = 1; // 名称推断：「cur」·值；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -3092,6 +3163,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int32 tray_group_mode = 21; // 名称推断：「tray」·「group」·「mode」；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 21。
       int32 expensive_tray_group_num = 22; // 名称推断：「expensive」·「tray」·「group」·「num」；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 22。
       int32 regular_tray_group_num = 23; // 名称推断：「regular」·「tray」·「group」·「num」；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 23。
+      string tray_extra_text = 24; // 名称推断：「tray」·附加·文本；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 24。
     } // 消息或命名空间结束
     message GiftUnselectedBottomInfo { // 名称推断：礼物·「Unselected」·「Bottom」·信息；用于礼物赠送、连击及收益，业务细节待样本确认。来源：官方 Parser 运行时定义。
       string text = 1; // 名称推断：文本；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -3370,6 +3442,22 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.data.Image open_animation = 1; // 名称推断：开放·「animation」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       .webcast.data.Image finish_animation = 2; // 名称推断：「finish」·「animation」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
     } // 消息或命名空间结束
+    message GuestGradeInfo { // 名称推断：「Guest」·「Grade」·信息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      int32 level = 1; // 名称推断：等级；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      int32 node = 2; // 名称推断：「node」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      string score = 3; // 名称推断：分数；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      string name = 4; // 名称推断：名称；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      .webcast.data.Image icon = 5; // 名称推断：「icon」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+    } // 消息或命名空间结束
+    message GuestGradeSeasonInfo { // 名称推断：「Guest」·「Grade」·「Season」·信息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      string season_id = 1; // 名称推断：「season」·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string season_name = 2; // 名称推断：「season」·名称；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+    } // 消息或命名空间结束
+    message GuestGradeUpgradeInfo { // 名称推断：「Guest」·「Grade」·「Upgrade」·信息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      string progress_score = 1; // 名称推断：「progress」·分数；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string total_score = 2; // 名称推断：累计总量·分数；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      string sub_diff_score = 3; // 名称推断：「sub」·「diff」·分数；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+    } // 消息或命名空间结束
     message GuestLinkChannelInfo { // 名称推断：「Guest」·连线·频道·信息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int64 channel_id = 1; // 名称推断：频道·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       repeated .webcast.data.LinkmicGuestLinkUser linked_users = 2; // 名称推断：「linked」·「users」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 2。
@@ -3611,6 +3699,13 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       bool flow_is_open = 1; // 名称推断：「flow」·「is」·开放；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       int32 type = 2; // 名称推断：类型；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
       string container_payload = 3; // 名称推断：「container」·二进制载荷；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      string position = 4; // 名称推断：「position」；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      string url = 5; // 名称推断：资源地址；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+      string fold_url = 6; // 名称推断：「fold」·资源地址；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
+      string horizontal_url = 7; // 名称推断：「horizontal」·资源地址；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
+      bool can_adjust_position = 8; // 名称推断：「can」·「adjust」·「position」；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
+      string priority = 9; // 名称推断：优先级；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。
+      string container_id = 10; // 名称推断：「container」·标识；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 10。
     } // 消息或命名空间结束
     message InteractionPluginGamePlusContainerData { // 名称推断：「Interaction」·「Plugin」·游戏·「Plus」·「Container」·数据；用于直播游戏及组队玩法，业务细节待样本确认。来源：官方 Parser 运行时定义。
       string mini_app_id = 1; // 名称推断：「mini」·应用·标识；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -3959,15 +4054,31 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int32 show_text = 1; // 名称推断：「show」·文本；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       string display_text = 2; // 名称推断：展示·文本；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
     } // 消息或命名空间结束
+    message LikeIconConfigItem { // 名称推断：点赞·「Icon」·配置·「Item」；用于点赞互动，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      repeated string icon_uris = 1; // 名称推断：「icon」·「uris」；用于点赞互动，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 1。
+      int64 ticket_id = 2; // 名称推断：票据·标识；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      int64 parent_ticket_id = 3; // 名称推断：「parent」·票据·标识；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      int64 camera_id = 4; // 名称推断：「camera」·标识；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+    } // 消息或命名空间结束
     message LikeIconInfo { // 名称推断：点赞·「Icon」·信息；用于点赞互动，业务细节待样本确认。来源：官方 Parser 运行时定义。
       repeated .webcast.data.Image icons = 1; // 名称推断：「icons」；用于点赞互动，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 1。
       map<int64, .webcast.data.LikeIconInfo.IconList> component_related_icons = 2; // 名称推断：「component」·「related」·「icons」；用于点赞互动，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 2。
       repeated .webcast.data.EmojiMaterial emojis = 3; // 名称推断：「emojis」；用于点赞互动，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 3。
       .webcast.data.EmojiMaterial entry_emoji = 4; // 名称推断：「entry」·表情；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
       .webcast.data.PicoVirtualLiveConfig pico_virtual_live_config = 5; // 名称推断：「pico」·「virtual」·直播·配置；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+      map<int64, .webcast.data.LikeIconItem> camera_like_icon_items = 6; // 名称推断：「camera」·点赞·「icon」·「items」；用于点赞互动，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 6。
+      .webcast.data.LikeIconItem room_like_icon_items = 7; // 名称推断：直播间·点赞·「icon」·「items」；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
       message IconList { // 名称推断：「Icon」·列表；用于点赞互动，业务细节待样本确认。来源：官方 Parser 运行时定义。
         repeated .webcast.data.Image icons = 1; // 名称推断：「icons」；用于点赞互动，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 1。
       } // 消息或命名空间结束
+    } // 消息或命名空间结束
+    message LikeIconItem { // 名称推断：点赞·「Icon」·「Item」；用于点赞互动，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      repeated .webcast.data.Image icons = 1; // 名称推断：「icons」；用于点赞互动，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 1。
+      int64 ticket_id = 2; // 名称推断：票据·标识；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      string ticket_id_str = 3; // 名称推断：票据·标识·「str」；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      int64 camera_id = 4; // 名称推断：「camera」·标识；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      string camera_id_str = 5; // 名称推断：「camera」·标识·「str」；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+      int64 right = 6; // 名称推断：「right」；用于点赞互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
     } // 消息或命名空间结束
     message LinkerBaseInfo { // 名称推断：连麦·「Base」·信息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int32 scene = 1; // 名称推断：「scene」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -4434,6 +4545,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       bool is_mic_hidden = 31; // 名称推断：「is」·麦位·「hidden」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 31。
       bool is_masked = 32; // 名称推断：「is」·「masked」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 32。
       string nick_name_under_masked = 33; // 名称推断：昵称·名称·「under」·「masked」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 33。
+      string nick_name_under_masked_v2 = 34; // 名称推断：昵称·名称·「under」·「masked」·第二版；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 34。
       repeated string rank_contributor_open_ids = 5000; // 名称推断：榜单·「contributor」·开放·「ids」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 5000。
     } // 消息或命名空间结束
     message ListUserLinkmicContent { // 名称推断：列表·用户·连麦·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
@@ -5388,6 +5500,9 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int64 max_amount = 7; // 名称推断：「max」·「amount」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
       .webcast.data.PiggyBank.Button button = 8; // 名称推断：「button」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
       repeated string short_desc_list = 9; // 名称推断：短标识·「desc」·列表；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 9。
+      repeated int64 target_amounts = 10 [packed = true]; // 名称推断：「target」·「amounts」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 10。
+      int64 completed_stage = 11; // 名称推断：「completed」·「stage」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 11。
+      int64 withdraw_amount = 12; // 名称推断：「withdraw」·「amount」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 12。
       message Button { // 名称推断：「Button」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
         int32 type = 1; // 名称推断：类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
         string button_text = 2; // 名称推断：「button」·文本；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -5477,6 +5592,8 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int64 stock_update_seconds = 6; // 名称推断：「stock」·更新·「seconds」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
       string marketing_text = 7; // 名称推断：「marketing」·文本；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
       int64 max_user_count = 8; // 名称推断：「max」·用户·数量；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
+      int64 max_interact_score = 9; // 名称推断：「max」·「interact」·分数；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。
+      int32 interact_types = 10; // 名称推断：「interact」·「types」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 10。
     } // 消息或命名空间结束
     message PopularityEggButton { // 名称推断：「Popularity」·「Egg」·「Button」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int32 template = 1; // 名称推断：「template」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -5639,6 +5756,8 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string preview_enter_extra = 40; // 名称推断：「preview」·进入·附加；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 40。
       .webcast.data.PreviewExposeData.PreviewComponentConfig component_config = 41; // 名称推断：「component」·配置；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 41。
       .webcast.data.PreviewExposeData.PreviewAdvantageInfo preview_advantage_info = 42; // 名称推断：「preview」·「advantage」·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 42。
+      int32 need_preload = 43; // 名称推断：是否需要·「preload」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 43。
+      string relation_info = 44; // 名称推断：「relation」·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 44。
       message ChatMessage { // 名称推断：弹幕·消息；用于弹幕及表情互动，业务细节待样本确认。来源：官方 Parser 运行时定义。
         string nick_name = 1; // 名称推断：昵称·名称；用于弹幕及表情互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
         string nick_name_color = 2; // 名称推断：昵称·名称·颜色；用于弹幕及表情互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -6175,6 +6294,18 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int32 scroll_size = 2; // 名称推断：「scroll」·「size」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
       int32 fold_size = 3; // 名称推断：「fold」·「size」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
       int32 scroll_speed = 4; // 名称推断：「scroll」·「speed」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+    } // 消息或命名空间结束
+    message PullStreamInfo { // 名称推断：「Pull」·音视频流·信息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      repeated .webcast.data.PullStreamItem items = 1; // 名称推断：「items」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 1。
+    } // 消息或命名空间结束
+    message PullStreamItem { // 名称推断：「Pull」·音视频流·「Item」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      string target_room_id = 1; // 名称推断：「target」·直播间·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string target_rtc_user_id = 2; // 名称推断：「target」·「rtc」·用户·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      int32 target_stream_index = 3; // 名称推断：「target」·音视频流·「index」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      string local_rtc_user_id = 4; // 名称推断：「local」·「rtc」·用户·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      string local_user_token = 5; // 名称推断：「local」·用户·「token」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+      int32 link_status = 6; // 名称推断：连线·状态；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
+      bool support_pull_stream = 7; // 名称推断：「support」·「pull」·音视频流；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
     } // 消息或命名空间结束
     message PurchaseSimpleData { // 名称推断：「Purchase」·「Simple」·数据；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int32 type = 1; // 名称推断：类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -7084,6 +7215,8 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int32 life_live_header_v2 = 25; // 名称推断：「life」·直播·头·第二版；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 25。
       map<string, bool> admin_op_type = 26; // 名称推断：「admin」·「op」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 26。
       bool ecom_live_start_with_cart = 27; // 名称推断：「ecom」·直播·开始·「with」·「cart」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 27。
+      bool vr_multi_member_only = 28; // 名称推断：「vr」·「multi」·入场成员·「only」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 28。
+      repeated .webcast.data.LikeIconConfigItem like_icon_items = 29; // 名称推断：点赞·「icon」·「items」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 29。
     } // 消息或命名空间结束
     message RoomFeedData { // 名称推断：直播间·「Feed」·数据；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.data.LabelInfo relation_label = 1; // 名称推断：「relation」·「label」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -7217,6 +7350,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int64 is_anchor_background = 4; // 名称推断：「is」·主播·背景；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
       int64 version = 5; // 名称推断：版本；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
       int64 live_room_mode = 6; // 名称推断：直播·直播间·「mode」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
+      string public_stream_id = 7; // 名称推断：公屏·音视频流·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
       string anchor_open_id = 5000; // 名称推断：主播·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
     } // 消息或命名空间结束
     message RoomOthersData { // 名称推断：直播间·「Others」·数据；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
@@ -7249,6 +7383,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string participant_activity = 27; // 名称推断：「participant」·「activity」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 27。
       .webcast.data.LifeData life_data = 28; // 名称推断：「life」·数据；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 28。
       map<string, .webcast.data.LabelValue> labels = 29; // 名称推断：「labels」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 29。
+      bool anonymous_ratio_display_affected = 30; // 名称推断：匿名·「ratio」·展示·「affected」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 30。
     } // 消息或命名空间结束
     message RoomPKRankInviteChangeInfo { // 名称推断：直播间·「PKRank」·邀请·「Change」·信息；用于直播榜单及统计，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.data.User invite_anchor_info = 1; // 名称推断：邀请·主播·信息；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -8018,6 +8153,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int32 vr_type = 26; // 名称推断：「vr」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 26。
       int32 multi_stream_scene = 27; // 名称推断：「multi」·音视频流·「scene」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 27。
       int32 resolution_select_panel_resident = 28; // 名称推断：「resolution」·「select」·「panel」·「resident」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 28。
+      string rtmps_push_url = 29; // 名称推断：「rtmps」·推送·资源地址；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 29。
       .webcast.data.OpenStreamUrlEncrypt open_stream_url_encrypt = 5000; // 名称推断：开放·音视频流·资源地址·「encrypt」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
       message LiveCoreSDKData { // 名称推断：直播·「Core」·「SDKData」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
         .webcast.data.StreamUrl.LiveCoreSDKData.PullData pull_data = 1; // 名称推断：「pull」·数据；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -8101,6 +8237,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
           int32 kind = 6; // 名称推断：「kind」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
           int64 stream_id = 7; // 名称推断：音视频流·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
           string stream_id_str = 8; // 名称推断：音视频流·标识·「str」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
+          string rtmps_push_url = 9; // 名称推断：「rtmps」·推送·资源地址；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。
           message ResolutionParams { // 名称推断：「Resolution」·参数；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
             int64 width = 1; // 名称推断：「width」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
             int64 height = 2; // 名称推断：「height」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -8211,6 +8348,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.data.PreRTCInfo pre_rtc_info = 16; // 名称推断：「pre」·「rtc」·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 16。
       string battle_attached_info = 17; // 名称推断：对战·「attached」·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 17。
       string event_tracking_info = 18; // 名称推断：事件·埋点·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 18。
+      .webcast.data.PullStreamInfo pull_stream_info = 19; // 名称推断：「pull」·音视频流·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 19。
     } // 消息或命名空间结束
     message TaskCondition { // 名称推断：任务·「Condition」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       string key = 1; // 名称推断：键；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -8413,6 +8551,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       bool ignore_color_mapping = 9; // 名称推断：「ignore」·颜色·「mapping」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。
       int32 gradient_orientation = 10; // 名称推断：「gradient」·「orientation」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 10。
       repeated string gradient_colors = 11; // 名称推断：「gradient」·「colors」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 11。
+      bool support_underline = 12; // 名称推断：「support」·「underline」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 12。
     } // 消息或命名空间结束
     message TextItem { // 名称推断：文本·「Item」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.data.Text text = 1; // 名称推断：文本；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -9759,6 +9898,10 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string pk_name = 2; // 名称推断：「pk」·名称；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
       string pk_data = 3; // 名称推断：「pk」·数据；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
     } // 消息或命名空间结束
+    message AnchorRankView { // 名称推断：主播·榜单·「View」；用于直播榜单及统计，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      .webcast.im.TeamInfo team_info = 1; // 名称推断：队伍·信息；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      repeated .webcast.im.RankInfo rank_list = 2; // 名称推断：榜单·列表；用于直播榜单及统计，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 2。
+    } // 消息或命名空间结束
     message AnchorRoomDataChangeMessage { // 名称推断：主播·直播间·数据·「Change」·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       .webcast.data.Text top_text = 2; // 名称推断：「top」·文本；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -10353,6 +10496,12 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       int64 channel_id = 2; // 名称推断：频道·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
     } // 消息或命名空间结束
+    message BattleChallengeMessage { // 名称推断：对战·「Challenge」·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      .webcast.data.BattleChallenge challenge = 2; // 名称推断：「challenge」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      .webcast.data.Image start_animation = 3; // 名称推断：开始·「animation」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      repeated string random_challenge_titles = 4; // 名称推断：「random」·「challenge」·「titles」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 4。
+    } // 消息或命名空间结束
     message BattleDrawPropMessage { // 名称推断：对战·「Draw」·「Prop」·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       int32 status = 2; // 名称推断：状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -10383,6 +10532,22 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
     } // 消息或命名空间结束
     message BattleFrontRankMessage { // 名称推断：对战·「Front」·榜单·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+    } // 消息或命名空间结束
+    message BattleGiftRecommendMessage { // 名称推断：对战·礼物·「Recommend」·消息；用于礼物赠送、连击及收益，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string user_id = 2; // 名称推断：用户·标识；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      int32 user_identity = 3; // 名称推断：用户·「identity」；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      repeated .webcast.im.BattleGiftRecommendMessage.Gift candidate_gift_list = 4; // 名称推断：「candidate」·礼物·列表；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 4。
+      bool skip_gift_ack_toast = 5; // 名称推断：「skip」·礼物·确认回执·提示；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+      map<string, string> track_data = 6; // 名称推断：「track」·数据；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 6。
+      string battle_id = 7; // 名称推断：对战·标识；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
+      string user_open_id = 5000; // 名称推断：用户·开放·标识；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
+      message Gift { // 名称推断：礼物；用于礼物赠送、连击及收益，业务细节待样本确认。来源：官方 Parser 运行时定义。
+        string gift_id = 1; // 名称推断：礼物·标识；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+        string gift_name = 2; // 名称推断：礼物·名称；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+        int32 diamond_count = 3; // 名称推断：钻石·数量；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+        .webcast.data.Image icon = 4; // 名称推断：「icon」；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      } // 消息或命名空间结束
     } // 消息或命名空间结束
     message BattleGuidanceMessage { // 名称推断：对战·「Guidance」·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -10557,6 +10722,27 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int32 invite_type = 6; // 名称推断：邀请·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
       string reject_open_uid = 5000; // 名称推断：「reject」·开放·「uid」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
     } // 消息或命名空间结束
+    message BattleRemoteInviteMessage { // 名称推断：对战·「Remote」·邀请·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string round = 2; // 名称推断：「round」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      string pair_id = 3; // 名称推断：「pair」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      string from_user_id = 4; // 名称推断：来源·用户·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      repeated .webcast.data.BattleRemoteUser members = 5; // 名称推断：「members」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 5。
+      int32 wait_seconds = 6; // 名称推断：「wait」·「seconds」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
+      repeated .webcast.data.BattleRivalTag tags = 7; // 名称推断：「tags」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 7。
+      string from_open_id = 5000; // 名称推断：来源·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
+    } // 消息或命名空间结束
+    message BattleRemoteReplyMessage { // 名称推断：对战·「Remote」·回复·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string round = 2; // 名称推断：「round」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      string pair_id = 3; // 名称推断：「pair」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      string from_user_id = 4; // 名称推断：来源·用户·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      repeated .webcast.data.BattleRemoteUser members = 5; // 名称推断：「members」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 5。
+      int32 reply_status = 6; // 名称推断：回复·状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
+      string toast = 7; // 名称推断：提示；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
+      int32 match_wait_seconds = 8; // 名称推断：「match」·「wait」·「seconds」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
+      string from_open_id = 5000; // 名称推断：来源·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
+    } // 消息或命名空间结束
     message BattleReserveInviteMessage { // 名称推断：对战·「Reserve」·邀请·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       int64 from_user_id = 2; // 名称推断：来源·用户·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -10704,6 +10890,9 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int64 steal_tower_duration = 38; // 名称推断：「steal」·「tower」·持续时间；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 38。
       string lynx_data = 39; // 名称推断：「lynx」·数据；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 39。
       int64 battle_status = 40; // 名称推断：对战·状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 40。
+      int32 battle_scene = 41; // 名称推断：对战·「scene」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 41。
+      string battle_id_str = 42; // 名称推断：对战·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 42。
+      string channel_id_str = 43; // 名称推断：频道·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 43。
       string initiator_open_id = 5000; // 名称推断：「initiator」·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
     } // 消息或命名空间结束
     message BattleStateSyncMessage { // 名称推断：对战·「State」·「Sync」·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
@@ -10712,6 +10901,17 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.data.SurvivalInfo survival_info = 3; // 名称推断：「survival」·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
       .webcast.data.BreakthroughInfo breakthrough_info = 4; // 名称推断：「breakthrough」·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
       int64 score_version = 5; // 名称推断：分数·版本；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+    } // 消息或命名空间结束
+    message BattleStatusMessage { // 名称推断：对战·状态·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string channel_id = 2; // 对战消息关联的频道标识；由官方 BattleStatusMessage 定义提供。结构：单值；来源：官方解码字段 2。
+      string battle_id = 3; // 当前直播对战的业务标识，以字符串保持完整精度。结构：单值；来源：官方解码字段 3。
+      int32 status = 4; // 直播对战阶段状态码；当前官方定义为 int32，具体取值含义需结合样本与前端逻辑确认。结构：单值；来源：官方解码字段 4。
+      int32 scene = 5; // 直播对战场景码；不可据数值杜撰场景枚举。结构：单值；来源：官方解码字段 5。
+      int32 duration = 6; // 对战阶段持续时长数值；时间单位需结合官方调用与样本确认。结构：单值；来源：官方解码字段 6。
+      int32 punish_duration = 7; // 对战惩罚阶段持续时长数值；时间单位需结合官方调用与样本确认。结构：单值；来源：官方解码字段 7。
+      string start_time_ms = 8; // 对战开始时间的毫秒值文本；用于对战时序展示与分析。结构：单值；来源：官方解码字段 8。
+      string end_time_ms = 9; // 对战结束时间的毫秒值文本；用于对战时序展示与分析。结构：单值；来源：官方解码字段 9。
     } // 消息或命名空间结束
     message BattleStealDragonMessage { // 名称推断：对战·「Steal」·「Dragon」·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -10856,6 +11056,14 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string title = 7; // 名称推断：标题；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
       .webcast.data.Image icon = 8; // 名称推断：「icon」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
       .webcast.data.Image landing_icon = 9; // 名称推断：「landing」·「icon」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。
+    } // 消息或命名空间结束
+    message ByteLiveFrontier { // 名称推断：「Byte」·直播·「Frontier」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      int32 method = 1; // 传输或消息路由方法；业务信封中的字符串用于匹配官方消息类型。结构：单值；来源：官方解码字段 1。
+      string payLoad = 2; // 名称推断：「pay」·「Load」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+    } // 消息或命名空间结束
+    message ByteLiveMessage { // 名称推断：「Byte」·直播·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      .webcast.im.ByteLiveFrontier frontier_message = 2; // 名称推断：「frontier」·消息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
     } // 消息或命名空间结束
     message CallToLinkmicContent { // 名称推断：「Call」·目标·连麦·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.data.Text text = 1; // 名称推断：文本；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -11693,6 +11901,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string introduction_content = 6; // 名称推断：「introduction」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
       int32 cross_room_kind = 7; // 名称推断：「cross」·直播间·「kind」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
       int32 score_type = 8; // 名称推断：分数·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
+      string channel_id = 9; // 名称推断：频道·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。
     } // 消息或命名空间结束
     message CrossRoomLinkInviteContentLynxData { // 名称推断：「Cross」·直播间·连线·邀请·内容·「Lynx」·数据；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       string title = 1; // 名称推断：标题；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -11721,6 +11930,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.data.MultiChannelInfo multi_channel_info = 1; // 名称推断：「multi」·频道·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       .webcast.data.PreRTCInfo pre_rtc_info = 2; // 名称推断：「pre」·「rtc」·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
       .webcast.data.MultiChannelInfo other_multi_channel_info = 3; // 名称推断：「other」·「multi」·频道·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      .webcast.data.PullStreamInfo pull_stream_info = 4; // 名称推断：「pull」·音视频流·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
     } // 消息或命名空间结束
     message CurrentUserInfo { // 名称推断：「Current」·用户·信息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Img user_pic = 1; // 名称推断：用户·「pic」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -11905,7 +12115,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
     } // 消息或命名空间结束
     message EasterEggDataMessage { // 名称推断：「Easter」·「Egg」·数据·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
-      .webcast.data.EasterEggInfo egg_info = 2; // 名称推断：「egg」·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      .webcast.data.BattleEasterEggInfo battle_easter_egg_info = 2; // 名称推断：对战·「easter」·「egg」·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
     } // 消息或命名空间结束
     message EasterEggMessage { // 名称推断：「Easter」·「Egg」·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -12033,6 +12243,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.im.FansclubMessage.UpgradePrivilege upgrade_privilege = 5; // 名称推断：「upgrade」·权益；用于关注、粉丝团及社交互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
       .webcast.im.PublicAreaCommon public_area_common = 6; // 名称推断：公屏·区域·公共消息信息；用于关注、粉丝团及社交互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
       int64 left_diamond = 7; // 名称推断：「left」·钻石；用于关注、粉丝团及社交互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
+      string left_deci_diamond = 8; // 名称推断：「left」·「deci」·钻石；用于关注、粉丝团及社交互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
       message UpgradePrivilege { // 名称推断：「Upgrade」·权益；用于关注、粉丝团及社交互动，业务细节待样本确认。来源：官方 Parser 运行时定义。
         string content = 1; // 弹幕、通知或业务展示内容；具体语义由所属消息决定。结构：单值；来源：官方解码字段 1。
         string description = 2; // 名称推断：描述；用于关注、粉丝团及社交互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -12093,6 +12304,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       int64 ai_msg_type = 2; // 名称推断：「ai」·消息·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
       .webcast.im.PublicAreaCommon public_area_common = 3; // 名称推断：公屏·区域·公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      string schema_url = 4; // 名称推断：跳转地址·资源地址；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
     } // 消息或命名空间结束
     message FeaturedContent { // 名称推断：「Featured」·内容；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int32 rotation_time = 1; // 名称推断：「rotation」·时间；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -12994,6 +13206,8 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
     message GiftSingMetaContent { // 名称推断：礼物·「Sing」·「Meta」·内容；用于礼物赠送、连击及收益，业务细节待样本确认。来源：官方 Parser 运行时定义。
       bool is_open = 1; // 名称推断：「is」·开放；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       .webcast.im.GiftSingMetaContent.PlayInfo play_info = 2; // 名称推断：玩法·信息；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      bool is_chosen_gift_invalid_force_close = 3; // 名称推断：「is」·「chosen」·礼物·「invalid」·「force」·关闭；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      string close_toast = 4; // 名称推断：关闭·提示；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
       message CollectModeContent { // 名称推断：「Collect」·「Mode」·内容；用于礼物赠送、连击及收益，业务细节待样本确认。来源：官方 Parser 运行时定义。
         .webcast.data.GiftSingGiftInfo gift_info = 1; // 名称推断：礼物·信息；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
         int64 target_score = 2; // 名称推断：「target」·分数；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -13162,6 +13376,14 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
     } // 消息或命名空间结束
     message GuestBattleV2Message { // 名称推断：「Guest」·对战·第二版·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.data.GuestBattleV2Info battle_info = 1; // 名称推断：对战·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+    } // 消息或命名空间结束
+    message GuestGradeMessage { // 名称推断：「Guest」·「Grade」·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      int32 msg_type = 1; // 信封携带的消息类别数值；并非全局唯一的消息类型 ID。结构：单值；来源：官方解码字段 1。
+      .webcast.data.GuestGradeInfo cur_grade = 2; // 名称推断：「cur」·「grade」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      .webcast.data.GuestGradeInfo next_grade = 3; // 名称推断：「next」·「grade」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      .webcast.data.GuestGradeUpgradeInfo upgrade_info = 4; // 名称推断：「upgrade」·信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      .webcast.data.GuestGradeSeasonInfo season = 5; // 名称推断：「season」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+      string guest_id = 6; // 名称推断：「guest」·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
     } // 消息或命名空间结束
     message GuideMessage { // 名称推断：「Guide」·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -13528,6 +13750,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string lynx_container_url = 6; // 名称推断：「lynx」·「container」·资源地址；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
       int32 container_type = 7; // 名称推断：「container」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
       int32 op_type = 8; // 名称推断：「op」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
+      string lynx_container_url_v2 = 9; // 名称推断：「lynx」·「container」·资源地址·第二版；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。
     } // 消息或命名空间结束
     message InRoomBannerRedPoint { // 名称推断：「In」·直播间·横幅·「Red」·「Point」；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -14148,6 +14371,14 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.data.MultiChannelInfo multi_channel_info = 4; // 名称推断：「multi」·频道·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
       uint64 version = 5; // 名称推断：版本；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
       repeated .webcast.data.ListUser anchor_user_list = 6; // 名称推断：主播·用户·列表；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 6。
+      .webcast.data.PullStreamInfo pull_stream_info = 7; // 名称推断：「pull」·音视频流·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
+    } // 消息或命名空间结束
+    message LinkerBattleLinkedListChangeContent { // 名称推断：连麦·对战·「Linked」·列表·「Change」·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      string battle_room_id = 1; // 名称推断：对战·直播间·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string battle_anchor_id = 2; // 名称推断：对战·主播·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      .webcast.data.PullStreamInfo pull_stream_info = 3; // 名称推断：「pull」·音视频流·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      string version = 4; // 名称推断：版本；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      string battle_anchor_open_id = 5000; // 名称推断：对战·主播·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
     } // 消息或命名空间结束
     message LinkerCancelContent { // 名称推断：连麦·「Cancel」·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int64 from_user_id = 1; // 名称推断：来源·用户·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -14192,6 +14423,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int32 source = 1; // 名称推断：「source」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       .webcast.data.BanUser ban_anchor_info = 2; // 名称推断：「ban」·主播·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
       int32 reason = 3; // 名称推断：「reason」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      string push_stream_url = 4; // 名称推断：推送·音视频流·资源地址；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
     } // 消息或命名空间结束
     message LinkerConfirmUnsilenceContent { // 名称推断：连麦·「Confirm」·「Unsilence」·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int64 from_user_id = 1; // 名称推断：来源·用户·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -14360,6 +14592,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.im.LinkerInviteContent.InviterInfo inviter_info = 44; // 名称推断：「inviter」·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 44。
       string peer_desc = 45; // 名称推断：「peer」·「desc」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 45。
       .webcast.im.LinkerInviteContent.GameExtra game_extra = 46; // 名称推断：游戏·附加；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 46。
+      .webcast.data.PullStreamInfo pull_stream_info = 47; // 名称推断：「pull」·音视频流·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 47。
       string biz_extra = 200; // 名称推断：业务·附加；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 200。
       string from_open_id = 5000; // 名称推断：来源·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
       string to_open_id = 5001; // 名称推断：目标·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5001。
@@ -14410,6 +14643,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       repeated .webcast.data.ListUser list_users = 10; // 名称推断：列表·「users」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 10。
       int64 pre_rtc_version = 11; // 名称推断：「pre」·「rtc」·版本；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 11。
       .webcast.data.ClientUIInfo client_ui_info = 12; // 名称推断：「client」·「ui」·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 12。
+      .webcast.data.PullStreamInfo pull_stream_info = 13; // 名称推断：「pull」·音视频流·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 13。
       string open_id = 5000; // 名称推断：开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
     } // 消息或命名空间结束
     message LinkerLinkedListChangeContent { // 名称推断：连麦·「Linked」·列表·「Change」·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
@@ -14486,6 +14720,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int32 biz_type = 30; // 名称推断：业务·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 30。
       string game_app_id = 31; // 名称推断：游戏·应用·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 31。
       string event_tracking_info = 32; // 名称推断：事件·埋点·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 32。
+      .webcast.data.PullStreamInfo pull_stream_info = 33; // 名称推断：「pull」·音视频流·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 33。
       string from_open_id = 5000; // 名称推断：来源·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
       string to_open_id = 5001; // 名称推断：目标·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5001。
     } // 消息或命名空间结束
@@ -14704,6 +14939,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
         .webcast.im.AnchorLinkmicJoinContent anchor_linkmic_join_content = 73; // 名称推断：主播·连麦·加入·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 73。
         .webcast.im.AnchorLinkmicQuitContent anchor_linkmic_quit_content = 74; // 名称推断：主播·连麦·「quit」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 74。
         .webcast.im.ReservedRoomBattleRingContent reserved_room_battle_ring_content = 75; // 名称推断：「reserved」·直播间·对战·「ring」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 75。
+        .webcast.im.LinkerBattleLinkedListChangeContent battle_linked_list_change_content = 76; // 名称推断：对战·「linked」·列表·「change」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 76。
         .webcast.im.LinkerSysKickOutContent sys_kick_out_content = 101; // 名称推断：「sys」·「kick」·「out」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 101。
       } // 互斥字段组结束
     } // 消息或命名空间结束
@@ -14941,6 +15177,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string request_source = 13; // 名称推断：请求·「source」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 13。
       string event_tracking_info = 14; // 名称推断：事件·埋点·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 14。
       string battle_attached_info = 15; // 名称推断：对战·「attached」·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 15。
+      int32 battle_scene = 16; // 名称推断：对战·「scene」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 16。
       map<string, .webcast.data.BattleUserInfo> open_user_infos = 5000; // 名称推断：开放·用户·「infos」；用于主播连麦及对战，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 5000。
     } // 消息或命名空间结束
     message LinkMicBattleFinish { // 名称推断：连线·麦位·对战·「Finish」；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
@@ -14964,6 +15201,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string event_tracking_info = 18; // 名称推断：事件·埋点·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 18。
       map<int64, .webcast.data.AuxiliaryScoreInfo> auxiliary_score_infos = 19; // 名称推断：辅助·分数·「infos」；用于主播连麦及对战，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 19。
       .webcast.im.LinkmicBattleFinishExtra extra = 20; // 名称推断：附加；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 20。
+      int32 battle_scene = 21; // 名称推断：对战·「scene」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 21。
       map<string, .webcast.data.BattleUserInfo> open_user_infos = 5000; // 名称推断：开放·用户·「infos」；用于主播连麦及对战，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 5000。
       map<string, .webcast.data.BattleStarActivityGradeChange> open_grade_changes = 5001; // 名称推断：开放·「grade」·「changes」；用于主播连麦及对战，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 5001。
     } // 消息或命名空间结束
@@ -15327,6 +15565,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string icon_url = 3; // 名称推断：「icon」·资源地址；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
       repeated .webcast.data.LinkmicInnoSchemaInfo schema_list = 4; // 名称推断：跳转地址·列表；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 4。
       int32 layout = 9; // 名称推断：「layout」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。
+      int32 inno_container_type = 10; // 名称推断：「inno」·「container」·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 10。
       string owner_id = 100; // 名称推断：「owner」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 100。
       string play_id = 101; // 名称推断：玩法·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 101。
       int32 status = 102; // 名称推断：状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 102。
@@ -15388,6 +15627,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string introduction_content = 6; // 名称推断：「introduction」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
       int32 cross_room_kind = 7; // 名称推断：「cross」·直播间·「kind」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
       int32 score_type = 8; // 名称推断：分数·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
+      string channel_id = 9; // 名称推断：频道·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。
     } // 消息或命名空间结束
     message LinkmicInstructionCrossRoomLinkReplyContent { // 名称推断：连麦·「Instruction」·「Cross」·直播间·连线·回复·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int32 reply_type = 1; // 名称推断：回复·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -15432,6 +15672,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
     message LinkmicInstructionFinishContent { // 名称推断：连麦·「Instruction」·「Finish」·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.data.BanUser ban_anchor_info = 1; // 名称推断：「ban」·主播·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       int32 finish_reason = 2; // 名称推断：「finish」·「reason」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      string live_guest_stream_push_url = 3; // 名称推断：直播·「guest」·音视频流·推送·资源地址；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
     } // 消息或命名空间结束
     message LinkmicInstructionForceOpenCameraContent { // 名称推断：连麦·「Instruction」·「Force」·开放·「Camera」·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       string from_user_id = 1; // 名称推断：来源·用户·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -15466,9 +15707,12 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string reason_toast = 4; // 名称推断：「reason」·提示；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
       int32 sys_kick_out_source = 5; // 名称推断：「sys」·「kick」·「out」·「source」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
       repeated .webcast.im.LinkmicInstructionKickOutContent.KickOutUserInfo kick_out_users = 6; // 名称推断：「kick」·「out」·「users」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 6。
+      string paid_count = 7; // 名称推断：「paid」·数量；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
+      string link_duration = 8; // 名称推断：连线·持续时间；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
       message KickOutUserInfo { // 名称推断：「Kick」·「Out」·用户·信息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
         string to_user_id = 1; // 名称推断：目标·用户·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
         string to_user_linkmic_id_str = 2; // 名称推断：目标·用户·连麦·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+        string live_guest_stream_push_url = 3; // 名称推断：直播·「guest」·音视频流·推送·资源地址；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
       } // 消息或命名空间结束
     } // 消息或命名空间结束
     message LinkmicInstructionLeaveContent { // 名称推断：连麦·「Instruction」·离开·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
@@ -15477,6 +15721,9 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string live_guest_room_id = 3; // 名称推断：直播·「guest」·直播间·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
       int64 leave_reason = 4; // 名称推断：离开·「reason」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
       string toast = 5; // 名称推断：提示；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+    } // 消息或命名空间结束
+    message LinkmicInstructionLowBalanceForPaidLinkmicContent { // 名称推断：连麦·「Instruction」·「Low」·「Balance」·「For」·「Paid」·连麦·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      string toast = 1; // 名称推断：提示；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
     } // 消息或命名空间结束
     message LinkmicInstructionMessage { // 名称推断：连麦·「Instruction」·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -15510,6 +15757,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
         .webcast.im.LinkmicInstructionCrossRoomLinkStartContent cross_room_link_start_content = 36; // 名称推断：「cross」·直播间·连线·开始·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 36。
         .webcast.im.LinkmicInstructionCrossRoomLinkFinishContent cross_room_link_finish_content = 37; // 名称推断：「cross」·直播间·连线·「finish」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 37。
         .webcast.im.LinkmicInstructionForceOpenCameraContent force_open_camera_content = 38; // 名称推断：「force」·开放·「camera」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 38。
+        .webcast.im.LinkmicInstructionLowBalanceForPaidLinkmicContent low_balance_for_paid_linkmic_content = 39; // 名称推断：「low」·「balance」·「for」·「paid」·连麦·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 39。
       } // 互斥字段组结束
     } // 消息或命名空间结束
     message LinkmicInstructionPermitContent { // 名称推断：连麦·「Instruction」·「Permit」·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
@@ -15530,6 +15778,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.im.LinkmicJoinChannelData join_channel_data = 15; // 名称推断：加入·频道·数据；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 15。
       int32 silence_status = 16; // 名称推断：「silence」·状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 16。
       .webcast.data.MCUContent mcu_content = 17; // 名称推断：「mcu」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 17。
+      .webcast.data.PullStreamInfo pull_stream_info = 18; // 名称推断：「pull」·音视频流·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 18。
     } // 消息或命名空间结束
     message LinkmicInstructionReplyContent { // 名称推断：连麦·「Instruction」·回复·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int32 reply_type = 1; // 名称推断：回复·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -15585,6 +15834,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int32 apply_type = 5; // 名称推断：「apply」·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
       string prompt_with_earphone = 6; // 名称推断：「prompt」·「with」·「earphone」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
       .webcast.data.LinkGameInfo link_game_info = 7; // 名称推断：连线·游戏·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
+      bool is_paid_linkmic = 8; // 名称推断：「is」·「paid」·连麦；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
       message DelegateSetting { // 名称推断：「Delegate」·设置；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
         bool show_panel = 1; // 名称推断：「show」·「panel」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
         bool enable_delegate = 2; // 名称推断：启用·「delegate」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -15718,6 +15968,9 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.data.BattleCloudCollaborateThroneFightInfo throne_fight_info = 110; // 名称推断：「throne」·「fight」·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 110。
       string from_user_id_str = 111; // 名称推断：来源·用户·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 111。
       string biz_tag = 112; // 名称推断：业务·「tag」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 112。
+      int32 battle_scene = 113; // 名称推断：对战·「scene」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 113。
+      string battle_id_str = 114; // 名称推断：对战·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 114。
+      .webcast.data.PullStreamInfo pull_stream_info = 115; // 名称推断：「pull」·音视频流·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 115。
       string open_id = 5000; // 名称推断：开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
       string invite_open_id = 5001; // 名称推断：邀请·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5001。
       string to_open_id = 5002; // 名称推断：目标·开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5002。
@@ -15758,7 +16011,9 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
         int32 cur_add_score = 18; // 名称推断：「cur」·「add」·分数；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 18。
         string score_adjacent_gap_text = 19; // 名称推断：分数·「adjacent」·「gap」·文本；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 19。
         repeated .webcast.data.RichText score_adjacent_gap_content = 20; // 名称推断：分数·「adjacent」·「gap」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 20。
+        string user_id_str = 21; // 名称推断：用户·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 21。
         string open_id = 5000; // 名称推断：开放·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
+        string open_id_str = 5001; // 名称推断：开放·标识·「str」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5001。
       } // 消息或命名空间结束
     } // 消息或命名空间结束
     message LinkMicOChannelKickOutMsg { // 名称推断：连线·麦位·「OChannel」·「Kick」·「Out」·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
@@ -15845,6 +16100,8 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       .webcast.im.ArenaBattleMessage arena_battle_message = 2; // 名称推断：「arena」·对战·消息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
       .webcast.im.SprintChallengeMessage sprint_challenge_message = 3; // 名称推断：「sprint」·「challenge」·消息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      .webcast.im.PaidLinkmicMessage paid_linkmic_message = 4; // 名称推断：「paid」·连麦·消息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      .webcast.im.GuestGradeMessage guest_grade_message = 5; // 名称推断：「guest」·「grade」·消息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
     } // 消息或命名空间结束
     message LinkmicPlaymodeMessage { // 名称推断：连麦·「Playmode」·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -16284,6 +16541,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       repeated int32 linker_features = 8 [packed = true]; // 名称推断：连麦·「features」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 8。
       .webcast.data.MCUContent mcu_content = 9; // 名称推断：「mcu」·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。
       map<string, .webcast.im.LinkmicUIBasic.RoomBasic> rival_rooms = 10; // 名称推断：「rival」·「rooms」；用于主播连麦及对战，精确业务含义待样本确认。结构：键值映射；来源：官方解码字段 10。
+      string server_current_time = 11; // 名称推断：服务端·「current」·时间；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 11。
       message EmptyPosition { // 名称推断：「Empty」·「Position」；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
         string toast_for_linked_user = 1; // 名称推断：提示·「for」·「linked」·用户；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
         string toast_for_unlinked_user = 2; // 名称推断：提示·「for」·「unlinked」·用户；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -16340,6 +16598,11 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
         string own_room_id = 24; // 名称推断：「own」·直播间·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 24。
         string linker_room_id = 25; // 名称推断：连麦·直播间·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 25。
         string origin_link_type = 26; // 名称推断：「origin」·连线·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 26。
+        string join_channel_time = 27; // 名称推断：加入·频道·时间；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 27。
+        string expected_leave_time = 28; // 名称推断：「expected」·离开·时间；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 28。
+        string paid_count = 29; // 名称推断：「paid」·数量；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 29。
+        int32 ai_guest_type = 30; // 名称推断：「ai」·「guest」·类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 30。
+        string signature = 31; // 名称推断：签名；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 31。
       } // 消息或命名空间结束
     } // 消息或命名空间结束
     message LinkmicUIBGImg { // 名称推断：连麦·「UIBGImg」；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
@@ -16361,6 +16624,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
         .webcast.im.LinkmicUIComponent.TeamfightV2PKBar teamfight_v2_pk_bar = 5; // 名称推断：「teamfight」·第二版·「pk」·「bar」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
         .webcast.im.LinkmicUIComponent.ArenaBattleBar_ arena_battle_bar = 6; // 名称推断：「arena」·对战·「bar」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
         .webcast.im.LinkmicUIComponent.SprintChallengeBarInfo sprint_challenge_bar = 7; // 名称推断：「sprint」·「challenge」·「bar」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 7。
+        .webcast.im.LinkmicUIComponent.InnoContainer inno_run_container = 8; // 名称推断：「inno」·「run」·「container」；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
       } // 互斥字段组结束
       message ArenaBattleBar_ { // 名称推断：「Arena」·对战·「Bar」；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
         string round_id = 1; // 名称推断：「round」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -16371,6 +16635,8 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       } // 消息或命名空间结束
       message CrossRoomLinkPKBar { // 名称推断：「Cross」·直播间·连线·「PKBar」；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
         string start_time = 1; // 名称推断：开始·时间；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      } // 消息或命名空间结束
+      message InnoContainer { // 名称推断：「Inno」·「Container」；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
       } // 消息或命名空间结束
       message RoomBattlePKBar { // 名称推断：直播间·对战·「PKBar」；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
         string battle_id = 1; // 名称推断：对战·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -16409,6 +16675,8 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
         repeated string top_contributor_avatar_urls = 10; // 名称推断：「top」·「contributor」·头像·「urls」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 10。
         string last_send_gift_time = 11; // 名称推断：「last」·发送·礼物·时间；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 11。
         int32 win_status = 12; // 名称推断：「win」·状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 12。
+        string increased_score = 13; // 名称推断：「increased」·分数；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 13。
+        .webcast.data.User user = 14; // 与当前消息相关的用户资料；送礼、弹幕或入场场景由所属消息决定。结构：单值；来源：官方解码字段 14。
       } // 消息或命名空间结束
     } // 消息或命名空间结束
     message LinkmicUICustomizedRandomEmoji { // 名称推断：连麦·「UICustomized」·「Random」·表情；用于弹幕及表情互动，业务细节待样本确认。来源：官方 Parser 运行时定义。
@@ -17609,6 +17877,28 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int32 purchase_type = 12; // 名称推断：「purchase」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 12。
       int32 right_type = 13; // 名称推断：「right」·类型；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 13。
     } // 消息或命名空间结束
+    message PaidLinkmicMessage { // 名称推断：「Paid」·连麦·消息；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      int32 type = 1; // 名称推断：类型；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      oneof content { // 官方互斥字段组；同组字段只保留当前选择
+        .webcast.im.PaidLinkmicMessage.PaidLinkmicOpenContent open_content = 2; // 名称推断：开放·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+        .webcast.im.PaidLinkmicMessage.PaidLinkmicCloseContent close_content = 3; // 名称推断：关闭·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+        .webcast.im.PaidLinkmicMessage.PaidLinkmicConfigUpdateContent config_update_content = 4; // 名称推断：配置·更新·内容；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      } // 互斥字段组结束
+      message PaidLinkmicCloseContent { // 名称推断：「Paid」·连麦·关闭·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
+        bool waiting_user_need_leave = 2; // 名称推断：「waiting」·用户·是否需要·离开；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+        string waiting_user_toast = 3; // 名称推断：「waiting」·用户·提示；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      } // 消息或命名空间结束
+      message PaidLinkmicConfigUpdateContent { // 名称推断：「Paid」·连麦·配置·更新·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
+        bool waiting_user_need_leave = 1; // 名称推断：「waiting」·用户·是否需要·离开；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+        string waiting_user_toast = 2; // 名称推断：「waiting」·用户·提示；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+        .webcast.data.NormalPaidLinkmicInfo normal_paid_linkmic_info = 3; // 名称推断：正常·「paid」·连麦·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      } // 消息或命名空间结束
+      message PaidLinkmicOpenContent { // 名称推断：「Paid」·连麦·开放·内容；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
+        .webcast.data.NormalPaidLinkmicInfo normal_paid_linkmic_info = 1; // 名称推断：正常·「paid」·连麦·信息；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+        bool waiting_user_need_leave = 2; // 名称推断：「waiting」·用户·是否需要·离开；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+        string waiting_user_toast = 3; // 名称推断：「waiting」·用户·提示；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      } // 消息或命名空间结束
+    } // 消息或命名空间结束
     message PaidLiveDataMessage { // 名称推断：「Paid」·直播·数据·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       .webcast.im.PaidBusinessData paid_business_data = 2; // 名称推断：「paid」·「business」·数据；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -18187,6 +18477,11 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
         string preview_reach_text = 3; // 名称推断：「preview」·「reach」·文本；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
       } // 消息或命名空间结束
     } // 消息或命名空间结束
+    message PrivilegeLeagueMessage { // 名称推断：权益·「League」·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      int32 scene = 2; // 名称推断：「scene」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      string payload = 3; // 本层协议的二进制载荷；信封载荷根据 method 路由至业务解码器。结构：单值；来源：官方解码字段 3。
+    } // 消息或命名空间结束
     message PrivilegeScreenChatMessage { // 名称推断：权益·屏幕·弹幕·消息；用于弹幕及表情互动，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于弹幕及表情互动，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       .webcast.data.User user = 2; // 与当前消息相关的用户资料；送礼、弹幕或入场场景由所属消息决定。结构：单值；来源：官方解码字段 2。
@@ -18534,6 +18829,10 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string short_id = 8; // 名称推断：短标识·标识；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 8。
       string user_icon = 9; // 名称推断：用户·「icon」；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 9。
     } // 消息或命名空间结束
+    message RankInfo { // 名称推断：榜单·信息；用于直播榜单及统计，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      .webcast.data.User user = 1; // 与当前消息相关的用户资料；送礼、弹幕或入场场景由所属消息决定。结构：单值；来源：官方解码字段 1。
+      int32 rank = 2; // 名称推断：榜单；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+    } // 消息或命名空间结束
     message RankItem { // 名称推断：榜单·「Item」；用于直播榜单及统计，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int64 rank = 1; // 名称推断：榜单；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       string country = 2; // 名称推断：「country」；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
@@ -18572,6 +18871,7 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string content = 1; // 弹幕、通知或业务展示内容；具体语义由所属消息决定。结构：单值；来源：官方解码字段 1。
       string schema = 2; // 名称推断：跳转地址；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
       string entrance_extra = 3; // 名称推断：「entrance」·附加；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      int32 style = 4; // 名称推断：样式；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
     } // 消息或命名空间结束
     message RankSeasonResult { // 名称推断：榜单·「Season」·「Result」；用于直播榜单及统计，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.RankSeasonResult.DeltaScoreInfo delta_score_info = 1; // 名称推断：「delta」·分数·信息；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -19068,6 +19368,10 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string content = 2; // 弹幕、通知或业务展示内容；具体语义由所属消息决定。结构：单值；来源：官方解码字段 2。
       int64 action = 3; // 名称推断：「action」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
       string bg_img_url = 4; // 名称推断：「bg」·「img」·资源地址；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+    } // 消息或命名空间结束
+    message RoomIMRBControlMessage { // 名称推断：直播间·「IMRBControl」·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string control_info = 2; // 直播间 IM 控制信息的原始字符串；内部格式、RB 缩写含义需结合官方业务调用确认，不作二次协议猜测。结构：单值；来源：官方解码字段 2。
     } // 消息或命名空间结束
     message RoomIndicatorMessage { // 名称推断：直播间·「Indicator」·消息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -19830,6 +20134,11 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       string finish_toast = 2; // 名称推断：「finish」·提示；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
       string guest_finish_toast = 3; // 名称推断：「guest」·「finish」·提示；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
     } // 消息或命名空间结束
+    message TeamInfo { // 名称推断：队伍·信息；用于直播游戏及组队玩法，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      string team_key = 1; // 名称推断：队伍·键；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string team_name = 2; // 名称推断：队伍·名称；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      string team_icon = 3; // 名称推断：队伍·「icon」；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+    } // 消息或命名空间结束
     message TeamPlayApplyListChangeMessage { // 名称推断：队伍·玩法·「Apply」·列表·「Change」·消息；用于直播游戏及组队玩法，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
     } // 消息或命名空间结束
@@ -19888,6 +20197,27 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
     message TeamPlayXGameCloseMessage { // 名称推断：队伍·玩法·「XGame」·关闭·消息；用于直播游戏及组队玩法，业务细节待样本确认。来源：官方 Parser 运行时定义。
       .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
       string text = 2; // 名称推断：文本；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+    } // 消息或命名空间结束
+    message TeamRankInfoMessage { // 名称推断：队伍·榜单·信息·消息；用于直播榜单及统计，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      repeated .webcast.im.AnchorRankView anchor_rank_list = 2; // 名称推断：主播·榜单·列表；用于直播榜单及统计，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 2。
+    } // 消息或命名空间结束
+    message TeamSupportBattleView { // 名称推断：队伍·「Support」·对战·「View」；用于主播连麦及对战，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      string match_key = 1; // 名称推断：「match」·键；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string schedule_id = 2; // 名称推断：「schedule」·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      int32 vote_status = 3; // 名称推断：「vote」·状态；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      string battle_id = 4; // 名称推断：对战·标识；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      string battle_name = 5; // 名称推断：对战·名称；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+      int64 start_time = 6; // 名称推断：开始·时间；用于主播连麦及对战，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
+      repeated .webcast.im.UserSupportTeamScoreView team_scores = 7; // 名称推断：队伍·「scores」；用于主播连麦及对战，精确业务含义待样本确认。结构：重复列表；来源：官方解码字段 7。
+    } // 消息或命名空间结束
+    message TeamSupportMessage { // 名称推断：队伍·「Support」·消息；用于直播游戏及组队玩法，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      .webcast.im.Common common = 1; // 名称推断：公共消息信息；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      .webcast.im.TeamSupportBattleView current_battle = 2; // 名称推断：「current」·对战；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      .webcast.im.UserSupportGiftInfo gift_info = 3; // 名称推断：礼物·信息；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      int32 play_status = 4; // 名称推断：玩法·状态；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      bool is_first_support = 5; // 名称推断：「is」·「first」·「support」；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
+      bool is_schedule_end = 6; // 名称推断：「is」·「schedule」·结束；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 6。
     } // 消息或命名空间结束
     message TemplateInfo { // 名称推断：「Template」·信息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       string template_id = 1; // 名称推断：「template」·标识；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
@@ -20255,6 +20585,18 @@ message webcast { // 官方命名空间容器；用于保持完整类型路径�
       int64 user_id = 3; // 名称推断：用户·标识；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
       int64 action_type = 4; // 名称推断：「action」·类型；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
       string user_open_id = 5000; // 名称推断：用户·开放·标识；用于直播榜单及统计，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5000。
+    } // 消息或命名空间结束
+    message UserSupportGiftInfo { // 名称推断：用户·「Support」·礼物·信息；用于礼物赠送、连击及收益，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      int64 gift_id = 1; // 名称推断：礼物·标识；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string gift_name = 2; // 名称推断：礼物·名称；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      string gift_icon = 3; // 名称推断：礼物·「icon」；用于礼物赠送、连击及收益，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+    } // 消息或命名空间结束
+    message UserSupportTeamScoreView { // 名称推断：用户·「Support」·队伍·分数·「View」；用于直播游戏及组队玩法，业务细节待样本确认。来源：官方 Parser 运行时定义。
+      string team_key = 1; // 名称推断：队伍·键；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。
+      string team_name = 2; // 名称推断：队伍·名称；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 2。
+      string team_icon = 3; // 名称推断：队伍·「icon」；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 3。
+      bool anchor_selected_team = 4; // 名称推断：主播·「selected」·队伍；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 4。
+      int64 support_value = 5; // 名称推断：「support」·值；用于直播游戏及组队玩法，精确业务含义待样本确认。结构：单值；来源：官方解码字段 5。
     } // 消息或命名空间结束
     message VenueInfo { // 名称推断：「Venue」·信息；用于直播业务状态、配置及展示，业务细节待样本确认。来源：官方 Parser 运行时定义。
       int32 stage = 1; // 名称推断：「stage」；用于直播业务状态、配置及展示，精确业务含义待样本确认。结构：单值；来源：官方解码字段 1。

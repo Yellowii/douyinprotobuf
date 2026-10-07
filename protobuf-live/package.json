@@ -13,7 +13,10 @@
     "import": "node src/cli.js import",
     "test": "node --test src/tests/*.test.js",
     "verify": "node src/cli.js verify",
-    "format:check": "prettier --check src/*.js src/tests/*.js static/* package.json"
+    "format:check": "prettier --check src/*.js src/tests/*.js static/* package.json",
+    "update-parser": "node --env-file-if-exists=.env src/cli.js update-parser",
+    "audit:raw": "node --env-file-if-exists=.env src/cli.js audit-raw",
+    "watch:raw": "node --env-file-if-exists=.env src/cli.js watch-raw"
   },
   "dependencies": {
     "acorn": "^8.15.0",

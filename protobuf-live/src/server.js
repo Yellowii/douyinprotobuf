@@ -7,10 +7,17 @@ import { BrowserLive } from "./browser.js";
 import { Journal } from "./journal.js";
 import { paths } from "./paths.js";
 import { writeArtifacts, readObservations } from "./dictionary.js";
+import { ParserUpdater } from "./parser-update.js";
+import { RawSource } from "./raw-source.js";
+import { toBarrage } from "./barrage.js";
 
 export async function createWorkbench(
   p,
-  { port = Number(process.env.PORT || 8787) } = {},
+  {
+    port = Number(process.env.PORT || 8787),
+    autoUpdate = process.env.PARSER_AUTO_UPDATE !== "false",
+    updaterOptions = {},
+  } = {},
 ) {
   if (!Number.isInteger(port) || port < 0 || port > 65535)
     throw new Error("PORT 无效");
@@ -21,24 +28,69 @@ export async function createWorkbench(
   );
   const direct = new LiveClient(p),
     browser = new BrowserLive(p),
+    raw = new RawSource(p),
     journal = new Journal();
   await journal.open();
   const clients = new Set(),
+    barrageClients = new Set(),
     token = randomBytes(32).toString("hex");
   let active = null,
     lastStart = 0,
     busy = false;
-  const broadcast = (event, value) => {
+  const broadcast = (event, value, targets = clients) => {
     const data = `event: ${event}\ndata: ${JSON.stringify(value)}\n\n`;
-    for (const c of clients) {
+    for (const c of targets) {
       if (c.writableLength > 1024 * 1024) {
         c.destroy();
-        clients.delete(c);
+        targets.delete(c);
       } else c.write(data);
     }
   };
-  for (const source of [direct, browser]) {
+  const recentSamples = [];
+  let artifactQueue = Promise.resolve();
+  const serializeArtifacts = (job) => {
+    const task = artifactQueue.then(job);
+    artifactQueue = task.catch(() => {});
+    return task;
+  };
+  const updater = new ParserUpdater(p, {
+    ...updaterOptions,
+    observations,
+    withCommit: serializeArtifacts,
+    validateCandidate: async (next) => {
+      // 对最近的真实帧重放：原版可解析的载荷不可在新版退化为异常。
+      const { decodePacket } = await import("./decode.js");
+      for (const bytes of recentSamples) {
+        const before = decodePacket(p, bytes),
+          after = decodePacket(next, bytes);
+        for (let i = 0; i < before.messages.length; i++)
+          if (
+            before.messages[i].status === "decoded" &&
+            after.messages[i]?.status !== "decoded"
+          )
+            throw new Error("新版 Parser 无法解码最近的真实帧");
+      }
+      await updaterOptions.validateCandidate?.(next, p);
+    },
+    activate: async (next, artifacts) => {
+      p = next;
+      dictionary = artifacts.dictionary;
+      direct.p = next;
+      browser.p = next;
+      raw.p = next;
+      await updaterOptions.activate?.(next, artifacts);
+    },
+  });
+  updater.on("status", (s) => broadcast("parser-update", s));
+  updater.on("failure", (e) => broadcast("failure", e));
+  if (autoUpdate) await updater.schedule();
+  else await updater.restore();
+  for (const source of [direct, browser, raw]) {
     source.on("raw", (bytes) => {
+      if (bytes.length <= 1024 * 1024) {
+        recentSamples.push(bytes);
+        if (recentSamples.length > 16) recentSamples.shift();
+      }
       try {
         journal.appendRaw(bytes, source === direct ? "direct" : "browser");
       } catch {
@@ -70,6 +122,13 @@ export async function createWorkbench(
           }
         });
         broadcast("packet", packet);
+        for (const m of packet.messages || []) {
+          const barrage = toBarrage(m, packet.received_at);
+          if (barrage) {
+            broadcast("barrage", barrage);
+            broadcast("barrage", barrage, barrageClients);
+          }
+        }
       } catch {
         source.stop();
         broadcast("failure", { error: "日志队列已满，连接已停止" });
@@ -116,11 +175,16 @@ export async function createWorkbench(
           token,
           status: active?.status || { state: "stopped" },
           protocols: p.types.size,
+          parser_update: updater.status,
           fields: [...p.types.values()].reduce(
             (n, t) => n + t.fields.length,
             0,
           ),
         });
+        return;
+      }
+      if (req.method === "GET" && u.pathname === "/api/parser-update") {
+        json(res, 200, updater.status);
         return;
       }
       if (req.method === "GET" && u.pathname === "/api/schema") {
@@ -136,8 +200,12 @@ export async function createWorkbench(
         );
         return;
       }
-      if (req.method === "GET" && u.pathname === "/events") {
-        if (clients.size >= 8) {
+      if (
+        req.method === "GET" &&
+        ["/events", "/api/barrage/events"].includes(u.pathname)
+      ) {
+        const targets = u.pathname === "/events" ? clients : barrageClients;
+        if (clients.size + barrageClients.size >= 8) {
           json(res, 429, { error: "工作台页面连接数已满" });
           return;
         }
@@ -149,13 +217,13 @@ export async function createWorkbench(
         res.write(
           `event: status\ndata: ${JSON.stringify(active?.status || { state: "stopped" })}\n\n`,
         );
-        clients.add(res);
-        req.on("close", () => clients.delete(res));
+        targets.add(res);
+        req.on("close", () => targets.delete(res));
         return;
       }
       if (
         req.method === "POST" &&
-        ["/api/start", "/api/stop"].includes(u.pathname)
+        ["/api/start", "/api/stop", "/api/parser-update"].includes(u.pathname)
       ) {
         if (req.headers["x-workbench-token"] !== token) {
           json(res, 403, { error: "工作台令牌无效" });
@@ -167,14 +235,27 @@ export async function createWorkbench(
         }
         busy = true;
         try {
+          if (u.pathname === "/api/parser-update") {
+            json(
+              res,
+              200,
+              await updater.check({
+                page: browser.page?.isClosed() === false ? browser.page : null,
+              }),
+            );
+            return;
+          }
           if (u.pathname === "/api/stop") {
             await direct.stop();
             await browser.stop();
+            await raw.stop();
             active = null;
-            await writeArtifacts(p, observations);
-            dictionary = JSON.parse(
-              await fs.readFile(path.join(paths.dist, "proto.dict"), "utf8"),
-            );
+            await serializeArtifacts(async () => {
+              await writeArtifacts(p, observations);
+              dictionary = JSON.parse(
+                await fs.readFile(path.join(paths.dist, "proto.dict"), "utf8"),
+              );
+            });
             json(res, 200, { state: "stopped" });
             return;
           }
@@ -188,9 +269,14 @@ export async function createWorkbench(
             if (body.length > 20000) throw new Error("请求体过大");
           }
           const config = JSON.parse(body);
-          if (!["browser", "direct"].includes(config.mode))
+          if (!["browser", "direct", "raw"].includes(config.mode))
             throw new Error("连接模式无效");
-          active = config.mode === "browser" ? browser : direct;
+          active =
+            config.mode === "browser"
+              ? browser
+              : config.mode === "raw"
+                ? raw
+                : direct;
           lastStart = Date.now();
           const cookie = process.env.DOUYIN_COOKIE || "";
           await active.start(
@@ -200,12 +286,14 @@ export async function createWorkbench(
                   cookie,
                   headless: config.visible !== true,
                 }
-              : {
-                  url: config.wss || process.env.DOUYIN_WSS_URL,
-                  cookie,
-                  modern: config.modern === true,
-                  userAgent: process.env.DOUYIN_USER_AGENT || "Mozilla/5.0",
-                },
+              : config.mode === "raw"
+                ? { directory: config.directory || process.env.RAW_PROTO_DIR }
+                : {
+                    url: config.wss || process.env.DOUYIN_WSS_URL,
+                    cookie,
+                    modern: config.modern === true,
+                    userAgent: process.env.DOUYIN_USER_AGENT || "Mozilla/5.0",
+                  },
           );
           json(res, 200, active.status);
           return;
@@ -237,7 +325,7 @@ export async function createWorkbench(
     }
   });
   const keepAlive = setInterval(() => {
-    for (const c of clients) c.write(": heartbeat\n\n");
+    for (const c of [...clients, ...barrageClients]) c.write(": heartbeat\n\n");
   }, 20000);
   keepAlive.unref();
   await new Promise((resolve, reject) => {
@@ -249,11 +337,13 @@ export async function createWorkbench(
     url: `http://127.0.0.1:${server.address().port}`,
     async close() {
       clearInterval(keepAlive);
+      await updater.close();
       await direct.stop();
       await browser.stop();
-      for (const c of clients) c.end();
+      await raw.stop();
+      for (const c of [...clients, ...barrageClients]) c.end();
       await journal.close();
-      await writeArtifacts(p, observations);
+      await serializeArtifacts(() => writeArtifacts(p, observations));
       await new Promise((r) => server.close(r));
     },
   };

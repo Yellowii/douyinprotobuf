@@ -58,5 +58,18 @@
     "avatar_thumb": "用户小尺寸头像图片资源结构体",
     "avatar_medium": "用户中尺寸头像图片资源结构体",
     "avatar_large": "用户大尺寸头像图片资源结构体"
+  },
+  "webcast.im.BattleStatusMessage": {
+    "channel_id": "对战消息关联的频道标识；由官方 BattleStatusMessage 定义提供",
+    "battle_id": "当前直播对战的业务标识，以字符串保持完整精度",
+    "status": "直播对战阶段状态码；当前官方定义为 int32，具体取值含义需结合样本与前端逻辑确认",
+    "scene": "直播对战场景码；不可据数值杜撰场景枚举",
+    "duration": "对战阶段持续时长数值；时间单位需结合官方调用与样本确认",
+    "punish_duration": "对战惩罚阶段持续时长数值；时间单位需结合官方调用与样本确认",
+    "start_time_ms": "对战开始时间的毫秒值文本；用于对战时序展示与分析",
+    "end_time_ms": "对战结束时间的毫秒值文本；用于对战时序展示与分析"
+  },
+  "webcast.im.RoomIMRBControlMessage": {
+    "control_info": "直播间 IM 控制信息的原始字符串；内部格式、RB 缩写含义需结合官方业务调用确认，不作二次协议猜测"
   }
 }

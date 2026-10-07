@@ -1,4 +1,5 @@
 import zlib from "node:zlib";
+import { validateWire } from "./wire.js";
 import protobuf from "protobufjs";
 export const MAX_PACKET = 8 * 1024 * 1024,
   MAX_DECOMPRESSED = 32 * 1024 * 1024;
@@ -66,6 +67,7 @@ export function decodeBusiness(p, method, bytes) {
       payload_base64: Buffer.from(bytes).toString("base64"),
     };
   try {
+    validateWire(bytes, p, t);
     return {
       method,
       type: t.fullName,
@@ -111,6 +113,7 @@ export function decodePacket(
   let frameError;
   if (format !== "response") {
     try {
+      validateWire(bytes, p, frameType);
       const f = frameType.original.decode(bytes);
       if (f.payload?.length || f.payload_type) {
         frame = f;
@@ -138,6 +141,7 @@ export function decodePacket(
     }
   }
   try {
+    validateWire(rawResponse || bytes, p, respType);
     response = respType.original.decode(rawResponse || bytes);
   } catch (e) {
     throw frameError || e;

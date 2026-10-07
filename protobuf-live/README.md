@@ -2,7 +2,7 @@
 
 基于浏览器加载的官方 Parser JS，提供 HAR 离线批量解析、实时直播间观察，以及同时生成中文 proto3 快照和正式协议字典的 Node.js 工程。解析器实际调用官方解码函数，不依赖 DySpider 或其他项目的静态旧 proto。
 
-当前官方快照包含 **2,686 个消息、15,131 个字段、303 个 map、48 组 oneof、147 个 packed repeated 字段**。本地 HAR 和 raw 样本仅用于验收，不随仓库发布。
+当前官方快照包含 **2,726 个消息、15,391 个字段**，已更新至官方 `live-schema-im.e322bd8a.js`。本地 HAR 和 raw 样本仅用于验收，不随仓库发布。
 
 ## 启动
 
@@ -20,6 +20,7 @@ npm start
 
 - **直播间 URL 模式**：输入 `https://live.douyin.com/数字房间号`。真实浏览器加载当前官方 SDK，由 SDK 建立连接并管理签名、心跳与 ACK。勾选“显示浏览器窗口”后可人工登录或完成验证。浏览器使用临时会话，不导出登录 Cookie。
 - **WSS 直连模式**：从当前浏览器请求复制有效的 WSS 地址。Cookie 从 `.env` 的 `DOUYIN_COOKIE` 读取，User-Agent 可配置为 `DOUYIN_USER_AGENT`。Node 负责心跳、ACK 和连接恢复。“新版 ByteLink 回执”用于当前 SDK 的头部回执格式；外层 `service=9999` 也会自动识别为新版。
+- **raw_proto 只读监听模式**：输入已有二进制样本目录。开始时忽略历史文件，新写入且完整的 `.bin` 自动调用同一个官方 Parser 解码；兼容 `.bin.meta.json` 和同名 `.json`。不复制、修改或删除输入文件，结果进入本项目日志和实时工作台。
 - 若直播间需要登录，优先使用可见浏览器模式。WSS 地址的签名与游标可能过期，需要重新从当前会话获取；Cookie 并不能替代所有握手参数。
 
 `.env` 在 Git 忽略范围内。不要把 Cookie 写入源码、README、日志或 Git。修改 `.env` 后重启服务。默认 `.env.example` 不含任何真实凭据。
@@ -68,6 +69,8 @@ npm run offline
 npm run offline -- --capture "D:/captures" --raw "D:/packets"
 ```
 
+`offline --raw` 是抽取包的**写入工作目录**。审计既有外部目录必须使用下方 `audit:raw`，以保证只读。
+
 筛选条件为 WebSocket entry 下的 `type=receive`、`opcode=2`，严格检查 base64，再保存 `.bin` 与 `.bin.meta.json`。不会将上行 ACK、文本消息或 WebSocket ping opcode 混作业务包。
 
 原始业务 payload 也可直接放入 `raw_packets/`：文件名采用 `时间_WebcastChatMessage_消息ID.bin`，或者写入同名 `.bin.meta.json`：
@@ -103,6 +106,61 @@ npm run offline -- --capture "D:/captures" --raw "D:/packets"
 当前抓包模块把字段表编译在 decode 函数内部：加载器在受限上下文中执行官方模块，捕获运行时编号、字段名、读取器、repeated/packed 标记，再从独立 map 解码分支恢复键值类型。类型引用按实际函数映射，oneof 从官方 getter 定义恢复。所有原型字段都必须有结构证据；发现未识别字段会停止字典生成，避免静默漏字段。
 
 `src/vendor/provenance.json` 记录官方资源 URL、捕获时间和 SHA-256。`vendor` 内官方脚本保持原始内容，权利归原提供者；不要将它们误认为本工程原创源码。
+
+## 官方 Parser 定时更新与差异日志
+
+```powershell
+# 主动检查当前官方网页版本，校验后更新 Parser 和两类协议产物
+npm run update-parser
+```
+
+工作台运行时默认每 **24 小时**检查一次；首次启动会安排下一次检查，页面“检查更新”可立即触发。服务停止时不运行调度。重启会恢复上次检查时间；手动和自动检查至少间隔 **5 分钟**，同一更新器不重叠请求。`.env` 可配置：
+
+```dotenv
+PARSER_AUTO_UPDATE=true
+PARSER_UPDATE_INTERVAL_HOURS=24
+PARSER_UPDATE_PAGE=https://live.douyin.com
+PARSER_UPDATE_URLS=
+```
+
+设置 `PARSER_AUTO_UPDATE=false` 关闭定时检查。间隔至少 1 小时。更新器用真实 Chrome/Edge 打开官方首页，从页面当前 webpack runtime 计算 `live-schema-im` 与 `transport-schema-im` 的哈希地址；不会把固定旧地址重新下载误称为发现新版本。也可在 `PARSER_UPDATE_URLS` 显式指定两个当前官方 CDN 地址，以逗号分隔；只接受官方协议 CDN 与模块路径。
+
+候选在 `output/parser-versions/版本ID/` 隔离执行和验证，消息、字段、map/repeated/packed、oneof、enum 差异自动记录。校验通过才替换官方文件和双产物；异常恢复旧文件并保留当前解码器。工作台更新后，已有直播连接后续包使用新版 Parser，无需重新握手；更新前还会重放最近真实帧，防止已能解码的消息退化。未知依赖或官方页面结构改变时，失败明确写入日志。
+
+| 文件 | 内容 |
+|---|---|
+| `output/parser-updates.jsonl` | 检查时间、状态、旧版/新版 SHA-256、完整结构差异、失败原因 |
+| `output/parser-update-state.json` | 上次检查时间，重启后继续限频 |
+| `output/parser-versions/版本ID/diff.md` | 中文汇总及消息/字段/枚举变化明细 |
+| `output/parser-versions/版本ID/previous/` | 更新前官方模块和成品备份；调试与恢复材料 |
+
+本次实际更新新增 40 个消息结构，既有消息新增 87 个字段、移除 1 个字段，修改 3 个 oneof；新增消息自身字段也完整进入双产物。总字段数从 15,131 增至 15,391。新增的 `BattleStatusMessage` 和 `RoomIMRBControlMessage` 已通过外部真实样本验证。
+
+## 外部 rawproto 只读核验与实时弹幕
+
+```powershell
+# 全量核验，只读取源目录，默认输出本项目 output/external-audit
+npm run audit:raw -- --raw "D:/Proj/LiveDash/WssBarrageServer/raw_proto"
+
+# 命令行持续解析新文件；历史文件使用上面的审计命令处理
+npm run watch:raw -- --raw "D:/Proj/LiveDash/WssBarrageServer/raw_proto"
+```
+
+可设置 `.env` 的 `RAW_PROTO_DIR` 作为默认输入。同名 JSON 支持 UTF-8 BOM；消息 ID 优先使用文件名的十进制串，元数据的 `msg_id`/`offset` 也按原始数字字面量保留，避免 JavaScript 大整数舍入。监听先等待文件稳定，截断包会重试；文件通知另有每分钟只读扫描补漏。所有文件只以 `r` 打开，审计拒绝将结果目录设在输入目录内部。
+
+审计产物为 `raw-audit.report.json`、`raw-audit.failures.jsonl`、`raw-audit.unknown.jsonl`、`raw-audit.barrage.jsonl`。机器字典中的类型观察会吸收本次实际信封数值。全量核验：**344,354 包、71 种 method；344,275 成功解析、0 解码失败、79 未知**。其中 78 个 `WebcastRoomNotifyMessage`、1 个 `WebcastRoomHighlightAreaHotCommentMessage` 在当前官方模块中没有定义，保留原始 base64，不伪造协议结构。
+
+工作台“实时弹幕”单独显示文字、表情、屏幕和语音弹幕，完整消息仍可查看。程序可订阅：
+
+```javascript
+const stream = new EventSource('http://127.0.0.1:8787/api/barrage/events');
+stream.addEventListener('barrage', event => {
+  const { message_id, user, text, kind, data } = JSON.parse(event.data);
+  console.log(message_id, user.nickname, text, kind); // data 保留完整官方解析结构
+});
+```
+
+该地址用于同一主机同源工作台，沿用 Host/Origin 校验。`/events` 同时推送完整 `packet`、标准化 `barrage` 和 `parser-update` 事件；跨源浏览器页面需自行通过同源代理接入。弹幕 ID 与用户 ID 为十进制字符串，表情/语音附加信息有独立字段。
 
 ## 两类协议产物
 
@@ -160,7 +218,7 @@ git push origin main
 
 提交前确认没有 `.env`、HAR、raw bin、输出日志或 node_modules。仓库已保留空样本目录；重新克隆后无需私有 HAR 就能使用附带官方快照启动工作台和生成双产物。
 
-验收记录见 [src/VALIDATION.md](src/VALIDATION.md)。当前 Node 直连在本地 WebSocket 服务上验证了收包、ACK 与停止；真实抖音房间使用可见官方浏览器验证。真实服务器的所有直连握手组合尚未穷举。
+验收记录见 [src/VALIDATION.md](src/VALIDATION.md)，此次更新与 344,354 个外部包的只读核验见 [src/UPDATE_VALIDATION.md](src/UPDATE_VALIDATION.md)。26 项测试、标准 proto3 编译和格式检查通过。当前 Node 直连在本地 WebSocket 服务上验证了收包、ACK 与停止；真实抖音房间使用可见官方浏览器验证。真实服务器的所有直连握手组合尚未穷举。
 
 ## 参考与文档
 
@@ -169,3 +227,5 @@ git push origin main
 - [ws 官方项目](https://github.com/websockets/ws)：Node WebSocket 客户端。
 - [stream-json 官方项目](https://github.com/uhop/stream-json)：大型 HAR 流式读取。
 - [Playwright 官方文档](https://playwright.dev/docs/api/class-websocket)：浏览器原始帧观察。
+- [Playwright 页面 API](https://playwright.dev/docs/api/class-page)：官方页面运行时资源发现。
+- [Node 文件系统文档](https://nodejs.org/api/fs.html#fswatchfilename-options-listener)：目录通知与只读文件输入。
