@@ -584,3 +584,58 @@ footer {
 .batch-panel a {
   color: #3855b4;
 }
+.preview-panel .panel-title p {
+  margin-top: 6px;
+}
+.preview-actions,
+.preview-settings {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.preview-actions button {
+  padding: 8px 12px;
+}
+.preview-settings {
+  margin-top: 16px;
+  gap: 18px;
+  font-size: 12px;
+  color: #67758c;
+}
+.preview-settings label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.preview-settings label > select,
+.preview-settings label > input {
+  margin: 0;
+  width: auto;
+}
+.preview-settings select {
+  padding: 5px 9px;
+  font-size: 12px;
+}
+.preview-settings input[type="range"] {
+  width: 100px;
+  padding: 0;
+  accent-color: var(--blue);
+}
+.preview-settings input[type="checkbox"] {
+  accent-color: var(--blue);
+}
+.preview-settings output {
+  font-size: 11px;
+  min-width: 36px;
+}
+.preview-panel:fullscreen {
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+  overflow: auto;
+  padding: 24px;
+}
+.preview-panel:fullscreen webcast-preview {
+  height: calc(100vh - 155px);
+}

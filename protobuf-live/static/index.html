@@ -80,7 +80,11 @@
               />显示浏览器窗口，便于完成登录</label
             ><label
               ><input id="modern" type="checkbox" />新版 ByteLink 回执</label
-            ><span>Cookie 由本地 .env 读取</span>
+            ><button id="save-login" type="button" class="secondary">
+              保存登录态</button
+            ><span id="login-status" role="status"
+              >Cookie 由本地 .env 读取</span
+            >
           </div>
         </form>
         <p id="notice" role="status" class="notice">
@@ -130,6 +134,65 @@
         <p class="notice" id="update-detail">
           旧版与新版差异保存在 output/parser-updates.jsonl。
         </p>
+      </section>
+      <section class="panel preview-panel" id="preview-panel">
+        <div class="panel-title">
+          <div>
+            <h2>互动预览 <span class="badge">弹幕 · 礼物</span></h2>
+            <p class="muted">跟随已解析的消息展示，点击预览查看完整 JSON。</p>
+          </div>
+          <div class="preview-actions">
+            <button id="preview-pause" type="button" class="secondary">
+              暂停预览
+            </button>
+            <button id="preview-clear" type="button" class="secondary">
+              清空预览
+            </button>
+            <button id="preview-fullscreen" type="button" class="secondary">
+              全屏预览
+            </button>
+          </div>
+        </div>
+        <webcast-preview
+          id="plugin-preview"
+          aria-label="弹幕和礼物互动预览"
+        ></webcast-preview>
+        <div class="preview-settings" aria-label="预览显示设置">
+          <label
+            ><input
+              id="preview-danmaku"
+              type="checkbox"
+              checked
+            />显示弹幕</label
+          >
+          <label
+            ><input id="preview-gifts" type="checkbox" checked />显示礼物</label
+          >
+          <label
+            >字号<select id="preview-font">
+              <option value="16">小</option>
+              <option value="20" selected>标准</option>
+              <option value="24">大</option>
+            </select></label
+          >
+          <label
+            >速度<select id="preview-speed">
+              <option value="slow">慢</option>
+              <option value="normal" selected>标准</option>
+              <option value="fast">快</option>
+            </select></label
+          >
+          <label
+            >透明度<input
+              id="preview-opacity"
+              type="range"
+              min="30"
+              max="100"
+              value="100"
+            /><output id="preview-opacity-value">100%</output></label
+          >
+          <span id="preview-state" class="muted" role="status">等待消息</span>
+        </div>
       </section>
       <section class="panel" id="barrage">
         <div class="panel-title">
@@ -211,6 +274,6 @@
         <span>.proto 人工查阅 / proto.dict 程序交付</span>
       </footer>
     </main>
-    <script src="/app.js"></script>
+    <script type="module" src="/app.js"></script>
   </body>
 </html>

@@ -1,0 +1,16 @@
+[
+  {
+    "file": "GiftTrayPlugin.ad979c7b.css",
+    "url": "https://lf-webcast-platform.bytetos.com/obj/webcast-platform-cdn/webcast/douyin_live/chunks/GiftTrayPlugin.ad979c7b.css",
+    "sha256": "314dd645330365e3c9b038ab7ba1041b4a4d736551f6a7a00f8a48f57c1f900e",
+    "downloaded_at": "2026-10-07T16:45:27.239Z",
+    "usage": "官方原始 CSS；由工作台展示适配器在 Shadow DOM 内引用，JS 逻辑由本项目实现。权利归原提供者。"
+  },
+  {
+    "file": "DanmakuPlugin.bf02df37.css",
+    "url": "https://lf-webcast-platform.bytetos.com/obj/webcast-platform-cdn/webcast/douyin_live/chunks/DanmakuPlugin.bf02df37.css",
+    "sha256": "5076ed7913f09f79d4f1796e3484a4baf6db73330e7954e0dc3752a807059f24",
+    "downloaded_at": "2026-10-07T16:45:27.239Z",
+    "usage": "官方原始 CSS；由工作台展示适配器在 Shadow DOM 内引用，JS 逻辑由本项目实现。权利归原提供者。"
+  }
+]

@@ -18,13 +18,27 @@ npm start
 
 打开 <http://127.0.0.1:8787>。Windows 默认自动查找 Chrome / Edge；其他位置或系统可在 `.env` 中配置 `BROWSER_EXECUTABLE`。
 
-- **直播间 URL 模式**：输入 `https://live.douyin.com/数字房间号`。真实浏览器加载当前官方 SDK，由 SDK 建立连接并管理签名、心跳与 ACK。勾选“显示浏览器窗口”后可人工登录或完成验证。浏览器使用临时会话，不导出登录 Cookie。
+- **直播间 URL 模式**：输入 `https://live.douyin.com/数字房间号`。真实浏览器加载当前官方 SDK，由 SDK 建立连接并管理签名、心跳与 ACK。勾选“显示浏览器窗口”后可人工登录或完成验证；登录完成后点击工作台“保存登录态”，后续启动浏览器自动恢复本地保存的状态。
 - **WSS 直连模式**：从当前浏览器请求复制有效的 WSS 地址。Cookie 从 `.env` 的 `DOUYIN_COOKIE` 读取，User-Agent 可配置为 `DOUYIN_USER_AGENT`。Node 负责心跳、ACK 和连接恢复。“新版 ByteLink 回执”用于当前 SDK 的头部回执格式；外层 `service=9999` 也会自动识别为新版。
 - **raw_proto 只读监听模式**：输入已有二进制样本目录。开始时忽略历史文件，新写入且完整的 `.bin` 自动调用同一个官方 Parser 解码；兼容 `.bin.meta.json` 和同名 `.json`。不复制、修改或删除输入文件，结果进入本项目日志和实时工作台。
 - **rawproto 文件夹批量解析模式**：解析目录中已有的 `.bin`。显示扫描、解析、保存进度和成功/失败/未知统计，可停止并保留部分结果，完成后可下载报告；源目录保持只读。
 - 若直播间需要登录，优先使用可见浏览器模式。WSS 地址的签名与游标可能过期，需要重新从当前会话获取；Cookie 并不能替代所有握手参数。
 
-`.env` 在 Git 忽略范围内。不要把 Cookie 写入源码、README、日志或 Git。修改 `.env` 后重启服务。默认 `.env.example` 不含任何真实凭据。
+`.env` 与 `.browser-profile/` 都在 Git 忽略范围内。不要把 Cookie 写入源码、README、日志或 Git。Cookie 在每次开始浏览器或 WSS 连接时重新读取，修改后无需重启；端口等其他配置仍需重启。默认 `.env.example` 不含任何真实凭据。
+
+保存登录态的操作：选择直播间 URL 模式，勾选“显示浏览器窗口”，开始观察并在弹出的浏览器完成登录，然后回到工作台点击“保存登录态”。即使尚未建立 WebCast 连接，只要浏览器仍打开也可保存。保存完成后再停止连接。
+
+“保存登录态”将当前适用于直播站点的 Cookie 写入 `.env` 的 `DOUYIN_COOKIE`，保留其他配置；同时将抖音域 Cookie 的有效期、域、路径、HttpOnly 等属性与本地存储保存至 `.browser-profile/login-state.json`。浏览器模式恢复该状态，WSS 直连读取 Cookie。只保存抖音来源，页面和接口只显示配置状态和保存时间，不返回 Cookie 内容。手动修改或清空 `.env` 中的 `DOUYIN_COOKIE` 后，旧浏览器状态不会覆盖新配置；已有连接需停止再开始才能应用更改。会话过期或平台要求验证时，重新登录并保存。
+
+## 基础插件与官方样式集成
+
+工作台“互动预览”支持滚动弹幕、屏幕/特权弹幕样式、礼物托盘、显示开关、暂停/继续、清空、字号、速度、透明度和全屏预览。显示设置保存在当前浏览器；点击弹幕或礼物可查看原始 JSON。暂停或清空只影响展示，连接、解析与完整日志仍继续。
+
+实时消息使用现有 `barrage` 与 `packet` 流；批量模式使用有限的 `batch-preview`，不会将批量预览重复算入实时统计。新连接或新批量任务自动重置展示去重记录，重连使用同一会话标识。礼物支持 `GiftMessage` 和嵌套的 `BindingGiftMessage.msg`；同组 `repeat_count` 按累计数量更新，不相加，默认零值会回退到有效计数，64 位数量保持十进制字符串。
+
+`static/vendor/` 内保留官方下载的 `DanmakuPlugin.bf02df37.css`、`GiftTrayPlugin.ad979c7b.css` 原始内容及 SHA-256/来源记录。它们在 Shadow DOM 内加载，与工作台其他区域隔离；礼物背景使用 CSS 自带的内嵌图片，不向外部请求头像或礼物资源。页面最多保留 40 条滚动弹幕、3 张礼物卡，礼物 8 秒后自动退出，暂停时保留当前展示。
+
+官方业务插件 JS 需要抖音页面的 webpack、播放器、状态仓库与消息环境。当前接入由 `static/plugins.js` 的展示适配器完成，消费本项目已解析的 JSON 并复用官方样式；原始官方下载 JS 作为本地分析素材保留在 `output`。这是消息互动预览，不包含视频播放、送礼支付或付费直播权限逻辑。
 
 ## 固定目录与职责
 
@@ -39,7 +53,8 @@ protobuf-live/
 ├─ dist/
 │  └─ proto.dict         JSON 格式正式协议字典，提交 Git
 ├─ output/               结构化日志和验收报告，忽略入库
-├─ static/               浏览器工作台
+├─ static/               浏览器工作台与展示适配器
+│  └─ vendor/            已接入的原始官方 CSS 与来源摘要
 ├─ .env.example
 ├─ .gitignore
 ├─ package.json
@@ -225,7 +240,7 @@ git push origin main
 
 提交前确认没有 `.env`、HAR、raw bin、输出日志或 node_modules。仓库已保留空样本目录；重新克隆后无需私有 HAR 就能使用附带官方快照启动工作台和生成双产物。
 
-验收记录见 [src/VALIDATION.md](src/VALIDATION.md)，官方更新与 344,354 个外部包的只读核验见 [src/UPDATE_VALIDATION.md](src/UPDATE_VALIDATION.md)，前端批量模式见 [src/BATCH_VALIDATION.md](src/BATCH_VALIDATION.md)。当前 30 项测试、标准 proto3 验证和格式检查通过。当前 Node 直连在本地 WebSocket 服务上验证了收包、ACK 与停止；真实抖音房间使用可见官方浏览器验证。真实服务器的所有直连握手组合尚未穷举。
+验收记录见 [src/VALIDATION.md](src/VALIDATION.md)，官方更新与 344,354 个外部包的只读核验见 [src/UPDATE_VALIDATION.md](src/UPDATE_VALIDATION.md)，前端批量模式见 [src/BATCH_VALIDATION.md](src/BATCH_VALIDATION.md)，展示插件见 [src/PLUGIN_VALIDATION.md](src/PLUGIN_VALIDATION.md)，登录保存与恢复见 [src/LOGIN_VALIDATION.md](src/LOGIN_VALIDATION.md)。当前 38 项测试、标准 proto3 验证和格式检查通过。前端及登录态浏览器测试需要本机 Chrome/Edge；未安装时明确跳过相关浏览器测试，后端测试仍运行。当前 Node 直连在本地 WebSocket 服务上验证了收包、ACK 与停止；真实抖音房间使用可见官方浏览器验证。真实服务器的所有直连握手组合尚未穷举。
 
 ## 参考与文档
 

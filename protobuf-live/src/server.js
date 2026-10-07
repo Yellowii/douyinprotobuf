@@ -11,6 +11,7 @@ import { ParserUpdater } from "./parser-update.js";
 import { RawSource } from "./raw-source.js";
 import { RawBatch } from "./raw-batch.js";
 import { toBarrage } from "./barrage.js";
+import { LoginConfig } from "./login-config.js";
 
 export async function createWorkbench(
   p,
@@ -19,11 +20,13 @@ export async function createWorkbench(
     autoUpdate = process.env.PARSER_AUTO_UPDATE !== "false",
     updaterOptions = {},
     batchOutput = path.join(paths.output, "raw-batches"),
+    loginOptions = {},
   } = {},
 ) {
   if (!Number.isInteger(port) || port < 0 || port > 65535)
     throw new Error("PORT 无效");
   const observations = await readObservations();
+  const loginConfig = new LoginConfig(loginOptions);
   await writeArtifacts(p, observations);
   let dictionary = JSON.parse(
     await fs.readFile(path.join(paths.dist, "proto.dict"), "utf8"),
@@ -39,6 +42,14 @@ export async function createWorkbench(
   let active = null,
     lastStart = 0,
     busy = false;
+  const sourceSessions = new WeakMap();
+  const statusOf = (source, state = source?.status) =>
+    source
+      ? {
+          ...state,
+          session_id: sourceSessions.get(source),
+        }
+      : { state: "stopped" };
   const broadcast = (event, value, targets = clients) => {
     const data = `event: ${event}\ndata: ${JSON.stringify(value)}\n\n`;
     for (const c of targets) {
@@ -100,7 +111,7 @@ export async function createWorkbench(
     },
   });
   batch.on("status", (s) => {
-    broadcast("status", s);
+    broadcast("status", statusOf(batch, s));
     broadcast("batch-progress", s);
   });
   batch.on("failure", (e) => broadcast("failure", e));
@@ -123,7 +134,7 @@ export async function createWorkbench(
         broadcast("failure", { error: "原始包写入队列已满，连接已停止" });
       }
     });
-    source.on("status", (s) => broadcast("status", s));
+    source.on("status", (s) => broadcast("status", statusOf(source, s)));
     source.on("failure", (e) => {
       try {
         journal.append(e, true);
@@ -191,17 +202,18 @@ export async function createWorkbench(
     res.setHeader("X-Content-Type-Options", "nosniff");
     res.setHeader(
       "Content-Security-Policy",
-      "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'",
+      "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'",
     );
     try {
       const u = new URL(req.url, "http://127.0.0.1");
       if (req.method === "GET" && u.pathname === "/api/session") {
         json(res, 200, {
           token,
-          status: active?.status || { state: "stopped" },
+          status: statusOf(active),
           protocols: p.types.size,
           parser_update: updater.status,
           batch: batch.status,
+          login: await loginConfig.metadata(),
           raw_directory: process.env.RAW_PROTO_DIR
             ? path.normalize(process.env.RAW_PROTO_DIR)
             : "",
@@ -256,7 +268,7 @@ export async function createWorkbench(
           Connection: "keep-alive",
         });
         res.write(
-          `event: status\ndata: ${JSON.stringify(active?.status || { state: "stopped" })}\n\n`,
+          `event: status\ndata: ${JSON.stringify(statusOf(active))}\n\n`,
         );
         targets.add(res);
         req.on("close", () => targets.delete(res));
@@ -264,7 +276,12 @@ export async function createWorkbench(
       }
       if (
         req.method === "POST" &&
-        ["/api/start", "/api/stop", "/api/parser-update"].includes(u.pathname)
+        [
+          "/api/start",
+          "/api/stop",
+          "/api/parser-update",
+          "/api/save-login",
+        ].includes(u.pathname)
       ) {
         if (req.headers["x-workbench-token"] !== token) {
           json(res, 403, { error: "工作台令牌无效" });
@@ -276,6 +293,16 @@ export async function createWorkbench(
         }
         busy = true;
         try {
+          if (u.pathname === "/api/save-login") {
+            if (!browser.context || !browser.browser?.isConnected())
+              throw new Error(
+                "请先使用直播间 URL 模式打开浏览器，完成登录后保存",
+              );
+            const login = await loginConfig.save(browser.context);
+            broadcast("login", login);
+            json(res, 200, login);
+            return;
+          }
           if (u.pathname === "/api/parser-update") {
             json(
               res,
@@ -321,6 +348,9 @@ export async function createWorkbench(
             Date.now() - lastStart < 30000
           )
             throw new Error("连接操作至少间隔 30 秒");
+          const login = ["browser", "direct"].includes(config.mode)
+            ? await loginConfig.load()
+            : { cookie: "" };
           active =
             config.mode === "browser"
               ? browser
@@ -331,12 +361,14 @@ export async function createWorkbench(
                   : direct;
           if (["browser", "direct"].includes(config.mode))
             lastStart = Date.now();
-          const cookie = process.env.DOUYIN_COOKIE || "";
+          sourceSessions.set(active, randomBytes(16).toString("hex"));
+          const cookie = login.cookie;
           await active.start(
             config.mode === "browser"
               ? {
                   roomUrl: config.roomUrl,
                   cookie,
+                  storageState: login.storageState,
                   headless: config.visible !== true,
                 }
               : ["raw", "raw-batch"].includes(config.mode)
@@ -348,7 +380,7 @@ export async function createWorkbench(
                     userAgent: process.env.DOUYIN_USER_AGENT || "Mozilla/5.0",
                   },
           );
-          json(res, 200, active.status);
+          json(res, 200, statusOf(active));
           return;
         } finally {
           busy = false;
@@ -358,6 +390,12 @@ export async function createWorkbench(
         "/": "index.html",
         "/app.js": "app.js",
         "/style.css": "style.css",
+        "/plugins.js": "plugins.js",
+        "/plugins.css": "plugins.css",
+        "/plugin-styles/DanmakuPlugin.bf02df37.css":
+          "vendor/DanmakuPlugin.bf02df37.css",
+        "/plugin-styles/GiftTrayPlugin.ad979c7b.css":
+          "vendor/GiftTrayPlugin.ad979c7b.css",
       };
       if (req.method === "GET" && staticFiles[u.pathname]) {
         res.writeHead(200, {

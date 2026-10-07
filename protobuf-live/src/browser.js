@@ -2,6 +2,7 @@ import { EventEmitter } from "node:events";
 import fs from "node:fs/promises";
 import { chromium } from "playwright-core";
 import { decodePacket, MAX_PACKET } from "./decode.js";
+import { createLoginContext } from "./login-config.js";
 
 export function validateRoom(raw) {
   const u = new URL(raw);
@@ -30,7 +31,7 @@ export class BrowserLive extends EventEmitter {
     this.status = { ...this.status, state, ...extra };
     this.emit("status", this.status);
   }
-  async start({ roomUrl, cookie = "", headless = true }) {
+  async start({ roomUrl, cookie = "", storageState, headless = true }) {
     validateRoom(roomUrl);
     if (this.status.state !== "stopped")
       throw new Error("已有浏览器连接，请先停止");
@@ -58,26 +59,10 @@ export class BrowserLive extends EventEmitter {
       if (!executablePath)
         throw new Error("未找到 Chrome/Edge；请设置 BROWSER_EXECUTABLE");
       this.browser = await chromium.launch({ executablePath, headless });
-      const context = await this.browser.newContext({ locale: "zh-CN" });
-      if (cookie) {
-        const cookies = cookie
-          .split(";")
-          .map((x) => {
-            const i = x.indexOf("=");
-            return i > 0
-              ? {
-                  name: x.slice(0, i).trim(),
-                  value: x.slice(i + 1).trim(),
-                  domain: ".douyin.com",
-                  path: "/",
-                  secure: true,
-                  sameSite: "Lax",
-                }
-              : null;
-          })
-          .filter(Boolean);
-        await context.addCookies(cookies);
-      }
+      const context = (this.context = await createLoginContext(this.browser, {
+        cookie,
+        storageState,
+      }));
       if (g !== this.generation) {
         await this.browser.close();
         return;
@@ -158,6 +143,7 @@ export class BrowserLive extends EventEmitter {
           : "浏览器连接失败；检查房间、浏览器及 Cookie 配置",
       });
       if (this.browser) await this.browser.close().catch(() => {});
+      this.context = null;
       throw new Error(this.status.reason);
     }
   }
@@ -167,6 +153,7 @@ export class BrowserLive extends EventEmitter {
     const browser = this.browser;
     this.browser = null;
     this.page = null;
+    this.context = null;
     if (browser) await browser.close().catch(() => {});
     await this.queue;
     this.update("stopped");

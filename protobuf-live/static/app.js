@@ -1,3 +1,5 @@
+import { connectPreview } from "/plugins.js";
+
 const $ = (id) => document.getElementById(id);
 let token = "",
   messages = [],
@@ -30,7 +32,30 @@ function notice(text, error = false) {
   $("notice").textContent = text;
   $("notice").className = "notice" + (error ? " error" : "");
 }
+function loginStatus(login) {
+  $("login-status").textContent = login.configured
+    ? (login.browser_state ? "已保存登录态" : "已配置 Cookie") +
+      (login.saved_at
+        ? " · " + new Date(login.saved_at).toLocaleString("zh-CN")
+        : "")
+    : "尚未保存登录态 · Cookie 从本地 .env 读取";
+}
+$("save-login").onclick = async () => {
+  $("save-login").disabled = true;
+  try {
+    loginStatus(await api("/api/save-login", {}));
+    notice("登录态已保存到本地配置。后续连接自动读取；配置不会提交到 Git。");
+  } catch (e) {
+    notice(e.message, true);
+  } finally {
+    $("save-login").disabled = false;
+  }
+};
 function status(s) {
+  if (s.session_id && s.state !== "stopped") {
+    preview.begin(s.session_id);
+    if (!preview.paused) $("preview-state").textContent = "跟随消息展示";
+  }
   activeMode = s.state === "stopped" ? null : s.mode || activeMode;
   $("connection").textContent = labels[s.state] || s.state;
   $("connection").className = "status " + s.state;
@@ -121,6 +146,12 @@ function show(m) {
     loadSchema(m.type);
   }
 }
+const preview = connectPreview((message) =>
+  show({
+    ...message,
+    time: new Date().toLocaleTimeString("zh-CN", { hour12: false }),
+  }),
+);
 function render() {
   const filter = $("filter").value.toLowerCase();
   const visible = messages.filter((m) =>
@@ -335,6 +366,7 @@ async function init() {
   const session = await api("/api/session");
   token = session.token;
   rawDirectory = session.raw_directory || "";
+  loginStatus(session.login);
   if (["raw", "raw-batch"].includes(session.status.mode)) {
     $("mode").value = session.status.mode;
     modeTargets[session.status.mode] = session.status.directory || rawDirectory;
@@ -353,6 +385,7 @@ async function init() {
     $("type-list").append(option);
   }
   const events = new EventSource("/events");
+  events.addEventListener("login", (e) => loginStatus(JSON.parse(e.data)));
   events.addEventListener("status", (e) => status(JSON.parse(e.data)));
   events.addEventListener("batch-progress", (e) =>
     batchProgress(JSON.parse(e.data)),
@@ -362,6 +395,13 @@ async function init() {
   );
   events.addEventListener("barrage", (e) => {
     const b = JSON.parse(e.data);
+    preview.barrage(b, {
+      method: b.method,
+      type: b.type,
+      msg_id: b.message_id,
+      status: "decoded",
+      data: b.data,
+    });
     barrageCount++;
     $("barrage-count").textContent = barrageCount.toLocaleString();
     const feed = $("barrage-feed");
@@ -401,6 +441,7 @@ async function init() {
   });
   events.addEventListener("packet", (e) => {
     const packet = JSON.parse(e.data);
+    preview.packet(packet);
     for (const m of packet.messages || []) {
       if (packet.kind !== "batch-preview") {
         received++;
