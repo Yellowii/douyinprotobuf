@@ -1,5 +1,6 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { randomUUID } from "node:crypto";
 import protobuf from "protobufjs";
 import { paths } from "./paths.js";
 import {
@@ -197,27 +198,49 @@ export async function readObservations(
     return {};
   }
 }
-export async function writeArtifacts(p, observations = null) {
+let artifactWrites = Promise.resolve();
+export function writeArtifacts(p, observations = null) {
+  const task = artifactWrites.then(() => writeArtifactsOnce(p, observations));
+  artifactWrites = task.catch(() => {});
+  return task;
+}
+async function replaceArtifact(source, target) {
+  for (let attempt = 0; ; attempt++)
+    try {
+      return await fs.rename(source, target);
+    } catch (e) {
+      if (
+        process.platform !== "win32" ||
+        !["EPERM", "EACCES", "EBUSY"].includes(e.code) ||
+        attempt >= 6
+      )
+        throw e;
+      await new Promise((resolve) => setTimeout(resolve, 20 * 2 ** attempt));
+    }
+}
+async function writeArtifactsOnce(p, observations = null) {
   observations ||= await readObservations();
   const a = buildArtifacts(p, observations),
     stats = validateArtifacts(p, a);
   await fs.mkdir(paths.dist, { recursive: true });
   await fs.mkdir(paths.proto_dump, { recursive: true });
-  await fs.writeFile(
-    path.join(paths.dist, "proto.dict.tmp"),
-    JSON.stringify(a.dictionary, null, 2) + "\n",
-  );
-  await fs.writeFile(
-    path.join(paths.proto_dump, "live_debug_snapshot.proto.tmp"),
-    a.proto,
-  );
-  await fs.rename(
-    path.join(paths.dist, "proto.dict.tmp"),
-    path.join(paths.dist, "proto.dict"),
-  );
-  await fs.rename(
-    path.join(paths.proto_dump, "live_debug_snapshot.proto.tmp"),
-    path.join(paths.proto_dump, "live_debug_snapshot.proto"),
-  );
+  // 不同本地服务/测试进程共享交付目录；每次写入使用独立临时文件。
+  const id = randomUUID(),
+    dictTmp = path.join(paths.dist, `proto.dict.${id}.tmp`),
+    protoTmp = path.join(paths.proto_dump, `live_debug_snapshot.${id}.tmp`);
+  try {
+    await fs.writeFile(dictTmp, JSON.stringify(a.dictionary, null, 2) + "\n");
+    await fs.writeFile(protoTmp, a.proto);
+    await replaceArtifact(dictTmp, path.join(paths.dist, "proto.dict"));
+    await replaceArtifact(
+      protoTmp,
+      path.join(paths.proto_dump, "live_debug_snapshot.proto"),
+    );
+  } finally {
+    await Promise.all([
+      fs.rm(dictTmp, { force: true }),
+      fs.rm(protoTmp, { force: true }),
+    ]);
+  }
   return stats;
 }

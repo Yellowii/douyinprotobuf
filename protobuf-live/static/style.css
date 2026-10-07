@@ -548,3 +548,39 @@ footer {
 .barrage-row span {
   overflow-wrap: anywhere;
 }
+/* 批量进度与完整输出说明独立展示，保留原始目录的只读语义。 */
+.batch-panel {
+  margin: 18px 22px 22px;
+  padding: 18px;
+  border: 1px solid #e5eaf4;
+  border-radius: 10px;
+  background: #f8faff;
+}
+.batch-panel[hidden] {
+  display: none;
+}
+.batch-panel .panel-title {
+  padding: 0;
+  margin-bottom: 14px;
+}
+.batch-panel progress {
+  width: 100%;
+  height: 12px;
+  accent-color: #485deb;
+}
+.batch-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 12px 0;
+}
+.batch-counts strong {
+  margin-left: 6px;
+}
+.batch-panel p {
+  overflow-wrap: anywhere;
+  margin: 8px 0 0;
+}
+.batch-panel a {
+  color: #3855b4;
+}

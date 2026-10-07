@@ -8,22 +8,75 @@ let token = "",
   types = [],
   schemaRequest = 0;
 let barrageCount = 0;
+let activeMode = null;
+let rawDirectory = "",
+  previousMode = "browser",
+  batchState = null;
+const modeTargets = {};
 const labels = {
   stopped: "未连接",
   connecting: "正在连接",
   connected: "已连接",
   waiting: "等待恢复",
   blocked: "需要检查",
+  scanning: "正在扫描",
+  running: "正在解析",
+  saving: "正在保存",
+  completed: "解析完成",
+  cancelled: "已停止解析",
+  failed: "解析失败",
 };
 function notice(text, error = false) {
   $("notice").textContent = text;
   $("notice").className = "notice" + (error ? " error" : "");
 }
 function status(s) {
+  activeMode = s.state === "stopped" ? null : s.mode || activeMode;
   $("connection").textContent = labels[s.state] || s.state;
   $("connection").className = "status " + s.state;
   if (s.reason) notice(s.reason, s.state === "blocked");
   if (s.state === "connected") notice("已连接。接收消息并保存完整 JSON 日志。");
+  if (s.mode === "raw-batch") batchProgress(s);
+}
+function batchProgress(s) {
+  batchState = s;
+  if (s.state === "stopped") return;
+  $("batch-panel").hidden = false;
+  $("batch-state").textContent = labels[s.state] || s.state;
+  const progress = $("batch-progress");
+  if (s.state === "scanning") progress.removeAttribute("value");
+  else {
+    progress.max = Math.max(s.total || 0, 1);
+    progress.value =
+      s.total === 0 && s.state === "completed" ? 1 : s.processed || 0;
+  }
+  $("batch-files").textContent =
+    s.total == null
+      ? `已找到 ${(s.scanned || 0).toLocaleString()}`
+      : `${(s.processed || 0).toLocaleString()} / ${s.total.toLocaleString()}`;
+  $("batch-decoded").textContent = (s.decoded || 0).toLocaleString();
+  $("batch-failed").textContent = (s.failed || 0).toLocaleString();
+  $("batch-unknown").textContent = (s.unknown || 0).toLocaleString();
+  $("batch-download").hidden = !["completed", "cancelled"].includes(s.state);
+  $("batch-output").textContent = s.output
+    ? `结果保存至：${s.output}`
+    : "源目录只读";
+  if (activeMode === "raw-batch") {
+    if (s.reason) notice(s.reason, true);
+    else if (s.state === "completed")
+      notice("批量解析完成，完整 JSON 与报告已保存，双协议产物已更新。");
+    else if (s.state === "cancelled")
+      notice("批量解析已停止，已完成部分的结果已保存。");
+    $("message-count").textContent = (
+      (s.decoded || 0) +
+      (s.failed || 0) +
+      (s.unknown || 0)
+    ).toLocaleString();
+    $("error-count").textContent = (s.failed || 0).toLocaleString();
+    $("rate").textContent =
+      s.state === "running" ? "批量解析已有文件" : labels[s.state] || s.state;
+    $("start").disabled = ["scanning", "running", "saving"].includes(s.state);
+  }
 }
 async function api(url, body) {
   const r = await fetch(url, {
@@ -155,7 +208,7 @@ $("connect-form").onsubmit = async (e) => {
         mode,
         roomUrl: mode === "browser" ? target : undefined,
         wss: mode === "direct" ? target : undefined,
-        directory: mode === "raw" ? target : undefined,
+        directory: ["raw", "raw-batch"].includes(mode) ? target : undefined,
         visible: $("visible").checked,
         modern: $("modern").checked,
       }),
@@ -163,20 +216,43 @@ $("connect-form").onsubmit = async (e) => {
   } catch (e) {
     notice(e.message, true);
   } finally {
-    $("start").disabled = false;
+    $("start").disabled =
+      batchState &&
+      ["scanning", "running", "saving"].includes(batchState.state);
   }
 };
 $("stop").onclick = async () => {
   try {
     status(await api("/api/stop", {}));
-    notice("观察已停止，日志已保存。");
+    notice(
+      $("mode").value === "raw-batch"
+        ? "批量任务已停止，已完成部分的结果已保存。"
+        : "观察已停止，日志已保存。",
+    );
   } catch (e) {
     notice(e.message, true);
   }
 };
 $("mode").onchange = () => {
+  modeTargets[previousMode] = $("target").value;
+  previousMode = $("mode").value;
   const direct = $("mode").value === "direct";
-  const raw = $("mode").value === "raw";
+  const batch = $("mode").value === "raw-batch";
+  const raw = ["raw", "raw-batch"].includes($("mode").value);
+  $("target").value = modeTargets[previousMode] || (raw ? rawDirectory : "");
+  $("start").textContent = batch ? "开始解析" : "开始观察";
+  $("connection-hint").textContent = raw
+    ? "本地文件 · 源目录只读"
+    : "单房间 · 30 秒连接冷却";
+  if (!batchState || batchState.state === "stopped")
+    $("batch-panel").hidden = !batch;
+  notice(
+    batch
+      ? "输入 rawproto 文件夹路径，批量解析已有 .bin 文件；源文件保持只读。"
+      : raw
+        ? "只读监听目录中新写入的 .bin；已有文件请选择批量解析模式。"
+        : "输入直播间或当前有效的 WSS 地址。",
+  );
   $("url-label").textContent = raw
     ? "原始包只读目录"
     : direct
@@ -258,7 +334,15 @@ $("schema-search").onchange = () => {
 async function init() {
   const session = await api("/api/session");
   token = session.token;
+  rawDirectory = session.raw_directory || "";
+  if (["raw", "raw-batch"].includes(session.status.mode)) {
+    $("mode").value = session.status.mode;
+    modeTargets[session.status.mode] = session.status.directory || rawDirectory;
+    $("mode").onchange();
+  }
   status(session.status);
+  if (session.batch && session.batch.state !== "stopped")
+    batchProgress(session.batch);
   updateStatus(session.parser_update);
   $("protocol-count").textContent = session.protocols.toLocaleString();
   $("field-count").textContent = session.fields.toLocaleString();
@@ -270,6 +354,9 @@ async function init() {
   }
   const events = new EventSource("/events");
   events.addEventListener("status", (e) => status(JSON.parse(e.data)));
+  events.addEventListener("batch-progress", (e) =>
+    batchProgress(JSON.parse(e.data)),
+  );
   events.addEventListener("parser-update", (e) =>
     updateStatus(JSON.parse(e.data)),
   );
@@ -315,17 +402,21 @@ async function init() {
   events.addEventListener("packet", (e) => {
     const packet = JSON.parse(e.data);
     for (const m of packet.messages || []) {
-      received++;
-      if (m.status === "error") errors++;
+      if (packet.kind !== "batch-preview") {
+        received++;
+        if (m.status === "error") errors++;
+      }
       messages.unshift({
         ...m,
         time: new Date().toLocaleTimeString("zh-CN", { hour12: false }),
       });
     }
     messages = messages.slice(0, 200);
-    $("message-count").textContent = received.toLocaleString();
-    $("error-count").textContent = errors;
-    $("rate").textContent = "持续写入本地日志";
+    if (packet.kind !== "batch-preview") {
+      $("message-count").textContent = received.toLocaleString();
+      $("error-count").textContent = errors;
+      $("rate").textContent = "持续写入本地日志";
+    }
     if (!paused) render();
   });
   events.onerror = () => notice("工作台连接中断，正在恢复页面连接。", true);

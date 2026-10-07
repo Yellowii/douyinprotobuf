@@ -21,6 +21,7 @@ npm start
 - **直播间 URL 模式**：输入 `https://live.douyin.com/数字房间号`。真实浏览器加载当前官方 SDK，由 SDK 建立连接并管理签名、心跳与 ACK。勾选“显示浏览器窗口”后可人工登录或完成验证。浏览器使用临时会话，不导出登录 Cookie。
 - **WSS 直连模式**：从当前浏览器请求复制有效的 WSS 地址。Cookie 从 `.env` 的 `DOUYIN_COOKIE` 读取，User-Agent 可配置为 `DOUYIN_USER_AGENT`。Node 负责心跳、ACK 和连接恢复。“新版 ByteLink 回执”用于当前 SDK 的头部回执格式；外层 `service=9999` 也会自动识别为新版。
 - **raw_proto 只读监听模式**：输入已有二进制样本目录。开始时忽略历史文件，新写入且完整的 `.bin` 自动调用同一个官方 Parser 解码；兼容 `.bin.meta.json` 和同名 `.json`。不复制、修改或删除输入文件，结果进入本项目日志和实时工作台。
+- **rawproto 文件夹批量解析模式**：解析目录中已有的 `.bin`。显示扫描、解析、保存进度和成功/失败/未知统计，可停止并保留部分结果，完成后可下载报告；源目录保持只读。
 - 若直播间需要登录，优先使用可见浏览器模式。WSS 地址的签名与游标可能过期，需要重新从当前会话获取；Cookie 并不能替代所有握手参数。
 
 `.env` 在 Git 忽略范围内。不要把 Cookie 写入源码、README、日志或 Git。修改 `.env` 后重启服务。默认 `.env.example` 不含任何真实凭据。
@@ -138,6 +139,12 @@ PARSER_UPDATE_URLS=
 
 ## 外部 rawproto 只读核验与实时弹幕
 
+在工作台“连接方式”选择 **rawproto 文件夹 · 批量解析已有文件**，填写本机目录（默认读取 `.env` 的 `RAW_PROTO_DIR`），点击“开始解析”。该模式处理启动时目录第一层已有的 `.bin`，不递归扫描子目录；新文件实时解析请选择 **raw_proto 只读监听**。
+
+每次批量任务单独保存至 `output/raw-batches/任务ID/`：`raw-audit.events.jsonl` 保存完整包和消息 JSON，另有 `raw-audit.report.json`、`raw-audit.failures.jsonl`、`raw-audit.unknown.jsonl`、`raw-audit.barrage.jsonl`。页面按间隔展示有限预览，完整结果以文件为准，避免大目录压垮前端；同一服务运行期间刷新页面可恢复进度或最近报告。停止会结束后续读取、保存已完成部分。任务结束同时更新中文 `.proto` 和正式 `proto.dict`。
+
+下面两个命令也可独立使用：
+
 ```powershell
 # 全量核验，只读取源目录，默认输出本项目 output/external-audit
 npm run audit:raw -- --raw "D:/Proj/LiveDash/WssBarrageServer/raw_proto"
@@ -193,7 +200,7 @@ npm run verify
 
 ## 限流与运行保护
 
-默认仅单直播间；连接操作至少间隔 30 秒。直连最多尝试 5 次，重连按 30 秒开始指数退避，最长 5 分钟并添加随机间隔；401/403/429 和策略关闭触发熔断，不继续重试。心跳默认 15 秒，90 秒没有下行则关闭连接进入受控恢复。浏览器模式由当前官方 SDK 管理心跳/ACK/重连，本工程不定时刷新页面。
+默认仅单直播间；直播间网络连接操作至少间隔 30 秒。本地文件批量解析和监听不发送直播间网络请求，不占用该冷却。直连最多尝试 5 次，重连按 30 秒开始指数退避，最长 5 分钟并添加随机间隔；401/403/429 和策略关闭触发熔断，不继续重试。心跳默认 15 秒，90 秒没有下行则关闭连接进入受控恢复。浏览器模式由当前官方 SDK 管理心跳/ACK/重连，本工程不定时刷新页面。
 
 原始包上限 8 MiB、解压上限 32 MiB、单业务 payload 上限 8 MiB；超大业务载荷隔离且错误日志仅保留有限预览。解码及日志队列上限 100，达到上限停止连接，防止无限堆积；慢前端 SSE 客户端自动断开，页面只保留最近 200 条消息。
 
@@ -218,7 +225,7 @@ git push origin main
 
 提交前确认没有 `.env`、HAR、raw bin、输出日志或 node_modules。仓库已保留空样本目录；重新克隆后无需私有 HAR 就能使用附带官方快照启动工作台和生成双产物。
 
-验收记录见 [src/VALIDATION.md](src/VALIDATION.md)，此次更新与 344,354 个外部包的只读核验见 [src/UPDATE_VALIDATION.md](src/UPDATE_VALIDATION.md)。26 项测试、标准 proto3 编译和格式检查通过。当前 Node 直连在本地 WebSocket 服务上验证了收包、ACK 与停止；真实抖音房间使用可见官方浏览器验证。真实服务器的所有直连握手组合尚未穷举。
+验收记录见 [src/VALIDATION.md](src/VALIDATION.md)，官方更新与 344,354 个外部包的只读核验见 [src/UPDATE_VALIDATION.md](src/UPDATE_VALIDATION.md)，前端批量模式见 [src/BATCH_VALIDATION.md](src/BATCH_VALIDATION.md)。当前 30 项测试、标准 proto3 验证和格式检查通过。当前 Node 直连在本地 WebSocket 服务上验证了收包、ACK 与停止；真实抖音房间使用可见官方浏览器验证。真实服务器的所有直连握手组合尚未穷举。
 
 ## 参考与文档
 

@@ -90,7 +90,16 @@ export async function readRawPacket(p, file) {
 export async function auditRaw(
   p,
   raw,
-  { output = paths.output, concurrency = 16, progress = () => {} } = {},
+  {
+    output = paths.output,
+    concurrency = 16,
+    progress = () => {},
+    progressEvery = 10000,
+    event = async () => {},
+    signal,
+    files = null,
+    saveEvents = false,
+  } = {},
 ) {
   raw = await fs.realpath(raw);
   // 结果目录必须在输入目录之外；外部源永远只打开 r 模式。
@@ -114,16 +123,21 @@ export async function auditRaw(
     "w",
   );
   const report = {
+    processed: 0,
+    parser_sources: p.sources,
     directory: raw,
     started_at: new Date().toISOString(),
     packets: 0,
     decoded: 0,
     failed: 0,
     unknown: 0,
-    methods: {},
-    observations: {},
+    methods: Object.create(null),
+    observations: Object.create(null),
     source_manifest_sha256: "",
   };
+  const events = saveEvents
+    ? await fs.open(path.join(destination, "raw-audit.events.jsonl"), "w")
+    : null;
   const manifest = createHash("sha256");
   let queue = Promise.resolve();
   const log = (f, v) => {
@@ -134,8 +148,9 @@ export async function auditRaw(
   let completed = 0;
   const processFile = async (name) => {
     report.packets++;
+    let packet;
     try {
-      const packet = await readRawPacket(p, path.join(raw, name));
+      packet = await readRawPacket(p, path.join(raw, name));
       manifest.update(name + "\0" + packet.sha256 + "\n");
       for (const m of packet.messages || []) {
         const stat = (report.methods[m.method] ||= {
@@ -166,10 +181,20 @@ export async function auditRaw(
     } catch (e) {
       report.failed++;
       await log(failures, { source: name, error: e.message });
+      packet = {
+        source: name,
+        received_at: new Date().toISOString(),
+        kind: "error",
+        messages: [],
+        error: e.message,
+      };
     }
+    if (events) await log(events, packet);
+    await event(packet);
     completed++;
-    if (completed % 10000 === 0)
-      progress({
+    report.processed = completed;
+    if (completed % Math.max(1, progressEvery) === 0)
+      await progress({
         packets: completed,
         decoded: report.decoded,
         failed: report.failed,
@@ -177,8 +202,13 @@ export async function auditRaw(
       });
   };
   try {
-    for await (const e of await fs.opendir(raw)) {
+    const candidates = files
+      ? files.map((name) => ({ name, isFile: () => true }))
+      : await fs.opendir(raw);
+    for await (const e of candidates) {
+      if (signal?.aborted) break;
       if (!e.isFile() || !e.name.toLowerCase().endsWith(".bin")) continue;
+      if (path.basename(e.name) !== e.name) throw new Error("无效样本文件名");
       const task = processFile(e.name);
       pending.add(task);
       task.then(
@@ -193,9 +223,15 @@ export async function auditRaw(
   } finally {
     await Promise.allSettled(pending);
     await queue.catch(() => {});
-    await Promise.all([failures.close(), unknown.close(), chats.close()]);
+    await Promise.all([
+      failures.close(),
+      unknown.close(),
+      chats.close(),
+      events?.close(),
+    ]);
   }
   report.finished_at = new Date().toISOString();
+  report.cancelled = signal?.aborted === true;
   report.source_manifest_sha256 = manifest.digest("hex");
   await fs.writeFile(
     path.join(destination, "raw-audit.report.json"),

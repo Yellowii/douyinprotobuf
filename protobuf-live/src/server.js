@@ -9,6 +9,7 @@ import { paths } from "./paths.js";
 import { writeArtifacts, readObservations } from "./dictionary.js";
 import { ParserUpdater } from "./parser-update.js";
 import { RawSource } from "./raw-source.js";
+import { RawBatch } from "./raw-batch.js";
 import { toBarrage } from "./barrage.js";
 
 export async function createWorkbench(
@@ -17,6 +18,7 @@ export async function createWorkbench(
     port = Number(process.env.PORT || 8787),
     autoUpdate = process.env.PARSER_AUTO_UPDATE !== "false",
     updaterOptions = {},
+    batchOutput = path.join(paths.output, "raw-batches"),
   } = {},
 ) {
   if (!Number.isInteger(port) || port < 0 || port > 65535)
@@ -78,9 +80,32 @@ export async function createWorkbench(
       direct.p = next;
       browser.p = next;
       raw.p = next;
+      batch.p = next;
       await updaterOptions.activate?.(next, artifacts);
     },
   });
+  const batch = new RawBatch(p, {
+    output: batchOutput,
+    finish: async (report) => {
+      for (const [name, ids] of Object.entries(report.observations)) {
+        const current = (observations[name] ||= []);
+        for (const id of ids) if (!current.includes(id)) current.push(id);
+      }
+      await serializeArtifacts(async () => {
+        await writeArtifacts(p, observations);
+        dictionary = JSON.parse(
+          await fs.readFile(path.join(paths.dist, "proto.dict"), "utf8"),
+        );
+      });
+    },
+  });
+  batch.on("status", (s) => {
+    broadcast("status", s);
+    broadcast("batch-progress", s);
+  });
+  batch.on("failure", (e) => broadcast("failure", e));
+  // 批量任务自行保存完整 JSON；页面仅限频预览，避免挤满实时日志队列。
+  batch.on("packet", (packet) => broadcast("packet", packet));
   updater.on("status", (s) => broadcast("parser-update", s));
   updater.on("failure", (e) => broadcast("failure", e));
   if (autoUpdate) await updater.schedule();
@@ -176,6 +201,10 @@ export async function createWorkbench(
           status: active?.status || { state: "stopped" },
           protocols: p.types.size,
           parser_update: updater.status,
+          batch: batch.status,
+          raw_directory: process.env.RAW_PROTO_DIR
+            ? path.normalize(process.env.RAW_PROTO_DIR)
+            : "",
           fields: [...p.types.values()].reduce(
             (n, t) => n + t.fields.length,
             0,
@@ -185,6 +214,18 @@ export async function createWorkbench(
       }
       if (req.method === "GET" && u.pathname === "/api/parser-update") {
         json(res, 200, updater.status);
+        return;
+      }
+      if (req.method === "GET" && u.pathname === "/api/batch-report") {
+        if (!batch.report) {
+          json(res, 404, { error: "尚无批量解析报告" });
+          return;
+        }
+        res.setHeader(
+          "Content-Disposition",
+          'attachment; filename="raw-audit.report.json"',
+        );
+        json(res, 200, batch.report);
         return;
       }
       if (req.method === "GET" && u.pathname === "/api/schema") {
@@ -249,6 +290,7 @@ export async function createWorkbench(
             await direct.stop();
             await browser.stop();
             await raw.stop();
+            await batch.stop();
             active = null;
             await serializeArtifacts(async () => {
               await writeArtifacts(p, observations);
@@ -259,25 +301,36 @@ export async function createWorkbench(
             json(res, 200, { state: "stopped" });
             return;
           }
-          if (active && active.status.state !== "stopped")
+          if (
+            active &&
+            !["stopped", "completed", "cancelled", "failed"].includes(
+              active.status.state,
+            )
+          )
             throw new Error("请先停止当前连接");
-          if (Date.now() - lastStart < 30000)
-            throw new Error("连接操作至少间隔 30 秒");
           let body = "";
           for await (const chunk of req) {
             body += chunk;
             if (body.length > 20000) throw new Error("请求体过大");
           }
           const config = JSON.parse(body);
-          if (!["browser", "direct", "raw"].includes(config.mode))
+          if (!["browser", "direct", "raw", "raw-batch"].includes(config.mode))
             throw new Error("连接模式无效");
+          if (
+            ["browser", "direct"].includes(config.mode) &&
+            Date.now() - lastStart < 30000
+          )
+            throw new Error("连接操作至少间隔 30 秒");
           active =
             config.mode === "browser"
               ? browser
               : config.mode === "raw"
                 ? raw
-                : direct;
-          lastStart = Date.now();
+                : config.mode === "raw-batch"
+                  ? batch
+                  : direct;
+          if (["browser", "direct"].includes(config.mode))
+            lastStart = Date.now();
           const cookie = process.env.DOUYIN_COOKIE || "";
           await active.start(
             config.mode === "browser"
@@ -286,7 +339,7 @@ export async function createWorkbench(
                   cookie,
                   headless: config.visible !== true,
                 }
-              : config.mode === "raw"
+              : ["raw", "raw-batch"].includes(config.mode)
                 ? { directory: config.directory || process.env.RAW_PROTO_DIR }
                 : {
                     url: config.wss || process.env.DOUYIN_WSS_URL,
@@ -341,6 +394,7 @@ export async function createWorkbench(
       await direct.stop();
       await browser.stop();
       await raw.stop();
+      await batch.stop();
       for (const c of [...clients, ...barrageClients]) c.end();
       await journal.close();
       await serializeArtifacts(() => writeArtifacts(p, observations));
